@@ -1,0 +1,376 @@
+
+.container{
+  font-size: 32rpx;
+}
+
+.article{
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: solid #ffefff 1rpx;
+}
+
+/*----------------------------------------------用户信息--------------------------------------------------*/
+.user-info{
+  position: relative;
+}
+
+.user-avatar{
+  display: inline-block;
+  margin-top: 16rpx;
+  margin-left: 8rpx;
+}
+
+.image-user-avatar{
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 8rpx;
+}
+
+.user-name{
+  position: absolute;
+  display: inline-block;
+  margin-left: 8rpx;
+  top: 16rpx;
+}
+
+/*----------------------------------------------文字 图片 视频--------------------------------------------------*/
+.article-content{
+  margin-right: 96rpx;
+  margin-left: 112rpx;
+  margin-top: -48rpx;
+}
+
+.article-content-text{
+  text-align:justify;
+  font-size: 0.8rem;
+  /* width: 480rpx; */
+}
+
+.article-content-image{
+  margin-top: 24rpx;
+  width: 480rpx;
+  font-size: 0rpx;
+}
+
+.image-item{
+  margin-right: 5rpx;
+  margin-bottom: 5rpx;
+  display: inline-block;
+}
+
+.image-article-content-1{
+  width: 480rpx;
+  height: 480rpx;
+}
+
+.image-article-content-23456789{
+  width: 155rpx;
+  height: 155rpx;
+}
+
+.article-content-video{
+  margin-top: 32rpx;
+}
+
+.video-article-content{
+  width: 480rpx;
+  height: 360rpx;
+  object-fit:scale-down;
+}
+
+/*----------------------------------------------时间 互动工具--------------------------------------------------*/
+.time-interact-tool{
+  margin-top: 16rpx;
+  margin-left: 112rpx;
+  margin-right: 1rem;
+}
+
+.time-interact-tool:after,
+.time-interact-tool:before {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.publish-time{
+  float: left;
+  line-height: 48rpx;
+  text-align: center;
+  font-size: 24rpx;
+}
+
+.interact-tool{
+  height: 48rpx;
+  float:right;
+}
+
+.comment-like-wrapper{
+  display: inline-block;
+  height: 48rpx;
+  overflow: hidden;
+}
+
+.like-image-wrapper{
+  display: inline-block;
+}
+
+.comment-like{
+  font-size: 24rpx;
+  border-radius: 8rpx;
+  background-color: yellow;
+}
+
+.image-like,
+.image-comment,
+.image-unfold{
+  vertical-align: middle;
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.image-unfold{
+  vertical-align: top;
+}
+
+.image-like,
+.image-comment{
+  margin-right: 6rpx;
+}
+
+.image-like{
+  margin-left: 24rpx;
+}
+
+.interact-tool span{
+  margin-right: 24rpx;
+  color: white;
+}
+
+/*-------------------------------------------------------------------------------*/
+.like{
+  margin-top: 16rpx;
+  position: relative;
+}
+
+
+/*----------------------------------------------点赞头像展示区--------------------------------------------------*/
+.like-avatars{
+  display: inline-block;
+  margin-left: 110rpx;
+} 
+
+/* .like-avatars::before,
+.like-avatars::after{
+  content: "";
+  display: block;
+  clear: both;
+} */
+
+.like-avatar{
+  display: inline-block;
+  /* float: left; */
+  margin-right: 10rpx;  
+}
+
+.image-like-avatar{
+  width: 84rpx;
+  height: 84rpx;
+}
+
+/*----------------------------------------------评论展示---------------------------------------------------*/
+.comment-region{
+  padding-top: 0.5rem;
+  margin-left: 112rpx;
+  margin-right: 1rem;
+  background-color: #f7f7f7;
+}
+
+.comment-logo-wrapper{
+  display: inline-block;
+  text-align: center;
+  line-height: 2.25rem;
+  width: 112rpx;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  vertical-align: top;
+}
+
+.image-comment-logo{
+  width: 0.75rem;
+  height: 0.75rem;
+  vertical-align: middle;
+  /* margin: 0 auto; */
+}
+
+.comments-wrapper{
+  display: inline-block;
+}
+
+.comment{
+  /* border-top: solid #eeefee 0.1rem; */
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.image-from-user-avatar{
+  vertical-align: top;
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+/*------------------给定一个宽度，否则右边行内元素的宽度可能被内容撑到大于剩余宽度，导致右边整块往下放 -------------------------*/
+.comment-main{
+  display: inline-block;
+  width: 500rpx;   /*-------*/       
+  margin-left: 0.25rem;
+  font-size: 0.7rem;
+}
+
+.comment-from-user-name-time{
+  margin-bottom: 0.5rem;  
+  /* 神奇，设置为0.1rem,就出现换行，且固定在"这是"两个字后面，改为0.5rem，换行消失 */
+  /* margin-bottom: 0.1rem; */
+}
+
+.comment-from-user-name-time::after{
+  content: "";
+  clear: right;
+}
+
+.comment-from-user-name,
+.comment-to-user-name{
+  color: rgb(6, 6, 61);
+}
+
+.comment-time{
+  float: right;
+  color: #cccccc;
+  font-size: 0.75rem;
+}
+
+.comment-to-user-name-wrapper{
+  float: left;
+}
+
+.colon{
+  margin-right: 0.25rem;
+}
+/*----------------------------------------------评论输入--------------------------------------------------*/
+
+.comment-input-main{
+  width: 100%;
+  background-color: #eeeeef;
+  border-radius: 6rpx;
+
+  position: fixed;
+  /* bottom: 0; */
+}
+
+.comment-input::after{
+  content: "";
+  clear: both;
+}
+
+textarea{
+  width: 70%;
+  background-color: white;
+  color: brown;
+  border-radius: 0.25rem;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  font-size: 0.75rem;
+
+  float: left;
+
+  margin-left: 0.7rem; 
+  margin-bottom: 0.3rem;
+  margin-top: 0.375rem;
+}
+
+.image-emoji-logo{
+  width: 48rpx;
+  height: 48rpx;
+
+  position: absolute;
+  bottom: 16rpx;
+  right: 108rpx; 
+
+  margin-right: 12rpx; 
+}
+
+.send-button{
+  background-color: #36ee25e8;
+  color: white;
+  width: 96rpx;
+  height: 48rpx;
+  border-radius: 6rpx;
+  font-size: 24rpx;
+  text-align: center;
+  line-height: 48rpx;
+
+  position: absolute;
+  right: 12rpx;
+  bottom: 16rpx;
+}
+
+.fa{
+  margin-right: 6rpx;
+}
+
+.emojis-container{
+  height: 13rem;
+  background-color:#f7ffef;
+
+  position: fixed;
+  bottom: 0;
+}
+
+.emojis-wrapper,
+.emojis-recently-use-wrapper{
+  width: 96%;
+  margin: 0 auto;
+}
+
+.emoji-item{
+  display: inline-block;
+  width: 12.5%;
+  text-align: center;
+}
+
+.image-emoji-item{
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.recent-use-text,
+.all-emojis-text{
+  font-size: 0.75rem;
+  margin-left: 0.75rem;
+  line-height: 2.25rem;
+}
+
+
+/* --------------------------------------------------------复制 删除 ----------------------------------------------------------------------- */
+.commentContentTool{
+  position: fixed;
+  background-color: white;
+  box-shadow: 0 0 0.5rem #cccccc;
+}
+
+.copy,
+.delete,
+.reply
+{
+  font-size: 0.75rem;
+  width: 3.85rem;
+  height: 2.75rem;
+  line-height: 2.75rem;
+  padding-left: 1rem;
+}
+
+/* -------------------------test class ----------------------------------------------------------------------- */
+.test{
+  width: 100%;
+  height: 200rpx;
+  background-color: red;
+}

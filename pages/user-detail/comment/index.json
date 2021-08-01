@@ -1,0 +1,9 @@
+{
+    "pages": [
+        "pages/user-detail/comment/index"
+    ],
+    "navigationBarTitleText": "我的评论",
+    "usingComponents": {
+        "load-more": "/components/load-more/index"
+    }
+}

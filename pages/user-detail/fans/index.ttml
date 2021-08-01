@@ -1,0 +1,33 @@
+<view tt-if="{{$state.isLogined === true}}" class="my-follow">
+    <view class="people-i-follow" tt:for="{{followDetails}}" tt:for-index="index" tt:for-item="item">
+        <view class="item">
+            <view class="item-left">
+                <image class="user-avatar" src="{{item.fromUser.avatarUrl}}"></image>
+            </view>
+            <view class="middle-right-wrapper">
+                <view class="item-middle">
+                    <view class="text-wrapper">
+                        <text class="name">{{item.fromUser.name}}</text>
+                        <text class="introduction">{{item.fromUser.introduction}}</text>
+                    </view>
+                </view>
+                <view class="item-right">
+                    <view tt-if="{{item.hasFollow}}" class="follow-status-button" bindtap="ontapHasFollowedButton" data-follow-id="{{item.id}}" data-index="{{index}}">
+                        <image class="follow-status-image" src="/pictures/HasFollow.png"></image>
+                        <text class="follow-status-text">已关注</text>
+                    </view>
+                    <view tt-else class="unfollow-status-button" bindtap="ontapFollowButton" data-user-id="{{item.toUser.id}}" data-index="{{index}}">
+                        <image class="unfollow-status-image" src="/pictures/follow.png"></image>
+                        <text class="unfollow-status-text">关注</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="bottom-line"></view>
+    </view>
+    <load-more id="loadMoreView" bindloadMoreListener='loadMoreListener' bindclickLoadMore='clickLoadMore'></load-more>
+</view>
+
+<button tt-else class="button-login" bindtap="onTapLogin">
+    登录
+</button>

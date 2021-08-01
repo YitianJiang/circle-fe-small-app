@@ -1,0 +1,6 @@
+<import src="/template/articles.ttml" />
+
+<!-- <view class="container" bindtap="onTapContainer" bindtouchmove="onTapContainer"> -->
+<view class="container" bindtap="onTapContainer" >
+  <template is="articles" data="{{...pageData}}"></template>
+</view>

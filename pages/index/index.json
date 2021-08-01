@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "首页",
+    "usingComponents": {
+        "load-more": "/components/load-more/index"
+    }
+}

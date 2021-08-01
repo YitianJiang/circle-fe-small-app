@@ -1,0 +1,9 @@
+{
+    "pages": [
+        "pages/user-detail/follow/index"
+    ],
+    "navigationBarTitleText": "我的关注",
+    "usingComponents": {
+        "load-more": "/components/load-more/index"
+    }
+}

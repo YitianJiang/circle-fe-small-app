@@ -1,0 +1,33 @@
+<view tt-if="{{$state.isLogined === true}}" class="my-comments">
+    <view tt:for="{{comments}}" tt:for-index="index" tt:for-item="item" class="comment">
+        <view class="user-info">
+            <view class="user-info-wrapper">
+                <image class="user-avatar" src="{{$state.currentUser.avatarUrl}}" binderror="binderror" bindload="bindload" lazy-load />
+                <view class="name-time-container">
+                    <text class="user-name">{{$state.currentUser.name}}</text>
+                    <text class="create-time">{{item.createTime}}</text>
+                </view>
+            </view>
+        </view>
+        <view class="comment-content-wrapper">
+            <text class="comment-content">{{item.content}}</text>
+        </view>
+        <view class="article-abstract-outer">
+            <view class="article-abstract-inner">
+                <image tt-if="{{item.articleAbstract.logoUrl!= null}}" class="logo" src="item.articleAbstract.logoUrl"></image>
+                <image tt-else class="logo" src="/pictures/article-logo-default.png"></image>
+                <view class="publisher-content-wrapper">
+                    <text class="publisher">{{item.articleAbstract.userName}}</text>
+                    <text class="content">{{item.articleAbstract.text}}</text>
+                </view>
+            </view>
+        </view>
+        <view class="line-wrapper">
+            <view class="line"></view>
+        </view>
+    </view>
+    <load-more id="loadMoreView" bindloadMoreListener='loadMoreListener' bindclickLoadMore='clickLoadMore'></load-more>
+</view>
+<button tt-else class="button-login" bindtap="onTapLogin">
+    登录
+</button>

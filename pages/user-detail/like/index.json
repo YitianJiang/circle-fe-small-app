@@ -1,0 +1,9 @@
+{
+    "pages": [
+        "pages/user-detail/like/index"
+    ],
+    "navigationBarTitleText": "我的点赞",
+    "usingComponents": {
+        "load-more": "/components/load-more/index"
+    }
+}

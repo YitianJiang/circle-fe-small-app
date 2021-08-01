@@ -1,0 +1,292 @@
+var uploadImage = require('../../common/UploadAliyun/UploadAliyun.js')
+var emoji = require('../../common/emoji')
+
+var app = getApp()
+var OSS_DOWNLOAD_PREFIX = "https://yitianjiang-circle.oss-cn-beijing.aliyuncs.com/"
+var article_create_url = app.data.base_url + "/article/create"
+var SEND_VIDEO = "sendVideo"
+var SEND_PICTURES = "sendPictures"
+var NONE = "none"
+
+Page({
+    useStore: true,
+    data: {
+        imageUrls: [],
+        videoUrl: "",
+        text: '',
+        index: 0,
+        showEmoji: false,
+        emojiList: [],
+        videoObject: {},
+        dir: "",
+        showSendTypeList: false,
+        sendType: NONE,
+        sendTypeListTop: 0,
+        sendTypeListLeft: 0,
+        videoWidth: "",
+        videoHeight: "",
+        hideMask: true
+    },
+    onLoad: function() {
+        const list = []
+        for (let i = 0; i < 78; i++) {
+            list.push(`/emoji/${i+1}.png`)
+        }
+        this.setData({
+            emojiList: list,
+        })
+    },
+    showEmoji() {
+        this.setData({
+            showEmoji: !this.data.showEmoji,
+        })
+    },
+    addEmoji(e) {
+        const index = e.currentTarget.dataset.index
+        const url = this.data.emojiList[index]
+        const key = this.findKey(emoji.emojiMap, url)
+        const originContent = this.data.text
+        this.setData({
+            text: originContent.concat(key),
+        })
+    },
+    findKey(obj, value, compare = (a, b) => a === b) {
+        return Object.keys(obj).find(k => compare(obj[k], value))
+    },
+    onTextInput: function(e) {
+        this.setData({
+            text: e.detail.value
+        })
+    },
+    chooseSendType(event) {
+        this.setData({
+            [`showSendTypeList`]: !this.data.showSendTypeList,
+            [`sendTypeListLeft`]: event.changedTouches[0].clientX,
+            [`sendTypeListTop`]: event.changedTouches[0].clientY,
+            [`hideMask`]: false
+        })
+    },
+    chooseImage() {
+        console.log("choose image xxxxxxxxxxxxxxxxxxxx")
+        this.setData({
+            [`showSendTypeList`]: false
+        })
+        const currentLength = this.data.imageUrls.length
+        let that = this
+        tt.chooseImage({
+            sourceType: ['album'],
+            count: 9 - currentLength,
+            success(res) {
+                if (currentLength >= 9) {
+                    tt.showToast({
+                        title: '最多上传9张图片',
+                        icon: "none"
+                    })
+                    return
+                }
+                if (!res || !res.tempFilePaths) {
+                    return
+                }
+                let uploadImages = []
+                if (currentLength + res.tempFilePaths.length > 9) {
+                    const uploadLength = 9 - currentLength
+                    uploadImages = that.data.imageUrls.concat(res.tempFilePaths.slice(0, uploadLength))
+                } else {
+                    uploadImages = that.data.imageUrls.concat(res.tempFilePaths)
+                }
+                that.setData({
+                    imageUrls: uploadImages,
+                    [`sendType`]: SEND_PICTURES
+                })
+            },
+            complete() {
+                that.setData({
+                    [`hideMask`]: true
+                })
+            }
+        })
+    },
+    chooseVideo(event) {
+        this.setData({
+            [`showSendTypeList`]: false
+        })
+        let that = this
+        tt.chooseVideo({
+            success: (res) => {
+                let dir = "UserVideos/" + that.data.$state.currentUser.id + "/" + new Date().getTime() + "/"
+                this.data.videoUrl = OSS_DOWNLOAD_PREFIX + dir + res.tempFilePath
+                console.log("videoUrl", this.data.videoUrl)
+                if (res.width < res.height) {
+                    that.setData({
+                        [`sendType`]: SEND_VIDEO,
+                        [`videoObject`]: res,
+                        [`dir`]: dir,
+                        [`videoWidth`]: "400rpx",
+                        [`videoHeight`]: 400 * (res.height / res.width) + "rpx"
+                    })
+                } else {
+                    that.setData({
+                        [`sendType`]: SEND_VIDEO,
+                        [`videoObject`]: res,
+                        [`dir`]: dir,
+                        [`videoWidth`]: "620rpx",
+                        [`videoHeight`]: 620 * (res.height / res.width) + "rpx"
+                    })
+                }
+            },
+            complete() {
+                that.setData({
+                    [`hideMask`]: true
+                })
+            }
+        })
+    },
+    deleteImage(e) {
+        const index = e.currentTarget.dataset.index
+        this.data.imageUrls.splice(index, 1)
+        this.setData({
+            imageUrls: this.data.imageUrls
+        })
+    },
+    previewImage(e) {
+        const index = e.currentTarget.dataset.index
+        tt.previewImage({
+            current: this.data.imageUrls[index],
+            urls: this.data.imageUrls
+        })
+    },
+    uploadPicture(index, timestamp) {
+        return new Promise((resolve, reject) => {
+            let that = this
+            uploadImage({
+                filePath: that.data.imageUrls[index],
+                dir: "UserImages/" + that.data.$state.currentUser.id + "/" + timestamp + "/",
+                success: function(res) {
+                    console.log("upload picture timestamp", new Date().getTime())
+                    that.data.imageUrls[index] = OSS_DOWNLOAD_PREFIX + this.dir + that.data.imageUrls[index].replace(/ttfile:/, "ttfile%3A")
+                    resolve("success")
+                },
+                fail: function(res) {
+                    reject("fail to upload picture to oss")
+                }
+            })
+        })
+    },
+    uploadPictures() {
+        let result = []
+        let timestamp = new Date().getTime()
+        for (let i = 0; i < this.data.imageUrls.length; i++) {
+            result.push(this.uploadPicture(i, timestamp))
+        }
+        return result
+    },
+    createArticle() {
+        let requestBody = null
+        if (this.data.sendType === SEND_PICTURES) {
+            requestBody = {
+                text: this.data.text,
+                imageUrls: this.data.imageUrls,
+                createTime: new Date()
+            }
+        }
+        if (this.data.sendType === SEND_VIDEO) {
+            requestBody = {
+                text: this.data.text,
+                videoUrl: this.data.videoUrl,
+                createTime: new Date()
+            }
+        }
+        console.log("create article request body", requestBody)
+        let that = this
+        tt.request({
+            url: article_create_url,
+            data: requestBody,
+            method: 'POST',
+            header: {
+                "Authorization": "Bearer " + tt.getStorageSync('token')
+            },
+            success(res) {
+                console.log("res", res)
+                if (res.data.code != 200) {
+                    tt.showToast({
+                        title: '发布失败',
+                        icon: "fail",
+                    })
+                    return
+                }
+                console.log("success", new Date().getTime())
+                tt.showToast({
+                    title: '发布成功',
+                    icon: "success",
+                })
+                if (that.data.sendType === SEND_PICTURES) {
+                    that.setData({
+                        text: '',
+                        imageUrls: [],
+                        index: 0,
+                        sendType: NONE
+                    })
+                }
+                if (that.data.sendType === SEND_VIDEO) {
+                    that.setData({
+                        text: '',
+                        videoUrl: "",
+                        sendType: NONE
+                    })
+                }
+            },
+            fail(res) {
+                tt.showToast({
+                    title: '网络错误',
+                    icon: "fail",
+                })
+            }
+        })
+    },
+    publish() {
+        if (this.data.sendType === SEND_PICTURES) {
+            if (this.data.text === '' && this.data.imageUrls.length === 0) {
+                tt.showToast({
+                    title: '发布内容不能为空！',
+                    icon: "none",
+                })
+                return
+            }
+            Promise.all(this.uploadPictures()).then(res => {
+                this.createArticle()
+            }).catch((err) => {
+                console.log("发布失败", err)
+                tt.showToast({
+                    title: "发布失败",
+                    icon: "fail",
+                })
+            })
+        }
+        if (this.data.sendType === SEND_VIDEO) {
+            if (this.data.text === '' && this.data.videoUrl === "") {
+                tt.showToast({
+                    title: '发布内容不能为空！',
+                    icon: "none",
+                })
+                return
+            }
+            this.createArticle()
+        }
+    },
+    onTapLogin() {
+        tt.navigateTo({
+            url: '/pages/login/index' // 指定页面的url
+        })
+    },
+    onClearVideo() {
+        this.setData({
+            [`sendType`]: NONE
+        })
+    },
+    onTapMask() {
+        this.setData({
+            hideMask: true,
+            showSendTypeList: false
+        })
+    }
+})

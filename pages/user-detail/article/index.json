@@ -1,0 +1,9 @@
+{
+    "pages": [
+        "pages/user-detail/article/index"
+    ],
+    "navigationBarTitleText": "我的文章",
+    "usingComponents": {
+        "load-more": "/components/load-more/index"
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "pages": [
+        "pages/user-detail/fans/index"
+    ],
+    "navigationBarTitleText": "我的粉丝",
+    "usingComponents": {
+        "load-more": "/components/load-more/index"
+    }
+}

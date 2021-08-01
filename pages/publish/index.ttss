@@ -1,0 +1,121 @@
+.publish {
+    margin: 10px 30px;
+    text-align: center;
+}
+
+.text {
+    text-align: left;
+    width: 90%;
+    font-size: 14px;
+    margin-top: 5px;
+    padding: 5px 0;
+}
+
+.picker {
+    font-size: 14px;
+    text-align: left;
+    color: grey;
+}
+
+.anonymous {
+    text-align: left;
+    margin-left: 16px;
+    font-size: 14px;
+}
+
+.submit {
+    text-align: center;
+    width: 95%;
+    margin: 15px 0 0 0px;
+    border-radius: 20px;
+    color: #29cca3;
+    border-color: #29cca3;
+}
+
+.image-background {
+    display: flex;
+    flex-flow: row wrap;
+    padding: 15rpx 0rpx 38rpx 0rpx;
+}
+
+.delete-image {
+    position: absolute;
+    right: 14rpx;
+    top: 5rpx;
+    width: 30rpx;
+    height: 30rpx;
+}
+
+.selected-image {
+    width: 190rpx;
+    height: 190rpx;
+    margin-bottom: 8rpx;
+    margin-right: 8rpx;
+    background: #f4f5f6;
+}
+
+.selected-block {
+    display: flex;
+    position: relative;
+}
+
+.add-image {
+    display: block;
+    width: 90rpx;
+    height: 90rpx;
+    padding: 50rpx;
+    margin-bottom: 8rpx;
+    margin-right: 8rpx;
+    background: #f4f5f6;
+}
+
+.emoji-bg {
+    display: flex;
+    flex-flow: row wrap;
+    padding: 15rpx 0rpx 0rpx 0rpx;
+}
+
+.SendTypeList {
+    position: fixed;
+    background-color: white;
+    box-shadow: 0 0 0.5rem #cccccc;
+    z-index: 1000;
+    background-color: #434343;
+    color: white;
+    border-radius: 8rpx;
+}
+
+.send-type-list-item {
+    height: 2.75rem;
+    line-height: 2.75rem;
+    font-size: 0;
+}
+
+.post-video,
+.post-image {
+    width: 1rem;
+    height: 1rem;
+    margin-left: 0.8rem;
+    margin-right: 0.8rem;
+    vertical-align: middle;
+}
+
+.send-image,
+.send-video {
+    vertical-align: middle;
+    text-align: left;
+    display: inline-block;
+    font-size: 0.8rem;
+    width: 3rem;
+    height: 100%;
+}
+
+.mask {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.33);
+}
