@@ -13,6 +13,9 @@ Page({
         loadMoreView: null,
         pageNum: 1
     },
+    onLoad() {
+        this.getComments()
+    },
     getComments() {
         tt.request({
             url: get_comment_url,
@@ -59,16 +62,13 @@ Page({
                 this.setData({
                     comments: this.data.comments.concat(res.data.data)
                 })
-                this.data.loadMoreView.loadMoreComplete(res.data.data.length != 0)
+                this.data.loadMoreView.loadMoreComplete(res.data.data.length === page_size)
             },
             fail: (res) => {
                 this.data.pageNum -= 1
                 this.data.loadMoreView.loadMoreFail()
             }
         })
-    },
-    onShow: function() {
-        this.getComments()
     },
     onReady: function() {
         this.selectComponent("#loadMoreView", (res) => {

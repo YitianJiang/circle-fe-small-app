@@ -12,10 +12,13 @@ export var solvelong = {
         this.loopFindArrOrObj(jsonData, needReplaceStrs);
         console.log("needReplaceStrs", needReplaceStrs)
         needReplaceStrs.forEach((replaceInfo) => {
-            var matchArr = baseStr.match(eval('/"' + replaceInfo.key + '":[0-9]{15,}/'));
+            // var matchArr = baseStr.match(eval('/"' + replaceInfo.key + '":[0-9]{15,}/')); 
+            let regexp = new RegExp("\"" + replaceInfo.key + "\"" + ":[0-9]{15,}") //小程序不支持eval
+            let matchArr = baseStr.match(regexp)
             console.log("matchArr", matchArr)
             if (matchArr) {
                 var str = matchArr[0];
+                //找到后在前后加上双引号
                 var replaceStr = str.replace('"' + replaceInfo.key + '":', '"' + replaceInfo.key + '":"');
                 replaceStr += '"';
                 baseStr = baseStr.replace(str, replaceStr);

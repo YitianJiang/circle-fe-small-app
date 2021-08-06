@@ -25,11 +25,17 @@
 
 .submit {
     text-align: center;
+    height: 100rpx;
+    border-radius: 50rpx;
     width: 95%;
     margin: 15px 0 0 0px;
-    border-radius: 20px;
     color: #29cca3;
-    border-color: #29cca3;
+    background-color: white;
+    border: #29cca3 1rpx solid;
+}
+
+button:after {
+    display: none;
 }
 
 .image-background {

@@ -70,7 +70,8 @@ Page({
         this.setData({
             [`pageData.emojiList`]: list,
             [`pageData.emojiListRecentlyUse`]: list.slice(0, 5)
-        });
+        })
+        this.getArticles()
     },
     getArticles() {
         tt.request({
@@ -88,7 +89,10 @@ Page({
                 console.log("state ", this.data.$state)
                 res.data.data.forEach(article => {
                     article.createTime = time.timeTransform(article.createTime)
-                    article.isCurrentUserLike = article.likeDetails.map(likeDetail => likeDetail.user.id).includes(this.data.$state.currentUser.id)
+                        // article.isCurrentUserLike = article.likeDetails.map(likeDetail => likeDetail.user.id).includes(this.data.$state.currentUser.id)
+                    article.likeUserIds = article.likeDetails.map(likeDetail => likeDetail.user.id)
+                    console.log("likeUserIds", article.likeUserIds)
+                    console.log("currentUser", this.data.$state.currentUser)
                     article.interactContainerWidth = initial_interact_container_width
                     article.commentDetails.forEach(commentDetail => {
                         commentDetail.content = emoji.parseEmoji(commentDetail.content)
@@ -121,11 +125,11 @@ Page({
                     this.data.pageData.loadMoreView.loadMoreFail()
                     return
                 }
-                this.data.pageData.loadMoreView.loadMoreComplete(res.data.data.length != 0)
+                this.data.pageData.loadMoreView.loadMoreComplete(res.data.data.length === page_size)
                 console.log("state ", this.data.$state)
                 res.data.data.forEach(article => {
                     article.createTime = time.timeTransform(article.createTime)
-                    article.isCurrentUserLike = article.likeDetails.map(likeDetail => likeDetail.user.id).includes(this.data.$state.currentUser.id)
+                        // article.isCurrentUserLike = article.likeDetails.map(likeDetail => likeDetail.user.id).includes(this.data.$state.currentUser.id)
                     article.interactContainerWidth = initial_interact_container_width
                     article.commentDetails.forEach(commentDetail => {
                         commentDetail.content = emoji.parseEmoji(commentDetail.content)
@@ -142,9 +146,6 @@ Page({
                 this.data.pageData.loadMoreView.loadMoreFail()
             }
         })
-    },
-    onShow: function() {
-        this.getArticles()
     },
     onReady: function() {
         this.selectComponent("#loadMoreView", (res) => {
@@ -228,7 +229,7 @@ Page({
                 }
                 this.data.pageData.articles[event.currentTarget.dataset.articleIndex].likeDetails.push(likeDetail)
                 this.setData({
-                    [`pageData.articles[${event.currentTarget.dataset.articleIndex}].isCurrentUserLike`]: true,
+                    // [`pageData.articles[${event.currentTarget.dataset.articleIndex}].isCurrentUserLike`]: true,
                     [`pageData.articles[${event.currentTarget.dataset.articleIndex}].likeDetails`]: this.data.pageData.articles[event.currentTarget.dataset.articleIndex].likeDetails,
                     [`pageData.transitionTime`]: zero_second
                 })
@@ -260,7 +261,7 @@ Page({
                 likeDetails.splice(likeDetails.findIndex(e => e.user.id === this.data.$state.currentUser.id), 1)
                 this.setData({
                     [`pageData.articles[${articleIndex}].likeDetails`]: likeDetails,
-                    [`pageData.articles[${articleIndex}].isCurrentUserLike`]: false,
+                    // [`pageData.articles[${articleIndex}].isCurrentUserLike`]: false,
                     [`pageData.transitionTime`]: zero_second
                 })
                 setTimeout(this.shrinkAndUnfold(event.currentTarget.dataset.articleIndex), 2000)

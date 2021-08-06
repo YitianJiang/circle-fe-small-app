@@ -9,7 +9,7 @@ Page({
     data: {
         height: "0",
         isHidden: true,
-        inputWrapperStyle: "none",
+        inputWrapperStyle: "",
         valueToBeSet: "",
         inputDefaultValue: "",
         currentInputValue: "dsfsfd",
@@ -42,7 +42,7 @@ Page({
         this.setData({
             [`height`]: "0",
             [`isHidden`]: true,
-            [`inputWrapperStyle`]: "none"
+            [`inputWrapperStyle`]: ""
         })
     },
     onFocus: function() {
@@ -100,8 +100,10 @@ Page({
         console.log("event", event)
     },
     onTapAvatarRow: function() {
+        console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
         let that = this
         tt.chooseImage({
+            sourceType: ['album'],
             count: 1,
             success: (chooseResult) => {
                 if (!chooseResult || !chooseResult.tempFilePaths) return
@@ -112,37 +114,44 @@ Page({
                         let avatarUrl = OSS_DOWNLOAD_PREFIX + this.dir + chooseResult.tempFilePaths[0].replace(/ttfile:/, "ttfile%3A")
                         let requestBody = { avatarUrl }
                         tt.request({
-                            url: article_create_url,
+                            url: update_user_info_url,
                             data: requestBody,
                             method: 'POST',
                             header: {
                                 "Authorization": "Bearer " + tt.getStorageSync('token')
                             },
                             success(res) {
-                                if (res.data.code != 200) return
+                                if (res.data.code != 200) {
+                                    tt.showToast({
+                                        title: '更新头像失败'
+                                    })
+                                    return
+                                }
                                 console.log("success", new Date().getTime())
                                 tt.showToast({
-                                    title: '发布成功',
+                                    title: '更新头像成功',
                                     icon: "none",
                                 })
-                                that.setData({
-                                    text: '',
-                                    imageUrls: [],
-                                    index: 0,
+                                app.store.setState({
+                                    [`currentUser.avatarUrl`]: avatarUrl
                                 })
-                                resolve("success")
                             },
                             fail(res) {
-                                reject("fail to send create article request")
+                                tt.showToast({
+                                    title: '网络崩溃，更新头像失败'
+                                })
                             }
                         })
                     },
                     fail: function() {
                         tt.showToast({
-                            title: '上传头像失败'
+                            title: '更新头像失败'
                         })
                     }
                 })
+            },
+            fail: (err) => {
+                console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", err)
             }
         })
     }

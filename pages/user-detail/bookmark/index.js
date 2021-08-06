@@ -70,7 +70,8 @@ Page({
         this.setData({
             [`pageData.emojiList`]: list,
             [`pageData.emojiListRecentlyUse`]: list.slice(0, 5)
-        });
+        })
+        this.getArticles()
     },
     getArticles() {
         tt.request({
@@ -123,7 +124,7 @@ Page({
                     this.data.pageData.loadMoreView.loadMoreFail()
                     return
                 }
-                this.data.pageData.loadMoreView.loadMoreComplete(res.data.data.length != 0)
+                this.data.pageData.loadMoreView.loadMoreComplete(res.data.data.length === page_size)
                 console.log("state ", this.data.$state)
                 res.data.data.forEach(article => {
                     article.createTime = time.timeTransform(article.createTime)
@@ -144,9 +145,6 @@ Page({
                 this.data.pageData.loadMoreView.loadMoreFail()
             }
         })
-    },
-    onShow: function() {
-        this.getArticles()
     },
     onReady: function() {
         this.selectComponent("#loadMoreView", (res) => {

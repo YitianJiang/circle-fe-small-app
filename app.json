@@ -1,40 +1,41 @@
 {
-  "pages":[
-    "pages/index/index", 
-    "pages/publish/index",
-    "pages/mine/index",
-    "pages/login/index",
-    "pages/register/index",
-    "pages/user-detail/follow/index",
-    "pages/user-detail/fans/index",
-    "pages/user-detail/like/index",
-    "pages/user-detail/bookmark/index",
-    "pages/user-detail/comment/index",
-    "pages/user-detail/article/index",
-    "pages/user-detail/user-base-info/index"
-  ],
-  "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "qa 交流圈",
-    "navigationBarTextStyle":"black"
-  },
-  "tabBar": {
-    "list": [{
-      "pagePath": "pages/index/index",
-      "text": "首页",
-      "iconPath": "/pictures/home.png",
-      "selectedIconPath": "/pictures/homeSelected.png"
-    }, {
-      "pagePath": "pages/publish/index",
-      "text": "发布",
-      "iconPath": "/pictures/publish.png",
-      "selectedIconPath": "/pictures/publishSelected.png"
-    },{
-      "pagePath": "pages/mine/index",
-      "text": "我的",
-      "iconPath": "/pictures/me.png",
-      "selectedIconPath": "/pictures/meSelected.png"
-    }]
-  }
+    "pages": [
+        "pages/index/index",
+        "pages/publish/index",
+        "pages/mine/index",
+        "pages/login/index",
+        "pages/register/index",
+        "pages/user-detail/follow/index",
+        "pages/user-detail/fans/index",
+        "pages/user-detail/like/index",
+        "pages/user-detail/bookmark/index",
+        "pages/user-detail/comment/index",
+        "pages/user-detail/article/index",
+        "pages/user-detail/user-base-info/index"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "qa 交流圈",
+        "navigationBarTextStyle": "black"
+    },
+    "tabBar": {
+        "selectedColor": "#00d4dc",
+        "list": [{
+            "pagePath": "pages/index/index",
+            "text": "首页",
+            "iconPath": "/pictures/home.png",
+            "selectedIconPath": "/pictures/homeSelected.png"
+        }, {
+            "pagePath": "pages/publish/index",
+            "text": "发布",
+            "iconPath": "/pictures/publish.png",
+            "selectedIconPath": "/pictures/publishSelected.png"
+        }, {
+            "pagePath": "pages/mine/index",
+            "text": "我的",
+            "iconPath": "/pictures/me.png",
+            "selectedIconPath": "/pictures/meSelected.png"
+        }]
+    }
 }

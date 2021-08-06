@@ -14,6 +14,9 @@ Page({
         loadMoreView: null,
         pageNum: 1
     },
+    onLoad() {
+        this.getFans()
+    },
     getFans() {
         tt.request({
             url: get_myfans_url,
@@ -68,16 +71,13 @@ Page({
                 this.setData({
                     followDetails: this.data.followDetails.concat(res.data.data)
                 })
-                this.data.loadMoreView.loadMoreComplete(res.data.data.length != 0)
+                this.data.loadMoreView.loadMoreComplete(res.data.data.length === page_size)
             },
             fail: (res) => {
                 this.data.pageNum -= 1
                 this.data.loadMoreView.loadMoreFail()
             }
         })
-    },
-    onShow: function() {
-        this.getFans()
     },
     onReady: function() {
         this.selectComponent("#loadMoreView", (res) => {
