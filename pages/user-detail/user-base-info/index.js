@@ -1,4 +1,4 @@
-var uploadImage = require('../../../common/UploadAliyun/UploadAliyun.js')
+import { uploadFile, getIdSecretToken } from '../../../common/UploadAliyun/UploadAliyun.js'
 
 var app = getApp()
 var update_user_info_url = app.data.base_url + "/user/update"
@@ -107,47 +107,54 @@ Page({
             count: 1,
             success: (chooseResult) => {
                 if (!chooseResult || !chooseResult.tempFilePaths) return
-                uploadImage({
-                    filePath: chooseResult.tempFilePaths[0],
-                    dir: "UserAvatars/" + that.data.$state.currentUser.id + "/",
-                    success: function() {
-                        let avatarUrl = OSS_DOWNLOAD_PREFIX + this.dir + chooseResult.tempFilePaths[0].replace(/ttfile:/, "ttfile%3A")
-                        let requestBody = { avatarUrl }
-                        tt.request({
-                            url: update_user_info_url,
-                            data: requestBody,
-                            method: 'POST',
-                            header: {
-                                "Authorization": "Bearer " + tt.getStorageSync('token')
-                            },
-                            success(res) {
-                                if (res.data.code != 200) {
+                getIdSecretToken().then((idSecretToken) => {
+                    uploadFile({
+                        filePath: chooseResult.tempFilePaths[0],
+                        dir: "UserAvatars/" + that.data.$state.currentUser.id + "/",
+                        success: function() {
+                            let avatarUrl = OSS_DOWNLOAD_PREFIX + this.dir + chooseResult.tempFilePaths[0].replace(/ttfile:/, "ttfile%3A")
+                            let requestBody = { avatarUrl }
+                            tt.request({
+                                url: update_user_info_url,
+                                data: requestBody,
+                                method: 'POST',
+                                header: {
+                                    "Authorization": "Bearer " + tt.getStorageSync('token')
+                                },
+                                success(res) {
+                                    if (res.data.code != 200) {
+                                        tt.showToast({
+                                            title: '更新头像失败'
+                                        })
+                                        return
+                                    }
+                                    console.log("success", new Date().getTime())
                                     tt.showToast({
-                                        title: '更新头像失败'
+                                        title: '更新头像成功',
+                                        icon: "none",
                                     })
-                                    return
+                                    app.store.setState({
+                                        [`currentUser.avatarUrl`]: avatarUrl
+                                    })
+                                },
+                                fail(res) {
+                                    tt.showToast({
+                                        title: '网络崩溃，更新头像失败'
+                                    })
                                 }
-                                console.log("success", new Date().getTime())
-                                tt.showToast({
-                                    title: '更新头像成功',
-                                    icon: "none",
-                                })
-                                app.store.setState({
-                                    [`currentUser.avatarUrl`]: avatarUrl
-                                })
-                            },
-                            fail(res) {
-                                tt.showToast({
-                                    title: '网络崩溃，更新头像失败'
-                                })
-                            }
-                        })
-                    },
-                    fail: function() {
-                        tt.showToast({
-                            title: '更新头像失败'
-                        })
-                    }
+                            })
+                        },
+                        fail: function() {
+                            tt.showToast({
+                                title: '更新头像失败'
+                            })
+                        }
+                    }, idSecretToken)
+                }).catch((err) => {
+                    console.log("update avatar fail", err)
+                    tt.showToast({
+                        title: '更新头像失败'
+                    })
                 })
             },
             fail: (err) => {

@@ -12,7 +12,7 @@
         </view>
         <image tt:if="{{imageUrls.length < 9}}" class="add-image" bindtap="chooseImage" src="/pictures/add.png" />
     </view>
-    <upload-video tt-if="{{sendType === 'sendVideo'}}" videoObject={{videoObject}} dir="{{dir}}" width="{{videoWidth}}" height="{{videoHeight}}" bindclearvideo="onClearVideo"></upload-video>
+    <upload-video tt-if="{{sendType === 'sendVideo'}}" videoObject={{videoObject}} dir="{{dir}}" width="{{videoWidth}}" height="{{videoHeight}}" binddeletevideo="deleteVideo"></upload-video>
     <button class="submit" bindtap="publish">发表</button>
     <view tt:if="{{showSendTypeList}}" class="SendTypeList" style="top:{{2 * sendTypeListTop - 32 * 2.75 * 2 - 32 * 2}}rpx; left:{{2 * sendTypeListLeft - 8}}rpx">
         <view class="send-type-list-item">

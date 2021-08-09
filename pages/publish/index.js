@@ -1,4 +1,4 @@
-var uploadImage = require('../../common/UploadAliyun/UploadAliyun.js')
+import { uploadFile, getIdSecretToken } from '../../common/UploadAliyun/UploadAliyun.js'
 var emoji = require('../../common/emoji')
 
 var app = getApp()
@@ -25,7 +25,8 @@ Page({
         sendTypeListLeft: 0,
         videoWidth: "",
         videoHeight: "",
-        hideMask: true
+        hideMask: true,
+        isPublishComplete: true
     },
     onLoad: function() {
         const list = []
@@ -89,8 +90,7 @@ Page({
                 }
                 let uploadImages = []
                 if (currentLength + res.tempFilePaths.length > 9) {
-                    const uploadLength = 9 - currentLength
-                    uploadImages = that.data.imageUrls.concat(res.tempFilePaths.slice(0, uploadLength))
+                    uploadImages = that.data.imageUrls.concat(res.tempFilePaths.slice(0, 9 - currentLength))
                 } else {
                     uploadImages = that.data.imageUrls.concat(res.tempFilePaths)
                 }
@@ -144,8 +144,21 @@ Page({
     deleteImage(e) {
         const index = e.currentTarget.dataset.index
         this.data.imageUrls.splice(index, 1)
+        if (this.data.imageUrls.length != 0) {
+            this.setData({
+                imageUrls: this.data.imageUrls
+            })
+        }
+        if (this.data.imageUrls.length == 0) {
+            this.setData({
+                imageUrls: this.data.imageUrls,
+                sendType: NONE
+            })
+        }
+    },
+    deleteVideo() {
         this.setData({
-            imageUrls: this.data.imageUrls
+            [`sendType`]: NONE
         })
     },
     previewImage(e) {
@@ -155,28 +168,29 @@ Page({
             urls: this.data.imageUrls
         })
     },
-    uploadPicture(index, timestamp) {
+    uploadPicture(index, timestamp, idSecretToken) {
         return new Promise((resolve, reject) => {
             let that = this
-            uploadImage({
+            uploadFile({
                 filePath: that.data.imageUrls[index],
                 dir: "UserImages/" + that.data.$state.currentUser.id + "/" + timestamp + "/",
                 success: function(res) {
                     console.log("upload picture timestamp", new Date().getTime())
+                    console.log("imageUrls", "current index", that.data, index)
                     that.data.imageUrls[index] = OSS_DOWNLOAD_PREFIX + this.dir + that.data.imageUrls[index].replace(/ttfile:/, "ttfile%3A")
                     resolve("success")
                 },
                 fail: function(res) {
-                    reject("fail to upload picture to oss")
+                    reject("fail to upload picture to oss", res)
                 }
-            })
+            }, idSecretToken)
         })
     },
-    uploadPictures() {
+    uploadPictures(idSecretToken) {
         let result = []
         let timestamp = new Date().getTime()
         for (let i = 0; i < this.data.imageUrls.length; i++) {
-            result.push(this.uploadPicture(i, timestamp))
+            result.push(this.uploadPicture(i, timestamp, idSecretToken))
         }
         return result
     },
@@ -240,10 +254,18 @@ Page({
                     title: '网络错误',
                     icon: "fail",
                 })
+            },
+            complete: () => {
+                this.data.isPublishComplete = true
             }
         })
     },
     publish() {
+        if (this.data.isPublishComplete === false) {
+            console.log("正在发送")
+            return
+        }
+        this.data.isPublishComplete = false
         if (this.data.sendType === SEND_PICTURES) {
             if (this.data.text === '' && this.data.imageUrls.length === 0) {
                 tt.showToast({
@@ -252,8 +274,11 @@ Page({
                 })
                 return
             }
-            Promise.all(this.uploadPictures()).then(res => {
-                this.createArticle()
+            console.log("getIdSecretToken", getIdSecretToken)
+            getIdSecretToken().then((idSecretToken) => {
+                Promise.all(this.uploadPictures(idSecretToken)).then(res => {
+                    this.createArticle()
+                })
             }).catch((err) => {
                 console.log("发布失败", err)
                 tt.showToast({
@@ -276,11 +301,6 @@ Page({
     onTapLogin() {
         tt.navigateTo({
             url: '/pages/login/index' // 指定页面的url
-        })
-    },
-    onClearVideo() {
-        this.setData({
-            [`sendType`]: NONE
         })
     },
     onTapMask() {

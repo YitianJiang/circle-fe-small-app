@@ -54,6 +54,8 @@ Page({
             commentType: "", //评论类型 有CommentOfArticle(对文章的评论)和ReplyOfComment(对评论的回复)
             commentValue: "", //当前在评论输入框中输入的评论
             toUser: null, //回复评论的对象
+            //节流
+            isCreateCommentComplete: true
         }
     },
     binderror(err) {
@@ -89,10 +91,8 @@ Page({
                 console.log("state ", this.data.$state)
                 res.data.data.forEach(article => {
                     article.createTime = time.timeTransform(article.createTime)
-                        // article.isCurrentUserLike = article.likeDetails.map(likeDetail => likeDetail.user.id).includes(this.data.$state.currentUser.id)
-                    article.likeUserIds = article.likeDetails.map(likeDetail => likeDetail.user.id)
-                    console.log("likeUserIds", article.likeUserIds)
-                    console.log("currentUser", this.data.$state.currentUser)
+                    article.isCurrentUserLike = article.likeDetails.map(likeDetail => likeDetail.user.id).includes(this.data.$state.currentUser.id)
+                        // article.likeUserIds = article.likeDetails.map(likeDetail => likeDetail.user.id)
                     article.interactContainerWidth = initial_interact_container_width
                     article.commentDetails.forEach(commentDetail => {
                         commentDetail.content = emoji.parseEmoji(commentDetail.content)
@@ -129,7 +129,7 @@ Page({
                 console.log("state ", this.data.$state)
                 res.data.data.forEach(article => {
                     article.createTime = time.timeTransform(article.createTime)
-                        // article.isCurrentUserLike = article.likeDetails.map(likeDetail => likeDetail.user.id).includes(this.data.$state.currentUser.id)
+                    article.isCurrentUserLike = article.likeDetails.map(likeDetail => likeDetail.user.id).includes(this.data.$state.currentUser.id)
                     article.interactContainerWidth = initial_interact_container_width
                     article.commentDetails.forEach(commentDetail => {
                         commentDetail.content = emoji.parseEmoji(commentDetail.content)
@@ -145,6 +145,21 @@ Page({
                 this.data.pageData.pageNum -= 1
                 this.data.pageData.loadMoreView.loadMoreFail()
             }
+        })
+    },
+    onShow() {
+        this.data.pageData.articles.forEach(article => {
+            article.isCurrentUserLike = article.likeDetails.map(likeDetail => likeDetail.user.id).includes(this.data.$state.currentUser.id)
+            article.likeDetails.forEach(likeDetail => {
+                if (likeDetail.user.id === this.data.$state.currentUser.id) likeDetail.user = {...this.data.$state.currentUser }
+            })
+            article.commentDetails.forEach(commentDetail => {
+                if (commentDetail.fromUser.id === this.data.$state.currentUser.id) commentDetail.fromUser = {...this.data.$state.currentUser }
+                if (commentDetail.toUser != null && commentDetail.toUser.id === this.data.$state.currentUser.id) commentDetail.toUser = {...this.data.$state.currentUser }
+            })
+        })
+        this.setData({
+            [`pageData.articles`]: this.data.pageData.articles
         })
     },
     onReady: function() {
@@ -200,6 +215,13 @@ Page({
     },
     // 触发点赞
     onTapLike: function(event) {
+        if (this.data.$state.isLogined === false) {
+            tt.showToast({
+                title: '请先登录',
+                icon: "none"
+            })
+            return
+        }
         let requestBody = {
             articleId: event.currentTarget.dataset.articleId,
         }
@@ -229,7 +251,7 @@ Page({
                 }
                 this.data.pageData.articles[event.currentTarget.dataset.articleIndex].likeDetails.push(likeDetail)
                 this.setData({
-                    // [`pageData.articles[${event.currentTarget.dataset.articleIndex}].isCurrentUserLike`]: true,
+                    [`pageData.articles[${event.currentTarget.dataset.articleIndex}].isCurrentUserLike`]: true,
                     [`pageData.articles[${event.currentTarget.dataset.articleIndex}].likeDetails`]: this.data.pageData.articles[event.currentTarget.dataset.articleIndex].likeDetails,
                     [`pageData.transitionTime`]: zero_second
                 })
@@ -261,7 +283,7 @@ Page({
                 likeDetails.splice(likeDetails.findIndex(e => e.user.id === this.data.$state.currentUser.id), 1)
                 this.setData({
                     [`pageData.articles[${articleIndex}].likeDetails`]: likeDetails,
-                    // [`pageData.articles[${articleIndex}].isCurrentUserLike`]: false,
+                    [`pageData.articles[${articleIndex}].isCurrentUserLike`]: false,
                     [`pageData.transitionTime`]: zero_second
                 })
                 setTimeout(this.shrinkAndUnfold(event.currentTarget.dataset.articleIndex), 2000)
@@ -290,6 +312,13 @@ Page({
         }
     },
     onTapComment: function(event) {
+        if (this.data.$state.isLogined === false) {
+            tt.showToast({
+                title: '请先登录',
+                icon: "none"
+            })
+            return
+        }
         this.data.pageData.currentArticleId = event.currentTarget.dataset.articleId
         this.data.pageData.currentArticleIndex = event.currentTarget.dataset.articleIndex
         this.data.pageData.commentType = event.currentTarget.dataset.commentType
@@ -331,6 +360,11 @@ Page({
 
     },
     onTapCommentSendButton: function(event) {
+        if (this.data.pageData.isCreateCommentComplete === false) {
+            console.log("评论创建未完成")
+            return
+        }
+        this.data.pageData.isCreateCommentComplete = false
         console.log(event)
         let requestBody = null
         if (this.data.pageData.commentType === "CommentOfArticle") {
@@ -389,7 +423,10 @@ Page({
                 })
                 this.data.pageData.commentValue = ""
             },
-            fail(res) {}
+            fail(res) {},
+            complete: () => {
+                this.data.pageData.isCreateCommentComplete = true
+            }
         })
     },
     onTapEmojiLogo: function(event) {

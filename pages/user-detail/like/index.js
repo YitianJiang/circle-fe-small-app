@@ -54,6 +54,8 @@ Page({
             commentType: "", //评论类型 有CommentOfArticle(对文章的评论)和ReplyOfComment(对评论的回复)
             commentValue: "", //当前在评论输入框中输入的评论
             toUser: null, //回复评论的对象
+            //节流
+            isCreateCommentComplete: true
         }
     },
     binderror(err) {
@@ -330,6 +332,11 @@ Page({
 
     },
     onTapCommentSendButton: function(event) {
+        if (this.data.pageData.isCreateCommentComplete === false) {
+            console.log("评论创建未完成")
+            return
+        }
+        this.data.pageData.isCreateCommentComplete = false
         console.log(event)
         let requestBody = null
         if (this.data.pageData.commentType === "CommentOfArticle") {
@@ -388,7 +395,10 @@ Page({
                 })
                 this.data.pageData.commentValue = ""
             },
-            fail(res) {}
+            fail(res) {},
+            complete: () => {
+                this.data.pageData.isCreateCommentComplete = true
+            }
         })
     },
     onTapEmojiLogo: function(event) {

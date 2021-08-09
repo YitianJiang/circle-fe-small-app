@@ -11,7 +11,7 @@
         <view class="upload-completion-rate" style="width: {{uploadCompletionRate}}%;"></view>
         <view class="video-inner-wrapper">
             <video class="video" autoplay=true show-play-btn=false src="{{videoObject.tempFilePath}}"></video>
-            <image ontap="clearVideo" class="close" src="/pictures/delete-video.png"></image>
+            <image ontap="deleteVideo" class="close" src="/pictures/delete-video.png"></image>
         </view>
     </view>
 </view>

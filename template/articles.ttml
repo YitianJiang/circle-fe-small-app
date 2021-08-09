@@ -26,25 +26,23 @@
     </view>
     <!-- 互动工具 -->
     <view class="time-interact-tool">
-      <view class="publish-time" bindtap="onTest">{{article.createTime}}</view>
-      <view class="interact-tool" >
-        <view class="comment-like-wrapper" style="width: {{articles[articleIndex].interactContainerWidth}}; transition: width {{transitionTime}};">
-          <view class="comment-like">
-            <!-- <view tt:if="{{article.isCurrentUserLike}}" class="like-image-wrapper" > -->
-            <view tt:if="{{article.likeUserIds.indexOf($state.currentUser.id) != -1}}" class="like-image-wrapper" >
-              <image class="image-like" src="/pictures/like.png" bindtap="onTapDislike"  data-article-index="{{articleIndex}}" binderror="binderror" bindload="bindload" lazy-load />
-              <span>取消</span>
-            </view>
-            <view tt:else class="like-image-wrapper" >
-              <image class="image-like" src="/pictures/dislike.png" bindtap="onTapLike" data-article-index="{{articleIndex}}" data-article-id="{{article.id}}" binderror="binderror" bindload="bindload" lazy-load />
-              <span>赞</span>
-            </view>
-            <image class="image-comment" src="/pictures/comment.png" catchtap="onTapComment" data-article-index="{{articleIndex}}" data-article-id="{{article.id}}" data-comment-type="CommentOfArticle" binderror="binderror" bindload="bindload" lazy-load/>
-            <span>评论</span>
+      <text class="publish-time">{{article.createTime}}</text>
+      <view class="comment-like-wrapper" style="width: {{articles[articleIndex].interactContainerWidth}}; transition: width {{transitionTime}};">
+        <view class="horizontally-centered-wrapper">
+          <view tt:if="{{article.isCurrentUserLike}}" class="like-image-wrapper" >
+          <!-- <view tt:if="{{[1,2,3,4].indexOf(34) != -1}}" class="like-image-wrapper" > -->
+            <image class="image-like" src="/pictures/like.png" bindtap="onTapDislike"  data-article-index="{{articleIndex}}" binderror="binderror" bindload="bindload" lazy-load />
+            <text class="cancel-text">取消</text>
           </view>
+          <view tt:else class="like-image-wrapper" >
+            <image class="image-like" src="/pictures/like.png" bindtap="onTapLike" data-article-index="{{articleIndex}}" data-article-id="{{article.id}}" binderror="binderror" bindload="bindload" lazy-load />
+            <text class="like-text">赞</text>
+          </view>
+          <image class="image-comment" src="/pictures/comment.png" catchtap="onTapComment" data-article-index="{{articleIndex}}" data-article-id="{{article.id}}" data-comment-type="CommentOfArticle" binderror="binderror" bindload="bindload" lazy-load/>
+          <text class="comment-text">评论</text>
         </view>
-        <image class="image-unfold" src="/pictures/CommentLike.png" bindtap="onTapUnfold" data-article-index="{{articleIndex}}" binderror="binderror" bindload="bindload" lazy-load />
-      </view> 
+      </view>
+      <image class="image-unfold" src="/pictures/CommentLike.png" bindtap="onTapUnfold" data-article-index="{{articleIndex}}" binderror="binderror" bindload="bindload" lazy-load />
     </view>
     <!-- 点赞用户的头像 -->
     <view class="like">
