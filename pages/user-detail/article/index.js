@@ -5,7 +5,7 @@ var emoji = require('../../../common/emoji')
 
 const app = getApp();
 
-var get_articles_url = app.data.base_url + "/article/getArticlesByUserId/"
+var get_articles_url = app.data.base_url + "/article/getArticlesByCurrentUserId/"
 var create_like_url = app.data.base_url + "/like/create"
 var delete_like_url = app.data.base_url + "/like/delete"
 var create_comment_url = app.data.base_url + "/comment/create"
@@ -85,6 +85,7 @@ Page({
             },
             header: {
                 "content-type": "application/json",
+                "Authorization": "Bearer " + tt.getStorageSync('token')
             },
             success: (res) => {
                 if (res.data.code != 200) return
@@ -116,6 +117,7 @@ Page({
             },
             header: {
                 "content-type": "application/json",
+                "Authorization": "Bearer " + tt.getStorageSync('token')
             },
             success: (res) => {
                 console.log("user-detail article index this", this)
@@ -268,7 +270,7 @@ Page({
             fail(res) {}
         })
     },
-    onbindInput: function(event) {
+    onInputComment: function(event) {
         console.log(event)
         this.data.pageData.commentValue = event.detail.value
         let returnNum = string.findNum(event.detail.value, "\n")

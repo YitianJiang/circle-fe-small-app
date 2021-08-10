@@ -3,6 +3,7 @@
         "pages/index/index",
         "pages/publish/index",
         "pages/mine/index",
+        "pages/others/index",
         "pages/login/index",
         "pages/register/index",
         "pages/user-detail/follow/index",

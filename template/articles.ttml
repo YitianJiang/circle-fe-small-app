@@ -3,7 +3,7 @@
     <!--用户信息-->
     <view class="user-info">
       <view class="user-avatar">
-        <image class="image-user-avatar" src="{{article.userDetail.avatarUrl}}" binderror="binderror" bindload="bindload" lazy-load />
+        <image class="image-user-avatar" src="{{article.userDetail.avatarUrl}}" bindtap="onTapUserAvatar" data-user-id="{{article.userDetail.id}}" binderror="binderror" bindload="bindload" lazy-load />
       </view>
       <view class="user-name">{{article.userDetail.name}}</view>
     </view>
@@ -45,18 +45,14 @@
       <image class="image-unfold" src="/pictures/CommentLike.png" bindtap="onTapUnfold" data-article-index="{{articleIndex}}" binderror="binderror" bindload="bindload" lazy-load />
     </view>
     <!-- 点赞用户的头像 -->
-    <view class="like">
-      <view class="like-avatars">
-        <view tt:for="{{article.likeDetails}}" tt:for-item="likeDetail" tt:for-index="likeDetailIndex" class="like-avatar">
-          <image class="image-like-avatar" src="{{likeDetail.user.avatarUrl}}" binderror="binderror" bindload="bindload" lazy-load />
-        </view>
+    <view tt:if="{{article.likeDetails.length != 0}}" class="like-avatars">
+      <view class="like-logo-wrapper">
+        <image class="like-logo" src="/pictures/like-logo.png" binderror="binderror" bindload="bindload" lazy-load />
       </view>
+      <image tt:for="{{article.likeDetails}}" tt:for-item="likeDetail" tt:for-index="likeDetailIndex" class="image-like-avatar" src="{{likeDetail.user.avatarUrl}}" binderror="binderror" bindload="bindload" lazy-load />
     </view>
     <!-- 评论展示 -->
     <view tt:if="{{article.commentDetails.length > 0}}" class="comment-region">
-      <!-- <view class="comment-logo-wrapper">
-        <image class="image-comment-logo" src="/pictures/comment-logo.png" binderror="binderror" bindload="bindload" lazy-load />      
-      </view> -->
       <view class="comments-wrapper">
         <view class="comment" tt:for="{{article.commentDetails}}" tt:for-item="commentDetailItem" tt:for-index="commentDetailIndex" >
           <image class="image-from-user-avatar" src="{{commentDetailItem.fromUser.avatarUrl}}" binderror="binderror" bindload="bindload" lazy-load />      
@@ -84,7 +80,7 @@
   <!-- 评论输入 -->
   <view tt:if="{{showCommentInput}}" class="comment-input" >
     <view class="comment-input-main" style="bottom: {{commentInputMainBottom}}rem;" id="comment-input-main">
-      <textarea style="height: {{textareaHeight}}rpx;" bindinput="onbindInput" focus="{{showInput}}" value="{{commentValue}}"/>
+      <textarea style="height: {{textareaHeight}}rpx;" bindinput="onInputComment" focus="{{showInput}}" value="{{commentValue}}"/>
       <image class="image-emoji-logo" src="/pictures/emoji.png" catchtap="onTapEmojiLogo"  binderror="binderror" bindload="bindload"  lazy-load />
       <view class="send-button" bindtap="onTapCommentSendButton"> 
         <text class="fa">发</text>

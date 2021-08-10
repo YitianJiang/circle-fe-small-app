@@ -1,11 +1,11 @@
-var time = require('../../../common/time')
-var string = require('../../../common/string')
-var position = require('../../../common/position')
-var emoji = require('../../../common/emoji')
+var time = require('../../common/time')
+var string = require('../../common/string')
+var position = require('../../common/position')
+var emoji = require('../../common/emoji')
 
 const app = getApp();
 
-var get_articles_url = app.data.base_url + "/article/getArticles/bookmarked"
+var get_articles_url = app.data.base_url + "/article/getArticlesByUserId/"
 var create_like_url = app.data.base_url + "/like/create"
 var delete_like_url = app.data.base_url + "/like/delete"
 var create_comment_url = app.data.base_url + "/comment/create"
@@ -25,6 +25,7 @@ Page({
     useStore: true,
     data: {
         pageData: {
+            currentUserId: 0,
             //基本信息 包括文章列表,emoji列表，最近使用的emoji列表
             articles: [],
             emojiList: [],
@@ -65,6 +66,7 @@ Page({
         console.log('图片加载成功', e);
     },
     onLoad: function(options) {
+        this.data.pageData.currentUserId = options.userId
         const list = []
         for (let i = 0; i < 78; i++) {
             list.push(`/emoji/${i+1}.png`);
@@ -77,7 +79,7 @@ Page({
     },
     getArticles() {
         tt.request({
-            url: get_articles_url,
+            url: get_articles_url + this.data.pageData.currentUserId,
             method: 'GET',
             data: {
                 pageNum: this.data.pageData.pageNum,
@@ -85,7 +87,6 @@ Page({
             },
             header: {
                 "content-type": "application/json",
-                "Authorization": "Bearer " + tt.getStorageSync('token')
             },
             success: (res) => {
                 if (res.data.code != 200) return
@@ -109,7 +110,7 @@ Page({
     },
     getMoreArticles() {
         tt.request({
-            url: get_articles_url,
+            url: get_articles_url + this.data.pageData.currentUserId,
             method: 'GET',
             data: {
                 pageNum: this.data.pageData.pageNum,
@@ -117,7 +118,6 @@ Page({
             },
             header: {
                 "content-type": "application/json",
-                "Authorization": "Bearer " + tt.getStorageSync('token')
             },
             success: (res) => {
                 console.log("user-detail article index this", this)
@@ -201,6 +201,13 @@ Page({
     },
     // 触发点赞
     onTapLike: function(event) {
+        if (this.data.$state.isLogined === false) {
+            tt.showToast({
+                title: '请先登录',
+                icon: "none"
+            })
+            return
+        }
         let requestBody = {
             articleId: event.currentTarget.dataset.articleId,
         }
@@ -291,6 +298,13 @@ Page({
         }
     },
     onTapComment: function(event) {
+        if (this.data.$state.isLogined === false) {
+            tt.showToast({
+                title: '请先登录',
+                icon: "none"
+            })
+            return
+        }
         this.data.pageData.currentArticleId = event.currentTarget.dataset.articleId
         this.data.pageData.currentArticleIndex = event.currentTarget.dataset.articleIndex
         this.data.pageData.commentType = event.currentTarget.dataset.commentType
@@ -303,6 +317,7 @@ Page({
     },
     onTapCommentContent: function(event) {
         console.log("tapCommentContent", event)
+        if (this.data.$state.isLogined === false) return
         this.data.pageData.currentCommentId = event.currentTarget.dataset.commentId
         this.data.pageData.currentCommentIndex = event.currentTarget.dataset.commentIndex
         this.data.pageData.currentArticleIndex = event.currentTarget.dataset.articleIndex
@@ -320,7 +335,6 @@ Page({
             [`pageData.commentContentToolTop`]: event.changedTouches[0].clientY
         })
     },
-    onTouchStartCommentContent: function(event) {},
     onTapReply: function(event) {
         this.data.pageData.showCommentInput = true
         this.data.pageData.commentType = event.currentTarget.dataset.commentType
@@ -481,7 +495,7 @@ Page({
     },
     onTapLogin: function(e) {
         tt.navigateTo({
-            url: '/pages/login/index?pageIndex' + '/pages/user-detail/bookmark/index'
+            url: '/pages/login/index?pageIndex=' + '/pages/user-detail/follow/index'
         })
     },
     onReachBottom() {

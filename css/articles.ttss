@@ -3,8 +3,8 @@
 }
 
 .article {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-top: 10rpx;
+    padding-bottom: 10rpx;
     border-bottom: solid rgba(242, 242, 242, 0.4) 1rpx;
 }
 
@@ -176,13 +176,6 @@
 }
 
 
-/*-------------------------------------------------------------------------------*/
-
-.like {
-    position: relative;
-}
-
-
 /*----------------------------------------------点赞头像展示区--------------------------------------------------*/
 
 .like-avatars {
@@ -198,15 +191,25 @@
   clear: both;
 } */
 
-.like-avatar {
+.like-logo-wrapper {
+    position: relative;
     display: inline-block;
-    /* float: left; */
-    margin-right: 10rpx;
 }
 
-.image-like-avatar {
+.like-logo {
+    width: 42rpx;
+    height: 42rpx;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.image-like-avatar,
+.like-logo-wrapper {
     width: 84rpx;
     height: 84rpx;
+    margin-right: 10rpx;
 }
 
 

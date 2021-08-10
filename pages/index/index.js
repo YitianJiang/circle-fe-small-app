@@ -55,7 +55,9 @@ Page({
             commentValue: "", //当前在评论输入框中输入的评论
             toUser: null, //回复评论的对象
             //节流
-            isCreateCommentComplete: true
+            isCreateCommentComplete: true,
+            //刷新
+            isRefreshing: false
         }
     },
     binderror(err) {
@@ -101,8 +103,10 @@ Page({
                 })
                 console.log(res.data.data, this.data.pageData.emojiList)
                 this.setData({
-                    [`pageData.articles`]: this.data.pageData.articles.concat(res.data.data)
+                    [`pageData.articles`]: this.data.pageData.articles.concat(res.data.data),
+                    [`pageData.isRefreshing`]: false
                 })
+                tt.stopPullDownRefresh()
             },
             fail(res) {}
         })
@@ -291,7 +295,7 @@ Page({
             fail(res) {}
         })
     },
-    onbindInput: function(event) {
+    onInputComment: function(event) {
         console.log(event)
         this.data.pageData.commentValue = event.detail.value
         let returnNum = string.findNum(event.detail.value, "\n")
@@ -331,6 +335,7 @@ Page({
     },
     onTapCommentContent: function(event) {
         console.log("tapCommentContent", event)
+        if (this.data.$state.isLogined === false) return
         this.data.pageData.currentCommentId = event.currentTarget.dataset.commentId
         this.data.pageData.currentCommentIndex = event.currentTarget.dataset.commentIndex
         this.data.pageData.currentArticleIndex = event.currentTarget.dataset.articleIndex
@@ -348,16 +353,12 @@ Page({
             [`pageData.commentContentToolTop`]: event.changedTouches[0].clientY
         })
     },
-    onTouchStartCommentContent: function(event) {},
     onTapReply: function(event) {
         this.data.pageData.showCommentInput = true
         this.data.pageData.commentType = event.currentTarget.dataset.commentType
         this.setData({
             [`pageData.showCommentInput`]: this.data.pageData.showCommentInput
         })
-    },
-    onTapEmoji: function(event) {
-
     },
     onTapCommentSendButton: function(event) {
         if (this.data.pageData.isCreateCommentComplete === false) {
@@ -510,6 +511,11 @@ Page({
             fail(res) {}
         })
     },
+    onTapUserAvatar(e) {
+        tt.navigateTo({
+            url: '/pages/others/index?userId=' + e.target.dataset.userId
+        })
+    },
     onReachBottom() {
         console.log("reach bottom")
         this.data.pageData.loadMoreView.loadMore()
@@ -520,5 +526,19 @@ Page({
     },
     clickLoadMore: function(e) {
         this.loadMoreListener()
+    },
+    onTapRefresh() {
+        this.data.pageData.pageNum += 1
+        this.setData({
+            [`pageData.isRefreshing`]: true,
+            [`pageData.articles`]: []
+        }, () => {
+            setTimeout(() => {
+                this.getArticles()
+            }, 2);
+        })
+    },
+    onPullDownRefresh() {
+        this.onTapRefresh()
     }
 });

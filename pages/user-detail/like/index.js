@@ -270,7 +270,7 @@ Page({
             fail(res) {}
         })
     },
-    onbindInput: function(event) {
+    onInputComment: function(event) {
         console.log(event)
         this.data.pageData.commentValue = event.detail.value
         let returnNum = string.findNum(event.detail.value, "\n")
