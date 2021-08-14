@@ -107,11 +107,13 @@ Page({
         })
     },
     chooseVideo(event) {
+        console.log("choose video", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
         this.setData({
             [`showSendTypeList`]: false
         })
         let that = this
         tt.chooseVideo({
+            sourceType: ['album'],
             success: (res) => {
                 let dir = "UserVideos/" + that.data.$state.currentUser.id + "/" + new Date().getTime() + "/"
                 this.data.videoUrl = OSS_DOWNLOAD_PREFIX + dir + res.tempFilePath
