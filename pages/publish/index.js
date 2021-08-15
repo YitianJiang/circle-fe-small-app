@@ -114,6 +114,7 @@ Page({
         let that = this
         tt.chooseVideo({
             sourceType: ['album'],
+            maxDuration: 600,
             success: (res) => {
                 let dir = "UserVideos/" + that.data.$state.currentUser.id + "/" + new Date().getTime() + "/"
                 this.data.videoUrl = OSS_DOWNLOAD_PREFIX + dir + res.tempFilePath
@@ -135,6 +136,9 @@ Page({
                         [`videoHeight`]: 620 * (res.height / res.width) + "rpx"
                     })
                 }
+            },
+            fail: (err) => {
+                console.log("err rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", err)
             },
             complete() {
                 that.setData({

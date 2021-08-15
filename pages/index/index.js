@@ -2,6 +2,7 @@ var time = require('../../common/time.js')
 var string = require('../../common/string.js')
 var position = require('../../common/position.js')
 var emoji = require('../../common/emoji.js')
+import { solvelong } from '../../common/solvelong.js'
 
 const app = getApp();
 
@@ -81,6 +82,7 @@ Page({
         tt.request({
             url: get_articles_url,
             method: 'GET',
+            dataType: 'text',
             data: {
                 pageNum: this.data.pageData.pageNum,
                 pageSize: 5
@@ -89,6 +91,7 @@ Page({
                 "content-type": "application/json",
             },
             success: (res) => {
+                res.data = solvelong.getRealJsonData(res.data)
                 if (res.data.code != 200) return
                 console.log("state ", this.data.$state)
                 res.data.data.forEach(article => {
@@ -115,6 +118,7 @@ Page({
         tt.request({
             url: get_articles_url,
             method: 'GET',
+            dataType: 'text',
             data: {
                 pageNum: this.data.pageData.pageNum,
                 pageSize: page_size
@@ -124,6 +128,7 @@ Page({
             },
             success: (res) => {
                 console.log("user-detail article index this", this)
+                res.data = solvelong.getRealJsonData(res.data)
                 if (res.data.code != 200) {
                     this.data.pageData.pageNum -= 1
                     this.data.pageData.loadMoreView.loadMoreFail()
@@ -233,10 +238,12 @@ Page({
             url: create_like_url,
             data: requestBody,
             method: 'POST',
+            dataType: 'text',
             header: {
                 "Authorization": "Bearer " + tt.getStorageSync('token')
             },
             success: (res) => {
+                res.data = solvelong.getRealJsonData(res.data)
                 if (res.data.code != 200) {
                     if (res.data.code === 401) {
                         tt.showToast({
@@ -388,10 +395,12 @@ Page({
             url: create_comment_url,
             data: requestBody,
             method: 'POST',
+            dataType: 'text',
             header: {
                 "Authorization": "Bearer " + tt.getStorageSync('token')
             },
             success: (res) => {
+                res.data = solvelong.getRealJsonData(res.data)
                 if (res.data.code != 200) {
                     if (res.data.code === 401) {
                         tt.showToast({
