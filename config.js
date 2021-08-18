@@ -1,0 +1,1 @@
+export var base_url = "https://acircle.fun:8201/circle-main"

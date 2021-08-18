@@ -6,7 +6,6 @@ Component({
 
     },
     properties: {
-        // 加载中的显示文本
         isRefreshing: {
             type: Boolean,
             value: false

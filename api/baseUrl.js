@@ -1,1 +1,0 @@
-export var baseUrl = "http://127.0.0.1:8201/circle-main"

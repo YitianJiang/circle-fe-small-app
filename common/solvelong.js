@@ -8,14 +8,14 @@ export var solvelong = {
             return null;
         }
         var needReplaceStrs = [];
-        console.log("basestr", baseStr, "jsondata", jsonData)
+        // console.log("basestr", baseStr, "jsondata", jsonData)
         this.loopFindArrOrObj(jsonData, needReplaceStrs);
-        console.log("needReplaceStrs", needReplaceStrs)
+        // console.log("needReplaceStrs", needReplaceStrs)
         needReplaceStrs.forEach((replaceInfo) => {
             // var matchArr = baseStr.match(eval('/"' + replaceInfo.key + '":[0-9]{15,}/')); 
             let regexp = new RegExp("\"" + replaceInfo.key + "\"" + ":[0-9]{15,}") //小程序不支持eval
             let matchArr = baseStr.match(regexp)
-            console.log("matchArr", matchArr)
+                // console.log("matchArr", matchArr)
             if (matchArr) {
                 var str = matchArr[0];
                 //找到后在前后加上双引号
@@ -25,7 +25,7 @@ export var solvelong = {
             }
         })
         var returnJson = null;
-        console.log("basestr", baseStr)
+        // console.log("basestr", baseStr)
         try {
             returnJson = JSON.parse(baseStr);
         } catch (err) {

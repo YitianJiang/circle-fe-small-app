@@ -169,6 +169,7 @@
     width: 36rpx;
     height: 36rpx;
     background-color: #f8f8f8;
+    /* background-color: black; */
     position: absolute;
     right: 0;
     top: 50%;
@@ -215,31 +216,19 @@
 
 /*----------------------------------------------评论展示---------------------------------------------------*/
 
-.comment-region {
+
+/* .comment-region {
     padding-top: 0.5rem;
     margin-left: 112rpx;
     margin-right: 1rem;
     background-color: #f7f7f7;
-}
-
-.comment-logo-wrapper {
-    display: inline-block;
-    text-align: center;
-    line-height: 2.25rem;
-    width: 112rpx;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    vertical-align: top;
-}
-
-.image-comment-logo {
-    width: 0.75rem;
-    height: 0.75rem;
-    vertical-align: middle;
-    /* margin: 0 auto; */
-}
+} */
 
 .comments-wrapper {
+    margin-top: 0.5rem;
+    margin-left: 112rpx;
+    margin-right: 1rem;
+    background-color: #f7f7f7;
     display: inline-block;
 }
 
@@ -336,7 +325,6 @@ textarea {
 }
 
 .send-button {
-    background-color: #36ee25e8;
     color: white;
     width: 96rpx;
     height: 48rpx;
@@ -347,15 +335,22 @@ textarea {
     position: absolute;
     right: 12rpx;
     bottom: 16rpx;
+    letter-spacing: 6rpx;
 }
 
-.fa {
-    margin-right: 6rpx;
+.transition-mask {
+    width: 100%;
+    background-color: black;
+    position: fixed;
+    bottom: 0;
+}
+
+scroll-view {
+    z-index: 1000;
 }
 
 .emojis-container {
-    height: 13rem;
-    background-color: #f7ffef;
+    background-color: rgba(242, 242, 242, 1);
     position: fixed;
     bottom: 0;
 }

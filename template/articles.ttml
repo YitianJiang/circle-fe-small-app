@@ -29,17 +29,19 @@
       <text class="publish-time">{{article.createTime}}</text>
       <view class="comment-like-wrapper" style="width: {{articles[articleIndex].interactContainerWidth}}; transition: width {{transitionTime}};">
         <view class="horizontally-centered-wrapper">
-          <view tt:if="{{article.isCurrentUserLike}}" class="like-image-wrapper" >
+          <view tt:if="{{article.isCurrentUserLike}}" class="like-image-wrapper" bindtap="onTapDislike"  data-article-index="{{articleIndex}}">
           <!-- <view tt:if="{{[1,2,3,4].indexOf(34) != -1}}" class="like-image-wrapper" > -->
-            <image class="image-like" src="/pictures/like.png" bindtap="onTapDislike"  data-article-index="{{articleIndex}}" binderror="binderror" bindload="bindload" lazy-load />
-            <text class="cancel-text">取消</text>
+              <image class="image-like" src="/pictures/like.png"  />
+              <text class="cancel-text">取消</text>
           </view>
-          <view tt:else class="like-image-wrapper" >
-            <image class="image-like" src="/pictures/like.png" bindtap="onTapLike" data-article-index="{{articleIndex}}" data-article-id="{{article.id}}" binderror="binderror" bindload="bindload" lazy-load />
+          <view tt:else class="like-image-wrapper" bindtap="onTapLike" data-article-index="{{articleIndex}}" data-article-id="{{article.id}}"  >
+            <image class="image-like" src="/pictures/like.png" />
             <text class="like-text">赞</text>
           </view>
-          <image class="image-comment" src="/pictures/comment.png" catchtap="onTapComment" data-article-index="{{articleIndex}}" data-article-id="{{article.id}}" data-comment-type="CommentOfArticle" binderror="binderror" bindload="bindload" lazy-load/>
-          <text class="comment-text">评论</text>
+          <view style="display: inline-block;" catchtap="onTapCommentTextOrImage" data-article-index="{{articleIndex}}" data-article-id="{{article.id}}" data-comment-type="CommentOfArticle">
+            <image class="image-comment" src="/pictures/comment.png"  />
+            <text class="comment-text">评论</text>
+          </view>
         </view>
       </view>
       <image class="image-unfold" src="/pictures/CommentLike.png" bindtap="onTapUnfold" data-article-index="{{articleIndex}}" binderror="binderror" bindload="bindload" lazy-load />
@@ -52,42 +54,42 @@
       <image tt:for="{{article.likeDetails}}" tt:for-item="likeDetail" tt:for-index="likeDetailIndex" class="image-like-avatar" src="{{likeDetail.user.avatarUrl}}" binderror="binderror" bindload="bindload" lazy-load />
     </view>
     <!-- 评论展示 -->
-    <view tt:if="{{article.commentDetails.length > 0}}" class="comment-region">
-      <view class="comments-wrapper">
-        <view class="comment" tt:for="{{article.commentDetails}}" tt:for-item="commentDetailItem" tt:for-index="commentDetailIndex" >
-          <image class="image-from-user-avatar" src="{{commentDetailItem.fromUser.avatarUrl}}" binderror="binderror" bindload="bindload" lazy-load />      
-          <view class="comment-main">
-            <view class="comment-from-user-name-time">
-              <text class="comment-from-user-name">{{commentDetailItem.fromUser.name}}</text>
-              <text class="comment-time">{{commentDetailItem.createTime}}</text>
-            </view>
-            <view tt:if="{{commentDetailItem.toUser != null}}" class="comment-to-user-name-wrapper">
-              <text>回复</text>
-              <text class="comment-to-user-name">{{commentDetailItem.toUser.name}}</text>
-              <text class="colon">:</text>
-            </view>
-            <view catchtap="onTapCommentContent" data-from-user="{{commentDetailItem.fromUser}}"  data-comment-id="{{commentDetailItem.id}}" data-comment-index="{{commentDetailIndex}}" data-article-index="{{articleIndex}}" data-article-id="{{article.id}}">
-              <view tt:for="{{commentDetailItem.content}}" tt:for-item="commentFragment" tt:for-index="commentFragmentIndex" style="display: inline;">
-                <image tt:if="{{commentFragment.type == 'emoji'}}" style="width: 0.7rem; height: 0.7rem; vertical-align: -0.125rem" src="{{commentFragment.content}}"></image>
-                <text tt:else>{{commentFragment.content}}</text>
-              </view>
-            </view> 
+    <view tt:if="{{article.commentDetails.length > 0}}" class="comments-wrapper">
+      <view id="comment-{{articleIndex}}-{{commentDetailIndex}}" class="comment" tt:for="{{article.commentDetails}}" tt:for-item="commentDetailItem" tt:for-index="commentDetailIndex" >
+        <image class="image-from-user-avatar" src="{{commentDetailItem.fromUser.avatarUrl}}" binderror="binderror" bindload="bindload" lazy-load />      
+        <view class="comment-main">
+          <view class="comment-from-user-name-time">
+            <text class="comment-from-user-name">{{commentDetailItem.fromUser.name}}</text>
+            <text class="comment-time">{{commentDetailItem.createTime}}</text>
           </view>
+          <view tt:if="{{commentDetailItem.toUser != null}}" class="comment-to-user-name-wrapper">
+            <text>回复</text>
+            <text class="comment-to-user-name">{{commentDetailItem.toUser.name}}</text>
+            <text class="colon">:</text>
+          </view>
+          <view catchtap="onTapCommentContent" data-from-user="{{commentDetailItem.fromUser}}"  data-comment-id="{{commentDetailItem.id}}" data-comment-index="{{commentDetailIndex}}" data-article-index="{{articleIndex}}" data-article-id="{{article.id}}">
+            <view tt:for="{{commentDetailItem.content}}" tt:for-item="commentFragment" tt:for-index="commentFragmentIndex" style="display: inline;">
+              <image tt:if="{{commentFragment.type == 'emoji'}}" style="width: 0.7rem; height: 0.7rem; vertical-align: -0.125rem" src="{{commentFragment.content}}"></image>
+              <text tt:else>{{commentFragment.content}}</text>
+            </view>
+          </view> 
         </view>
       </view>
     </view>
   </view>
   <!-- 评论输入 -->
-  <view tt:if="{{showCommentInput}}" class="comment-input" >
-    <view class="comment-input-main" style="bottom: {{commentInputMainBottom}}rem;" id="comment-input-main">
-      <textarea style="height: {{textareaHeight}}rpx;" bindinput="onInputComment" focus="{{showInput}}" value="{{commentValue}}"/>
-      <image class="image-emoji-logo" src="/pictures/emoji.png" catchtap="onTapEmojiLogo"  binderror="binderror" bindload="bindload"  lazy-load />
-      <view class="send-button" bindtap="onTapCommentSendButton"> 
-        <text class="fa">发</text>
-        <text>送</text>
+  <!-- <view tt:if="{{showCommentInput}}" class="comment-input" > -->
+  <form hidden="{{!showCommentInput}}" class="comment-input" >
+    <view class="comment-input-main" style="bottom: {{commentInputMainBottom}}px;" id="comment-input-main">
+      <textarea hold-keyboard={{true}} bindblur="onBlur" adjust-position={{false}} bindfocus="onFocusTextarea" style="height: {{textareaHeight}}rpx;" bindinput="onInputComment" focus="{{focusTextarea}}" value="{{commentValue}}" />
+      <image tt-if="{{inputType === 'input-text'}}" class="image-emoji-logo" src="/pictures/emoji.png" catchtap="onTapEmojiLogo" />
+      <image tt-else class="image-emoji-logo" src="/pictures/keyboard.png" catchtap="onTapKeyboardLogo" />
+      <view class="send-button"  style="{{sendCommentButtonStyle}}" catchtap="onTapCommentSendButton"> 
+        <text>发送</text>
       </view>
     </view>
-    <scroll-view tt:if="{{showEmojiList}}" class="emojis-container" id="scroll-view" scroll-y="true" scroll-with-animation="true" catchtap="onTapContainer">
+    <view class="transition-mask" style="height: {{inputRealHeight}}px;" hidden="{{hiddenTransitionMask}}"></view>
+    <scroll-view hidden="{{!showEmojiList}}" style="height: {{inputRealHeight}}px;" class="emojis-container" id="scroll-view" scroll-y=true scroll-with-animation=true catchtap="onTapContainer">
       <!-- <view class="recent-use-text">
         最近使用
       </view>
@@ -96,16 +98,14 @@
           <image class="image-emoji-item" src="{{emojiItem}}" binderror="binderror" bindload="bindload" bindtap="onTapEmojiItem" lazy-load />
         </view>
       </view> -->
-      <view class="all-emojis-text">
-        所有表情
-      </view>
+      <text class="all-emojis-text">所有表情</text>
       <view class="emojis-wrapper">
         <view class="emoji-item" tt:for="{{emojiList}}" tt:for-index="emojiIndex" tt:for-item="emojiItem">
-          <image class="image-emoji-item" src="{{emojiItem}}" binderror="binderror" bindload="bindload" bindtap="onTapEmojiItem" data-emoji-index="{{emojiIndex}}" lazy-load />
+          <image class="image-emoji-item" src="{{emojiItem}}" bindtap="onTapEmojiItem" data-emoji-index="{{emojiIndex}}" />
         </view>
       </view>
     </scroll-view>
-  </view>
+  </form>
   <!-- 点击评论内容后显示 -->
   <view tt:if="{{showCommentContentTool}}" id="comment-content-tool">
     <view tt:if="{{isPublishByCurrentUser}}" class="commentContentTool" style="top:{{2 * commentContentToolTop - 32 * 2.75 * 2 - 32 * 2}}rpx; left:{{2 * commentContentToolLeft - 8}}rpx">

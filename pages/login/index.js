@@ -1,3 +1,5 @@
+import { solvelong } from '../../common/solvelong.js'
+
 var app = getApp()
 var login_url = app.data.base_url + "/user/login"
 var GREY_STYLE = "background-color: #d6d6d6;"
@@ -30,11 +32,13 @@ Page({
         tt.request({
             url: login_url,
             method: 'POST',
+            dataType: 'text',
             data: requestBody,
             header: {
                 'content-type': 'application/json'
             },
             success: (res) => {
+                res.data = solvelong.getRealJsonData(res.data)
                 if (res.data.code === 200) {
                     console.log("login succeed", res.data)
                     tt.setStorageSync("token", res.data.data.tokenDetail.token);
