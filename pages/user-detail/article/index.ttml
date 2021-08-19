@@ -1,7 +1,6 @@
 <import src="/template/articles.ttml" />
 
-<!-- <view class="container" bindtap="onTapContainer" bindtouchmove="onTapContainer"> -->
-<view tt-if="{{$state.isLogined === true}}" class="container" bindtap="onTapContainer">
+<view tt-if="{{$state.isLogined === true}}" class="container">
     <template is="articles" data="{{...pageData}}"></template>
 </view>
 <button tt-else class="button-login" bindtap="onTapLogin">

@@ -201,21 +201,12 @@ Page({
         return result
     },
     createArticle() {
-        let requestBody = null
-        if (this.data.sendType === SEND_PICTURES) {
-            requestBody = {
-                text: this.data.text,
-                imageUrls: this.data.imageUrls,
-                createTime: new Date()
-            }
+        let requestBody = {
+            text: this.data.text,
+            createTime: new Date()
         }
-        if (this.data.sendType === SEND_VIDEO) {
-            requestBody = {
-                text: this.data.text,
-                videoUrl: this.data.videoUrl,
-                createTime: new Date()
-            }
-        }
+        if (this.data.sendType === SEND_PICTURES) Object.assign(requestBody, { imageUrls: this.data.imageUrls })
+        if (this.data.sendType === SEND_VIDEO) Object.assign(requestBody, { videoUrl: this.data.videoUrl })
         console.log("create article request body", requestBody)
         let that = this
         tt.request({
@@ -246,12 +237,15 @@ Page({
                         index: 0,
                         sendType: NONE
                     })
-                }
-                if (that.data.sendType === SEND_VIDEO) {
+                } else if (that.data.sendType === SEND_VIDEO) {
                     that.setData({
                         text: '',
                         videoUrl: "",
                         sendType: NONE
+                    })
+                } else if (that.data.sendType === NONE) {
+                    that.setData({
+                        text: '',
                     })
                 }
             },
@@ -292,9 +286,17 @@ Page({
                     icon: "fail",
                 })
             })
-        }
-        if (this.data.sendType === SEND_VIDEO) {
+        } else if (this.data.sendType === SEND_VIDEO) {
             if (this.data.text === '' && this.data.videoUrl === "") {
+                tt.showToast({
+                    title: '发布内容不能为空！',
+                    icon: "none",
+                })
+                return
+            }
+            this.createArticle()
+        } else if (this.data.sendType === NONE) {
+            if (this.data.text === '') {
                 tt.showToast({
                     title: '发布内容不能为空！',
                     icon: "none",

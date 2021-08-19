@@ -87,7 +87,6 @@
 .time-interact-tool {
     height: 100rpx;
     margin-left: 112rpx;
-    margin-right: 1rem;
     position: relative;
     font-size: 24rpx;
 }
@@ -114,7 +113,7 @@
     font-size: 0; */
     overflow: hidden;
     position: absolute;
-    right: 50rpx;
+    right: 85rpx;
     top: 50%;
     transform: translate(0, -50%);
     border-radius: 8rpx;
@@ -165,13 +164,22 @@
     height: 100%;
 }
 
+.unfold-image-wrapper {
+    width: 85rpx;
+    height: 100rpx;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
 .image-unfold {
     width: 36rpx;
     height: 36rpx;
     background-color: #f8f8f8;
     /* background-color: black; */
     position: absolute;
-    right: 0;
+    left: 15rpx;
     top: 50%;
     transform: translate(0, -50%);
 }

@@ -579,6 +579,13 @@ export var articlesCommonMethod = {
             [`pageData.commentContentToolTop`]: event.changedTouches[0].clientY
         })
     },
+    onTouchStartContainer() {
+        if (this.data.pageData.showCommentContentTool === true) {
+            this.setData({
+                [`pageData.showCommentContentTool`]: false,
+            })
+        }
+    },
     onTapReply: function(event) {
         this.data.pageData.commentType = event.currentTarget.dataset.commentType
         this.setData({
@@ -640,11 +647,6 @@ export var articlesCommonMethod = {
             })
         })
         console.log(this.data.pageData.showCommentInput)
-        if (this.data.pageData.showCommentContentTool === true) {
-            this.setData({
-                [`pageData.showCommentContentTool`]: false,
-            })
-        }
     },
     onReachBottom() {
         console.log("reach bottom")
