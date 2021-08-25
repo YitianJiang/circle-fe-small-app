@@ -51,13 +51,9 @@ App.Page({
                 }
                 console.log("login succeed", res.data)
                 tt.setStorageSync("token", res.data.data.tokenDetail.token);
-                let { isLogined, currentUser } = app.store.getState()
-                isLogined = true
-                currentUser = res.data.data.userDetail
-                console.log("wwwwwwwwwwwwwwww", isLogined, currentUser)
                 app.store.setState({
-                    isLogined: isLogined,
-                    currentUser: currentUser
+                    isLogined: true,
+                    currentUser: res.data.data.userDetail
                 }, () => {
                     console.log("global setState callback")
                     if (this.data.tabPages.some(e => e === this.data.pageIndex)) {

@@ -34,7 +34,9 @@ Page({
         editButtonBackgroundColor: "rgb(0, 153, 255)",
         selectedCommentIndices: [],
         selectedCommentIds: [],
-        deleteTextColor: "#cccccc"
+        deleteTextColor: "#cccccc",
+        isDeletePart: false,
+        isDeleteAll: false
     },
     onLoad() {
         console.log("comments load")
@@ -157,8 +159,53 @@ Page({
             isEditing: !this.data.isEditing
         })
     },
-    ontapDeleteSelected(event) {
-        console.log("ontapDeleteSelected", event, this.data.selectedCommentIds)
+    onTapChoose(event) {
+        console.log("onTapChoose", event)
+        if (this.data.comments[event.currentTarget.dataset.commentIndex].showHook === false) {
+            this.data.selectedCommentIndices.push(event.currentTarget.dataset.commentIndex)
+            this.data.selectedCommentIds.push(event.currentTarget.dataset.commentId)
+            this.setData({
+                [`comments[${event.currentTarget.dataset.commentIndex}].selectButtonBackgroundColor`]: "rgb(0, 153, 255)",
+            })
+        } else {
+            this.data.selectedCommentIndices.remove(event.currentTarget.dataset.commentIndex)
+            this.data.selectedCommentIds.remove(event.currentTarget.dataset.commentId)
+            this.setData({
+                [`comments[${event.currentTarget.dataset.commentIndex}].selectButtonBackgroundColor`]: "#cccccc"
+            })
+        }
+        this.setData({
+            [`comments[${event.currentTarget.dataset.commentIndex}].showHook`]: !this.data.comments[event.currentTarget.dataset.commentIndex].showHook,
+            selectedCommentIndices: this.data.selectedCommentIndices
+        })
+        if (this.data.selectedCommentIndices.length === 0) {
+            this.setData({
+                deleteTextColor: "#cccccc"
+            })
+        } else {
+            this.setData({
+                deleteTextColor: "rgb(0, 153, 255)"
+            })
+        }
+    },
+    onTapDeletePart(event) {
+        console.log("ontapDeletePart", event, this.data.selectedCommentIds, this.data.selectedCommentIndices)
+        if (this.data.selectedCommentIndices.length === 0) return
+        this.setData({
+            isDeletePart: true
+        })
+    },
+    onCancelDeletePart() {
+        this.setData({
+            isDeletePart: false
+        })
+    },
+    onConfirmDeletePart() {
+        console.log("onConfirmDeletePart")
+        this.setData({
+            isDeletePart: false
+        })
+        return
         tt.request({
             url: delete_comments_url,
             method: 'DELETE',
@@ -190,7 +237,35 @@ Page({
         })
     },
     onTapDeleteAll() {
-        console.log("onTapDeleteAll", event)
+        console.log("onTapDeleteAll")
+        this.data.comments.forEach((comment) => {
+            comment.showHook = true
+            comment.selectButtonBackgroundColor = "rgb(0, 153, 255)"
+        })
+        this.setData({
+            comments: this.data.comments,
+            isDeleteAll: true
+        })
+    },
+    onCancelDeleteAll() {
+        this.data.comments.forEach((comment) => {
+            comment.showHook = false
+            comment.selectButtonBackgroundColor = "#cccccc"
+        })
+        this.data.selectedCommentIds = []
+        this.setData({
+            comments: this.data.comments,
+            selectedCommentIndices: [],
+            isDeleteAll: false
+        })
+    },
+    onConfirmDeleteAll() {
+        console.log("onConfirmDeleteAll")
+            //删除可能需要一段时间 这里直接取消confirm-delete组件显示, 不写在complete里面
+        this.setData({
+            isDeleteAll: false
+        })
+        return
         tt.request({
             url: delete_all_comments_url,
             method: 'DELETE',
@@ -217,35 +292,6 @@ Page({
                 })
             }
         })
-    },
-    onTapChoose(event) {
-        console.log("onTapChoose", event)
-        if (this.data.comments[event.currentTarget.dataset.commentIndex].showHook === false) {
-            this.data.selectedCommentIndices.push(event.currentTarget.dataset.commentIndex)
-            this.data.selectedCommentIds.push(event.currentTarget.dataset.commentId)
-            this.setData({
-                [`comments[${event.currentTarget.dataset.commentIndex}].selectButtonBackgroundColor`]: "rgb(0, 153, 255)",
-            })
-        } else {
-            this.data.selectedCommentIndices.remove(event.currentTarget.dataset.commentIndex)
-            this.data.selectedCommentIds.remove(event.currentTarget.dataset.commentId)
-            this.setData({
-                [`comments[${event.currentTarget.dataset.commentIndex}].selectButtonBackgroundColor`]: "#cccccc"
-            })
-        }
-        this.setData({
-            [`comments[${event.currentTarget.dataset.commentIndex}].showHook`]: !this.data.comments[event.currentTarget.dataset.commentIndex].showHook,
-            selectedCommentIndices: this.data.selectedCommentIndices
-        })
-        if (this.data.selectedCommentIndices.length === 0) {
-            this.setData({
-                deleteTextColor: "#cccccc"
-            })
-        } else {
-            this.setData({
-                deleteTextColor: "rgb(0, 153, 255)"
-            })
-        }
     },
     onTapLogin: function(e) {
         tt.navigateTo({

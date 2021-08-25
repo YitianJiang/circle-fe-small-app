@@ -46,12 +46,14 @@
         <view class="clear-left" bindtap="onTapDeleteAll">
             <text>一键清空</text>
         </view>
-        <view class="clear-right" bindtap="ontapDeleteSelected">
+        <view class="clear-right" bindtap="onTapDeletePart">
             <text style="color:{{deleteTextColor}};">删除 </text>
             <text tt-if="{{selectedCommentIndices.length != 0}}" class="selected-comments-number">({{selectedCommentIndices.length}})</text>
         </view>
         <view class="seperate-line"></view>
     </view>
+    <confirm-delete hidden="{{!isDeletePart}}" bindcanceldelete="onCancelDeletePart" bindtapdelete="onConfirmDeletePart" upperText="删除" middleText="确定要删除所选的{{selectedCommentIndices.length}}条内容吗?"></confirm-delete>
+    <confirm-delete hidden="{{!isDeleteAll}}" bindcanceldelete="onCancelDeleteAll" bindtapdelete="onConfirmDeleteAll" upperText="一键清空" middleText="确定要删除所有内容吗?"></confirm-delete>
 </view>
 <button tt-else class="button-login" bindtap="onTapLogin">
     登录
