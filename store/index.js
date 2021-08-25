@@ -1,4 +1,4 @@
-import Store from '../common/store.js'
+import Store from "wxministore"
 export default new Store({
     state: {
         isLogined: false,

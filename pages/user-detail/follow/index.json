@@ -4,6 +4,7 @@
     ],
     "navigationBarTitleText": "我的关注",
     "usingComponents": {
-        "load-more": "/components/load-more/index"
+        "load-more": "/components/load-more/index",
+        "image-button": "/components/image-button/index"
     }
 }

@@ -1,32 +1,57 @@
 <view tt-if="{{$state.isLogined === true}}" class="my-comments">
     <view tt:for="{{comments}}" tt:for-index="index" tt:for-item="item" class="comment">
-        <view class="user-info">
+        <view tt-if={{isEditing}} class="choose-wrapper" bindtap="onTapChoose" data-comment-index="{{index}}" data-comment-id="{{item.id}}">
+            <view class="choose-inner-wrapper">
+                <view class="choose" style="background-color:{{item.selectButtonBackgroundColor}}">
+                    <image tt-if={{item.showHook}} class="image-choose" src="/pictures/select.png"></image>
+                </view>
+            </view>
+        </view>
+        <view class="comment-right" style="width: {{commentRightWidth}};margin-left: {{commentLeftWidth}};">
             <view class="user-info-wrapper">
-                <image class="user-avatar" src="{{$state.currentUser.avatarUrl}}" binderror="binderror" bindload="bindload" lazy-load />
-                <view class="name-time-container">
-                    <text class="user-name">{{$state.currentUser.name}}</text>
-                    <text class="create-time">{{item.createTime}}</text>
+                <view class="user-info">
+                    <image class="user-avatar" src="{{$state.currentUser.avatarUrl}}" binderror="binderror" bindload="bindload" lazy-load />
+                    <view class="name-time-container">
+                        <text class="user-name">{{$state.currentUser.name}}</text>
+                        <text class="create-time">{{item.createTime}}</text>
+                    </view>
                 </view>
             </view>
-        </view>
-        <view class="comment-content-wrapper">
-            <text class="comment-content">{{item.content}}</text>
-        </view>
-        <view class="article-abstract-outer">
-            <view class="article-abstract-inner">
-                <image tt-if="{{item.articleAbstract.logoUrl!= null}}" class="logo" src="item.articleAbstract.logoUrl"></image>
-                <image tt-else class="logo" src="/pictures/article-logo-default.png"></image>
-                <view class="publisher-content-wrapper">
-                    <text class="publisher">{{item.articleAbstract.userName}}</text>
-                    <text class="content">{{item.articleAbstract.text}}</text>
+            <view class="comment-content-wrapper">
+                <view tt:for="{{item.content}}" tt:for-item="commentFragment" tt:for-index="commentFragmentIndex" style="display: inline; line-height: 90%;">
+                    <image tt:if="{{commentFragment.type == 'emoji'}}" style="width: 0.7rem; height: 0.7rem; vertical-align: -0.125rem" src="{{commentFragment.content}}"></image>
+                    <text tt:else>{{commentFragment.content}}</text>
                 </view>
             </view>
-        </view>
-        <view class="line-wrapper">
-            <view class="line"></view>
+            <view class="article-abstract-outer">
+                <view class="article-abstract-inner">
+                    <image tt-if="{{item.articleAbstract.logoUrl!= null}}" class="logo" src="item.articleAbstract.logoUrl"></image>
+                    <image tt-else class="logo" src="/pictures/article-logo-default.png"></image>
+                    <view class="publisher-content-wrapper">
+                        <text class="publisher">{{item.articleAbstract.userName}}</text>
+                        <text class="content">{{item.articleAbstract.text}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="line-wrapper">
+                <view class="line"></view>
+            </view>
         </view>
     </view>
     <load-more id="loadMoreView" bindloadMoreListener='loadMoreListener' bindclickLoadMore='clickLoadMore'></load-more>
+    <view class="edit" style="background-color:{{editButtonBackgroundColor}}" bindtap="onTapEdit">
+        <image class="image-edit" src="/pictures/edit.png"></image>
+    </view>
+    <view tt-if="{{isEditing}}" class="clear">
+        <view class="clear-left" bindtap="onTapDeleteAll">
+            <text>一键清空</text>
+        </view>
+        <view class="clear-right" bindtap="ontapDeleteSelected">
+            <text style="color:{{deleteTextColor}};">删除 </text>
+            <text tt-if="{{selectedCommentIndices.length != 0}}" class="selected-comments-number">({{selectedCommentIndices.length}})</text>
+        </view>
+        <view class="seperate-line"></view>
+    </view>
 </view>
 <button tt-else class="button-login" bindtap="onTapLogin">
     登录

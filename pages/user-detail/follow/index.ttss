@@ -18,7 +18,7 @@ page {
 .bottom-line {
     height: 1%;
     width: 80%;
-    background-color: #cccccc;
+    background-color: rgba( 180, 180, 180, 0.3);
     float: right;
 }
 
@@ -45,7 +45,8 @@ page {
 }
 
 .middle-right-wrapper {
-    width: 77.5%;
+    width: 74%;
+    margin-right: 3.5%;
     height: 100%;
     display: inline-block;
 }
@@ -94,46 +95,8 @@ page {
 
 .follow-status-button,
 .unfollow-status-button {
-    height: 66rpx;
-    line-height: 66rpx;
-    font-size: 0;
-    text-align: center;
-    border-radius: 40rpx;
-    border: #cccccc 1px solid;
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.unfollow-status-button {
-    width: 140rpx;
-    background-color: #0099ff;
-}
-
-.follow-status-button {
-    width: 164rpx;
-    border: #999999 solid 1rpx
-}
-
-.follow-status-image,
-.unfollow-status-image {
-    width: 24rpx;
-    height: 24rpx;
-    margin-right: 8rpx;
-    vertical-align: middle;
-}
-
-.follow-status-text,
-.unfollow-status-text {
-    font-size: 24rpx;
-    vertical-align: middle;
-}
-
-.unfollow-status-text {
-    color: white;
-}
-
-.follow-status-text {
-    color: #999999;
+    right: 0;
+    transform: translate(0, -50%);
 }

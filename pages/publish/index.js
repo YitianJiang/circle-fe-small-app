@@ -99,7 +99,12 @@ Page({
                     [`sendType`]: SEND_PICTURES
                 })
             },
+            fail: (err) => {
+                console.log("fail to cboose image", err)
+            },
             complete() {
+                console.log("choose image", this)
+                    //输出undefined 使用lamda能够获取到this
                 that.setData({
                     [`hideMask`]: true
                 })
@@ -107,7 +112,7 @@ Page({
         })
     },
     chooseVideo(event) {
-        console.log("choose video", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+        console.log("choose video", event)
         this.setData({
             [`showSendTypeList`]: false
         })
@@ -138,7 +143,7 @@ Page({
                 }
             },
             fail: (err) => {
-                console.log("err rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", err)
+                console.log("fail to choose video", err)
             },
             complete() {
                 that.setData({

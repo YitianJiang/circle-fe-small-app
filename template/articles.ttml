@@ -1,5 +1,5 @@
 <template name="articles">
-  <view bindtap="onTapContainer" bindtouchstart="onTouchStartContainer">
+  <view bindtap="onTapContainer"  bindtouchmove="onTouchMoveContainer" bindtouchstart="onTouchStartContainer">
     <view tt:for="{{articles}}" tt:for-item="article" tt:for-index="articleIndex" class="article">
       <!--用户信息-->
       <view class="user-info">

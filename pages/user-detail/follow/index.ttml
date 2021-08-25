@@ -13,14 +13,12 @@
                     </view>
                 </view>
                 <view class="item-right">
-                    <view tt-if="{{item.hasFollow}}" class="follow-status-button" bindtap="ontapHasFollowedButton" data-follow-id="{{item.id}}" data-index="{{index}}">
-                        <image class="follow-status-image" src="/pictures/HasFollow.png"></image>
-                        <text class="follow-status-text">已关注</text>
-                    </view>
-                    <view tt-else class="unfollow-status-button" bindtap="ontapFollowButton" data-user-id="{{item.toUser.id}}" data-index="{{index}}">
-                        <image class="unfollow-status-image" src="/pictures/follow.png"></image>
-                        <text class="unfollow-status-text">关注</text>
-                    </view>
+                    <image-button tt-if="{{item.hasFollow}}" class="follow-status-button" 
+                    imageUrl="/pictures/HasFollow.png" text="已关注" height=60 bindtap="ontapHasFollowedButton" 
+                    data-follow-id="{{item.id}}" data-index="{{index}}"></image-button>
+                    <image-button tt-else class="unfollow-status-button"
+                    imageUrl="/pictures/follow.png" text="关注" height=60 backgroundColor="#0099ff" textColor="white" bindtap="ontapFollowButton" 
+                    data-user-id="{{item.toUser.id}}" data-index="{{index}}"></image-button>
                 </view>
             </view>
         </view>

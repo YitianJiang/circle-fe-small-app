@@ -1,5 +1,4 @@
 Component({
-    // 组件的属性列表
     properties: {
         // 加载中的显示文本
         loadingText: {
@@ -17,10 +16,6 @@ Component({
             value: '已经到底了'
         }
     },
-
-    /**
-     * 组件的初始数据
-     */
     data: {
         showThis: false,
         text: '',
@@ -28,10 +23,6 @@ Component({
         isLoading: false,
         hasData: true
     },
-
-    /**
-     * 组件的方法列表
-     */
     methods: {
         loadMore: function() {
             //如果没有数据了，直接返回，不再发送网络请求

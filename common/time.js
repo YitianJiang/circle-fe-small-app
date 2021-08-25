@@ -1,8 +1,6 @@
 export function timeTransform(createTime) {
     let nowTime = new Date()
     let publishTime = new Date(createTime)
-    let nowTimestamp = Date.parse(nowTime)
-    let publishTimestamp = Date.parse(publishTime)
 
     if (nowTime.toLocaleDateString() === publishTime.toLocaleDateString()) {
         let localTimeString = publishTime.toLocaleTimeString()

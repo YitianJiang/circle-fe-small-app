@@ -86,6 +86,7 @@ Page({
         })
     },
     ontapHasFollowedButton: function(e) {
+        console.log("ontapHasFollowedButton", e)
         tt.request({
             url: delete_follow_url + e.currentTarget.dataset.followId,
             method: 'DELETE',

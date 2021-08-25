@@ -86,6 +86,7 @@ Page({
         })
     },
     ontapHasFollowedButton: function(e) {
+        console.log("ontapHasFollowedButton", e)
         tt.request({
             url: delete_follow_url + e.currentTarget.dataset.followId,
             method: 'DELETE',
@@ -93,13 +94,25 @@ Page({
                 Authorization: "Bearer " + tt.getStorageSync('token')
             },
             success: (res) => {
+                if (res.data.code != 200) {
+                    tt.showToast({
+                        title: '取消关注失败',
+                        icon: "none"
+                    })
+                    return
+                }
                 console.log("delete follow succeed", res.data)
                 this.data.followDetails[e.currentTarget.dataset.index].hasFollow = false;
                 this.setData({
                     followDetails: this.data.followDetails
                 })
             },
-            fail(res) {}
+            fail(res) {
+                tt.showToast({
+                    title: '网络崩溃，取消关注失败',
+                    icon: "none"
+                })
+            }
         })
     },
     ontapFollowButton: function(e) {

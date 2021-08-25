@@ -208,10 +208,14 @@ export let emojiMap = {
     '[黑脸]': '/emoji/78.png',
 }
 
+//比如对: 一篇文章[黑脸]一篇文章[骷髅]一篇文章[熊吉]一篇文章
 export function parseEmoji(article) {
     let reg = /\[[^\x00-\xff]+\]/g;
+    //这里返回的ret对象包含index(匹配到的项的第一个字符的索引) ret[0]为匹配到的内容
     let ret = reg.exec(article);
+    //匹配到的项
     let list_parse_emoji = []
+        //每调用一次reg.exex只能获取到一个匹配项 再一次调用才能获取到下一个匹配项
     while (ret != null) {
         let emoji_name = ret[0]
         if (emojiMap.hasOwnProperty(emoji_name)) {
@@ -219,7 +223,9 @@ export function parseEmoji(article) {
         }
         ret = reg.exec(article);
     }
+    //返回值
     let list_ret = [];
+    //如果一个都没匹配到,直接加一个type返回
     if (list_parse_emoji.length == 0) {
         list_ret.push({
             'type': 'text',
@@ -227,98 +233,44 @@ export function parseEmoji(article) {
         })
         return list_ret;
     } else {
+        //匹配到项前面的普通文本的第一个字符的索引 如"一篇文章[xx]" lastIndex指的是"一"的索引
         let last_index = 0;
+        //对匹配到的每一项
         for (let i = 0; i < list_parse_emoji.length; i++) {
+            //以空间换时间
             let ret = list_parse_emoji[i];
-            let index = ret.index;
-            let str1 = article.substring(last_index, index)
+            let str1 = article.substring(last_index, ret.index)
+                //如果匹配项前面的字符串为空则该空字符串不加进返回值, 只把匹配项加进返回值 
+                //如"[xx]一篇文章[vv]",[xx]前面的字符串为空,空字符串不加进返回值，当然，也可以加进返回值，渲染一个空字符串相当于没渲染
             if (str1 == '') {
                 list_ret.push({
                     'type': 'emoji',
                     'content': emojiMap[ret[0]]
                 })
             } else {
+                //先添加匹配项前面的字符串
                 list_ret.push({
-                    'type': 'text',
-                    'content': str1
-                })
+                        'type': 'text',
+                        'content': str1
+                    })
+                    //再添加匹配项
                 list_ret.push({
                     'type': 'emoji',
                     'content': emojiMap[ret[0]]
                 })
             }
-            let len = ret[0].length;
-            last_index = index + len;
+            last_index = ret.index + ret[0].length;
         }
         let str2 = article.substring(last_index)
+            //如果最后一个匹配项后面的字符串为空 则直接返回，空字符串不加进去
         if (str2.length == 0) {
             return list_ret
         } else {
+            //否则把最后一个匹配项后面的字符串加进去再返回
             list_ret.push({
                 'type': 'text',
                 'content': str2
             })
-            return list_ret
-        }
-    }
-}
-export function parseCommentEmoji(article) {
-    let reg = /\[[^\x00-\xff]+\]/g;
-    let ret = reg.exec(article);
-    let list_parse_emoji = []
-    while (ret != null) {
-        let emoji_name = ret[0]
-        if (emojiMap.hasOwnProperty(emoji_name)) {
-            list_parse_emoji.push(ret)
-        }
-        ret = reg.exec(article);
-    }
-
-    let list_ret = [];
-    if (list_parse_emoji.length == 0) {
-        for (let item of article) {
-            list_ret.push({
-                'type': 'text',
-                'content': item
-            })
-        }
-        return list_ret;
-    } else {
-        let last_index = 0;
-        for (let i = 0; i < list_parse_emoji.length; i++) {
-            let ret = list_parse_emoji[i];
-            let index = ret.index;
-            let str1 = article.substring(last_index, index)
-            if (str1 == '') {
-                list_ret.push({
-                    'type': 'emoji',
-                    'content': emojiMap[ret[0]]
-                })
-            } else {
-                for (let item of str1) {
-                    list_ret.push({
-                        'type': 'text',
-                        'content': item
-                    })
-                }
-                list_ret.push({
-                    'type': 'emoji',
-                    'content': emojiMap[ret[0]]
-                })
-            }
-            let len = ret[0].length;
-            last_index = index + len;
-        }
-        let str2 = article.substring(last_index)
-        if (str2.length == 0) {
-            return list_ret
-        } else {
-            for (let item of str2) {
-                list_ret.push({
-                    'type': 'text',
-                    'content': item
-                })
-            }
             return list_ret
         }
     }

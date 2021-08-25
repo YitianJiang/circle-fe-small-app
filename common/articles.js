@@ -16,7 +16,7 @@ const font_size = 32
 const textarea_one_line_height = font_size
 const textarea_two_line_height = textarea_one_line_height + font_size
 const textarea_three_line_height = textarea_two_line_height + 1.5 * font_size
-const zero_dot_five_second = "0.5s"
+const zero_dot_five_second = "0.35s"
 const zero_second = "0s"
 const page_size = 5
 const input_text = "input-text"
@@ -229,31 +229,41 @@ export var articlesCommonMethod = {
         //如果当前文章的交互工具已经收回去，则展开
         if (this.data.pageData.articles[articleIndex].interactContainerWidth === initial_interact_container_width) {
             this.setData({
-                    [`pageData.articles[${articleIndex}].interactContainerWidth`]: unfold_interact_container_width
-                })
+                [`pageData.articles[${articleIndex}].interactContainerWidth`]: unfold_interact_container_width,
+                [`pageData.transitionTime`]: zero_dot_five_second
+            }, () => {
                 //如果其他文章的交互工具正在显示，则将其收回去
-            if (this.data.pageData.interactToolIndex != articleIndex && this.data.pageData.interactToolIndex != -1) {
-                this.setData({
-                    [`pageData.articles[${this.data.pageData.interactToolIndex}].interactContainerWidth`]: initial_interact_container_width
-                })
-            }
-            //展开后把正在显示的交互工具的索引置为当前文章索引
-            this.data.pageData.interactToolIndex = articleIndex
+                if (this.data.pageData.interactToolIndex != articleIndex && this.data.pageData.interactToolIndex != -1) {
+                    this.setData({
+                        [`pageData.articles[${this.data.pageData.interactToolIndex}].interactContainerWidth`]: initial_interact_container_width,
+                        [`pageData.transitionTime`]: zero_second
+                    })
+                }
+                //展开后把正在显示的交互工具的索引置为当前文章索引
+                this.data.pageData.interactToolIndex = articleIndex
+            })
             return
         }
         //如果当前文章的交互工具已经展开，则收回去
         if (this.data.pageData.articles[articleIndex].interactContainerWidth === unfold_interact_container_width) {
             this.setData({
-                    [`pageData.articles[${articleIndex}].interactContainerWidth`]: initial_interact_container_width
+                    [`pageData.articles[${articleIndex}].interactContainerWidth`]: initial_interact_container_width,
+                    [`pageData.transitionTime`]: zero_dot_five_second
                 })
                 //把正在显示的交互工具的索引置空
             this.data.pageData.interactToolIndex = -1
         }
     },
+    onTouchMoveContainer() {
+        if (this.data.pageData.interactToolIndex != -1) {
+            this.setData({
+                [`pageData.articles[${this.data.pageData.interactToolIndex}].interactContainerWidth`]: initial_interact_container_width,
+                [`pageData.transitionTime`]: zero_second
+            })
+            this.data.pageData.interactToolIndex = -1
+        }
+    },
     onTapUnfold(event) {
-        this.setData({
-            [`pageData.transitionTime`]: zero_dot_five_second
-        })
         this.shrinkAndUnfold(event.currentTarget.dataset.articleIndex)
     },
     onTapLike: function(event) {
@@ -356,7 +366,7 @@ export var articlesCommonMethod = {
         this.data.pageData.currentArticleIndex = event.currentTarget.dataset.articleIndex
         this.data.pageData.commentType = event.currentTarget.dataset.commentType
             //显示评论组件、设置评论默认值、textarea获取焦点
-        console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww", this.data.pageData)
+        console.log("onTapCommentTextOrImage pageData", this.data.pageData)
         this.setData({
                 [`pageData.showCommentInput`]: true,
                 [`pageData.commentValue`]: this.data.pageData.commentValue,

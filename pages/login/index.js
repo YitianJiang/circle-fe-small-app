@@ -5,17 +5,18 @@ var login_url = app.data.base_url + "/user/login"
 var GREY_STYLE = "background-color: #d6d6d6;"
 var GREEN_STYLE = "background: linear-gradient(to right,#33d671,#33d889,#34daad);"
 
-Page({
+App.Page({
     data: {
         name: "",
         password: "",
         buttonStyle: GREY_STYLE,
         pageIndex: "",
         tabPages: ["/pages/publish/index", "/pages/mine/index"],
-        otherPages: ["/pages/user-detail/follow/index", "/pages/user-detail/fans/index",
-            "/pages/user-detail/like/index", "/pages/user-detail/bookmark/index", "/pages/user-detail/comment/index",
-            "/pages/user-detail/article/index"
-        ]
+        otherPages: ["/pages/user-detail/follow/index", "/pages/user-detail/fans/index", "/pages/user-detail/like/index",
+            "/pages/user-detail/bookmark/index", "/pages/user-detail/comment/index", "/pages/user-detail/article/index"
+        ],
+        showLoading: false,
+        isLoginComplete: true
     },
     onLoad: function(options) {
         console.log("options", options)
@@ -24,6 +25,11 @@ Page({
     },
     formSubmit: function(event) {
         console.log("event", event)
+        if (this.isLoginComplete === false) return
+        this.isLoginComplete = false
+        this.setData({
+            showLoading: true
+        })
         let requestBody = {
             name: this.data.name,
             password: this.data.password
@@ -34,35 +40,51 @@ Page({
             method: 'POST',
             dataType: 'text',
             data: requestBody,
-            header: {
-                'content-type': 'application/json'
-            },
             success: (res) => {
                 res.data = solvelong.getRealJsonData(res.data)
-                if (res.data.code === 200) {
-                    console.log("login succeed", res.data)
-                    tt.setStorageSync("token", res.data.data.tokenDetail.token);
-                    app.store.setState({
-                        isLogined: true,
-                        currentUser: res.data.data.userDetail
-                    }, () => {
-                        if (this.data.tabPages.some(e => e === this.data.pageIndex)) {
-                            tt.switchTab({
-                                url: this.data.pageIndex
-                            })
-                        } else {
-                            tt.navigateBack({
-                                url: this.data.pageIndex
-                            })
-                        }
-                    })
-                } else {
+                if (res.data.code != 200) {
                     tt.showToast({
                         title: '用户名或密码错误',
                         icon: 'fail'
                     });
+                    return
                 }
+                console.log("login succeed", res.data)
+                tt.setStorageSync("token", res.data.data.tokenDetail.token);
+                let { isLogined, currentUser } = app.store.getState()
+                isLogined = true
+                currentUser = res.data.data.userDetail
+                console.log("wwwwwwwwwwwwwwww", isLogined, currentUser)
+                app.store.setState({
+                    isLogined: isLogined,
+                    currentUser: currentUser
+                }, () => {
+                    console.log("global setState callback")
+                    if (this.data.tabPages.some(e => e === this.data.pageIndex)) {
+                        console.log("switchTab")
+                        tt.switchTab({
+                            url: this.data.pageIndex
+                        })
+                    } else {
+                        console.log("navigate to not tab page")
+                        tt.navigateBack({
+                            url: this.data.pageIndex
+                        })
+                    }
+                })
             },
+            fail: () => {
+                tt.showToast({
+                    title: '网络奔溃，操作失败',
+                    icon: 'none'
+                })
+            },
+            complete: () => {
+                this.isLoginComplete = true
+                this.setData({
+                    showLoading: false
+                })
+            }
         })
     },
     checkInput: function() {

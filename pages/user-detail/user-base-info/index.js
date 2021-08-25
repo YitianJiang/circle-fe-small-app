@@ -100,7 +100,7 @@ Page({
         console.log("event", event)
     },
     onTapAvatarRow: function() {
-        console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
+        console.log("onTapAvatarRow")
         let that = this
         tt.chooseImage({
             sourceType: ['album'],
@@ -158,7 +158,7 @@ Page({
                 })
             },
             fail: (err) => {
-                console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", err)
+                console.log("fail to update avatar", err)
             }
         })
     }

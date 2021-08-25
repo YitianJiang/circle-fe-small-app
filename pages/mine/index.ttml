@@ -1,31 +1,31 @@
 <view tt-if="{{$state.isLogined === true}}" class="header" bindtap="onTapUserInfo">
-  <view class="user-avatar">
-    <image class="image-user-avatar" src="{{$state.currentUser.avatarUrl}}" binderror="binderror" bindload="bindload" lazy-load />
-  </view>
-  <text >{{$state.currentUser.name}}</text>
-  <view class="header-greater-than">
-    <image class="image-greater-than" src="/pictures/greater-than.png" binderror="binderror" bindload="bindload" lazy-load />
-  </view>
+    <view class="user-avatar">
+        <image class="image-user-avatar" src="{{$state.currentUser.avatarUrl}}" binderror="binderror" bindload="bindload" lazy-load />
+    </view>
+    <text >{{$state.currentUser.name}}</text>
+    <view class="header-greater-than">
+        <image class="image-greater-than" src="/pictures/greater-than.png" binderror="binderror" bindload="bindload" lazy-load />
+    </view>
 </view>
 <view tt-else class="header" bindtap="onTapLogin">
-  <view class="user-avatar">
-    <image class="image-user-avatar" src="/pictures/default-avatar.png" binderror="binderror" bindload="bindload" lazy-load />
-  </view>
-  <text>立即登录</text>
-  <view class="header-greater-than">
-    <image class="image-greater-than" src="/pictures/greater-than.png" binderror="binderror" bindload="bindload" lazy-load />
-  </view>
+    <view class="user-avatar">
+        <image class="image-user-avatar" src="/pictures/default-avatar.png" binderror="binderror" bindload="bindload" lazy-load />
+    </view>
+    <text>立即登录</text>
+    <view class="header-greater-than">
+        <image class="image-greater-than" src="/pictures/greater-than.png" binderror="binderror" bindload="bindload" lazy-load />
+    </view>
 </view>
 <view tt:for="{{logoTextMap}}" tt:for-index="index" tt:for-item="item" class="row">
-  <view class="row-logo">
-    <image class="image-row-logo" src="{{item}}" binderror="binderror" bindload="bindload" lazy-load />
-  </view>
-  <view class="row-middle">
-    <text bindtap="onTapRow" data-index="{{index}}">{{index}}</text>
-  </view>
-  <view class="row-right">
-    <view class="greater-than">
-      <image class="image-greater-than" src="/pictures/greater-than.png" binderror="binderror" bindload="bindload" lazy-load />
+    <view class="row-logo">
+        <image class="image-row-logo" src="{{item}}" binderror="binderror" bindload="bindload" lazy-load />
     </view>
-  </view>
+    <view class="row-middle">
+        <text bindtap="onTapRow" data-index="{{index}}">{{index}}</text>
+    </view>
+    <view class="row-right">
+        <view class="greater-than">
+        <image class="image-greater-than" src="/pictures/greater-than.png" binderror="binderror" bindload="bindload" lazy-load />
+        </view>
+    </view>
 </view>       

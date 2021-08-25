@@ -12,6 +12,7 @@
         "pages/user-detail/bookmark/index",
         "pages/user-detail/comment/index",
         "pages/user-detail/article/index",
+        "pages/user-detail/setting/index",
         "pages/user-detail/user-base-info/index"
     ],
     "window": {

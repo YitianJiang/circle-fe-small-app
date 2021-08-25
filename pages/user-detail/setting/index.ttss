@@ -1,0 +1,10 @@
+.button-exit {
+    width: 85%;
+    height: 86rpx;
+    background-color: #f5f5f5;
+    font-size: 32rpx;
+    border-radius: 43rpx;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+}

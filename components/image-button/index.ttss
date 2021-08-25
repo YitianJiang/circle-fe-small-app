@@ -1,0 +1,32 @@
+.wrapper {
+    display: inline-block;
+}
+
+.left,
+.middle,
+.right {
+    display: inline-block;
+    border: 1px solid;
+}
+
+.left {
+    border-right: 0;
+}
+
+.right {
+    border-left: 0;
+}
+
+.middle {
+    border-left: 0;
+    border-right: 0;
+}
+
+image,
+text {
+    vertical-align: middle;
+}
+
+.middle {
+    vertical-align: top;
+}

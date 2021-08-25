@@ -1,7 +1,6 @@
 Component({
     // 组件的属性列表
     attached() {
-        console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         this.data.screenWidth = tt.getSystemInfoSync().windowWidth
 
     },

@@ -1,0 +1,8 @@
+<view  class="wrapper" style="color:{{textColor}}; border-color:{{borderColor}};">
+    <view class="left" style="height: {{height}}rpx; width: {{height/2}}rpx; border-radius: {{height/2}}rpx 0 0 {{height/2}}rpx; background-color:{{backgroundColor}};"></view>
+    <view class="middle" style="height:{{height}}rpx; line-height:{{height}}rpx; font-size:0; background-color:{{backgroundColor}}">
+        <image src="{{imageUrl}}" style="width: {{0.4*height}}rpx; height: {{0.4*height}}rpx; margin-right: {{0.06*height}}rpx;"></image>
+        <text style="font-size: {{0.4*height}}rpx; letter-spacing: {{0.06*height}}rpx;">{{text}}</text>
+    </view>
+    <view class="right" style="height: {{height}}rpx; width:{{height/2}}rpx; border-radius: 0 {{height/2}}rpx {{height/2}}rpx 0; background-color:{{backgroundColor}};"></view>
+</view>

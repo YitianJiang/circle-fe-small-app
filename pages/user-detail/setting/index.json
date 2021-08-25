@@ -1,0 +1,6 @@
+{
+    "pages": [
+        "pages/user-detail/setting/index"
+    ],
+    "navigationBarTitleText": "设置"
+}
