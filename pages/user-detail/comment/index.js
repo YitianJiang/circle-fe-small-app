@@ -1,11 +1,11 @@
-import { solvelong } from '../../../common/solvelong.js'
-import { timeTransform } from '../../../common/time.js'
-import { parseEmoji } from '../../../common/emoji.js'
+import { solvelong } from '../../../common/solvelong'
+import { timeTransform } from '../../../common/time'
+import { parseEmoji } from '../../../common/emoji'
+import { base_url } from '../../../config'
 
-var app = getApp()
-var get_comment_url = app.data.base_url + "/comment/get"
-var delete_comments_url = app.data.base_url + "/comment/delete/batch"
-var delete_all_comments_url = app.data.base_url + "/comment/delete/all"
+var get_comment_url = base_url + "/comment/getByUserId"
+var delete_comments_url = base_url + "/comment/delete/batch"
+var delete_all_comments_url = base_url + "/comment/delete/all"
 var page_size = 10
 
 Array.prototype.indexOf = function(val) {
@@ -25,7 +25,6 @@ Page({
     useStore: true,
     data: {
         comments: [],
-        isLogined: app.isLogined,
         loadMoreView: null,
         pageNum: 1,
         isEditing: false,
