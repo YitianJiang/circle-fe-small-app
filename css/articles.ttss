@@ -66,7 +66,7 @@
     height: 480rpx;
 }
 
-.image-article-content-23456789 {
+.image-article-content {
     width: 155rpx;
     height: 155rpx;
 }

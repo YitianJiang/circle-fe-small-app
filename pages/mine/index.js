@@ -1,7 +1,3 @@
-var app = getApp()
-var get_current_user_info_url = app.data.base_url + "/user/info"
-var login_url = app.data.base_url + "/user/login"
-
 Page({
     useStore: true,
     data: {
@@ -14,25 +10,27 @@ Page({
             "我的点赞": "/pictures/mine-like.png",
             "设置": "/pictures/setting.png"
                 // "浏览历史": "../pictures/browser-history.png"
-        }
+        },
+        currentRowIndex: ""
     },
-    onTapLogin: function(event) {
-        tt.navigateTo({
-            url: '/pages/login/index?pageIndex=' + "/pages/mine/index"
-        })
-    },
-    onNavigate: function(event) {
-        if (this.data.$state.isLogined === false) {
+    onTouchRowEnd() {
+        console.log("onTouchRowEnd")
+        if (this.data.$state.isLogined === false && this.data.currentRowIndex != "立即登录") {
             tt.showToast({
                 title: '请先登录',
                 icon: 'none'
             })
             return
         }
-        switch (event.currentTarget.dataset.index) {
+        switch (this.data.currentRowIndex) {
             case "用户基本信息":
                 tt.navigateTo({
                     url: '/pages/user-detail/user-base-info/index'
+                })
+                break
+            case "立即登录":
+                tt.navigateTo({
+                    url: '/pages/login/index?pageIndex=' + "/pages/mine/index"
                 })
                 break
             case "我的关注":
@@ -71,5 +69,8 @@ Page({
                 })
                 break
         }
+    },
+    onTouchRow: function(event) {
+        this.data.currentRowIndex = event.currentTarget.dataset.index
     }
 })

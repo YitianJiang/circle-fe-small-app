@@ -1,82 +1,15 @@
-.header {
-    height: 200rpx;
-    line-height: 200rpx;
-    font-size: 1.25rem;
-    margin-bottom: 50rpx;
-}
-
-.user-avatar {
-    display: inline-block;
-    height: 100%;
+.user-avatar,
+.default-avatar {
     width: 200rpx;
-    line-height: 200rpx;
-    font-size: 0;
-    text-align: center;
-    vertical-align: middle;
+    height: 200rpx;
+    margin-left: 35rpx;
+    margin-right: 35rpx;
+    border-radius: 50%;
 }
 
-.image-user-avatar {
-    width: 150rpx;
-    height: 150rpx;
-    border-radius: 75rpx;
-    vertical-align: middle;
-}
-
-.greater-than,
-.header-greater-than {
-    height: 100%;
-    width: 100rpx;
-    float: right;
-    line-height: 100rpx;
-    font-size: 0;
-    text-align: center;
-}
-
-.header-greater-than {
-    line-height: 200rpx;
-}
-
-.row {
-    height: 100rpx;
-    /* background-color: cadetblue; */
-    /* border: 1px solid red; */
-}
-
-.row-logo,
-.row-right,
-.row-middle {
-    display: inline-block;
-    height: 100%;
-    line-height: 100rpx;
-    font-size: 0;
-    vertical-align: top;
-    /* background-color: yellow; */
-    /* border: 1px solid black; */
-}
-
-.row-logo {
-    width: 15%;
-    text-align: center;
-}
-
-.row-middle {
-    font-size: 0.8rem;
-    width: 20%;
-}
-
-.row-right {
-    width: 65%;
-}
-
-.image-row-logo {
-    /* background-color: blue; */
-    width: 1.2rem;
-    height: 1.2rem;
-    vertical-align: middle;
-}
-
-.image-greater-than {
-    width: 24rpx;
-    height: 24rpx;
-    vertical-align: middle;
+.item-image {
+    width: 45rpx;
+    height: 45rpx;
+    margin-left: 35rpx;
+    margin-right: 35rpx;
 }

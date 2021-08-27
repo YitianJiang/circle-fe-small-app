@@ -16,7 +16,7 @@
         </view>
         <view tt:elif="{{ article.images.length <= 9 }}" class="article-content-image">
           <view tt:for="{{article.images}}" tt:for-index="imageIndex" tt:for-item="image" class="image-item">
-            <image class="image-article-content-23456789" src="{{image.imageUrl}}" 
+            <image class="image-article-content" src="{{image.imageUrl}}" 
               bindtap="previewImage" data-images="{{article.images}}" data-index="{{imageIndex}}"
               binderror="binderror" bindload="bindload" lazy-load />
           </view>
