@@ -3,9 +3,6 @@
     <view tt:for="{{comments}}" tt:for-index="index" tt:for-item="item" class="comment">
         <view tt-if={{isEditing}} class="choose-wrapper" bindtap="onTapChoose" data-comment-index="{{index}}" data-comment-id="{{item.id}}">
             <view class="choose-inner-wrapper">
-                <!-- <view class="choose" style="background-color:{{item.selectButtonBackgroundColor}}">
-                    <image tt-if={{item.showHook}} class="image-choose" src="/pictures/select.png"></image>
-                </view> -->
                 <hook-button class="choose" width=40 height=40 backgroundColor="{{item.selectButtonBackgroundColor}}" showHook={{item.showHook}}></hook-button>
             </view>
         </view>

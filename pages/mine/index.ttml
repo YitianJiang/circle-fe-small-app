@@ -16,8 +16,8 @@
         <image class="image-greater-than" src="/pictures/greater-than.png" binderror="binderror" bindload="bindload" lazy-load />
     </view>
 </view>
-<view tt:for="{{logoTextMap}}" tt:for-index="index" tt:for-item="item" class="row" bindtap="onNavigate" data-index="{{index}}">
-    <view class="row-logo">
+<!-- <view tt:for="{{logoTextMap}}" tt:for-index="index" tt:for-item="item" class="row" > -->
+    <!-- <view class="row-logo">
         <image class="image-row-logo" src="{{item}}" binderror="binderror" bindload="bindload" lazy-load />
     </view>
     <view class="row-middle">
@@ -27,5 +27,7 @@
         <view class="greater-than">
         <image class="image-greater-than" src="/pictures/greater-than.png" binderror="binderror" bindload="bindload" lazy-load />
         </view>
-    </view>
-</view>       
+    </view> -->
+<mine-page-row tt:for="{{logoTextMap}}" tt:for-index="index" tt:for-item="item" style="font-size: 0.8rem;" text="{{index}}" bindtap="onNavigate" data-index="{{index}}">
+    <image src="{{item}}" style="width: 45rpx; height: 45rpx; margin-left:35rpx; margin-right: 35rpx;"></image>
+</mine-page-row>

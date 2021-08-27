@@ -1,0 +1,5 @@
+<view class="row" style="background-color:{{backgroundColor}}" bindtouchstart="onTouchStartRow" bindtouchend="onTouchEndRow">
+    <slot></slot>
+    <text class="row-middle-text">{{text}}</text>
+    <image class="row-right-image" src="/pictures/greater-than.png"/>
+</view>
