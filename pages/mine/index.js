@@ -16,37 +16,25 @@ Page({
                 // "浏览历史": "../pictures/browser-history.png"
         }
     },
-    // onShow: function(){
-    //   let that = this
-    //   tt.request({
-    //     url: get_current_user_info_url,
-    //     method: 'GET',
-    // header: {
-    //   "Authorization" : "Bearer " + tt.getStorageSync('token')
-    // },
-    //     success: (res) => {
-    //       console.log("55555555555",this === that,res)
-    //       if(res.data.code === 200){
-    //         this.setData({
-    //           [`isLogined`]: true,
-    //           [`currentUser`]: res.data.data
-    //         })
-    //       }
-    //     },    
-    //   })
-    // },
     onTapLogin: function(event) {
         tt.navigateTo({
             url: '/pages/login/index?pageIndex=' + "/pages/mine/index"
         })
     },
-    onTapUserInfo: function(event) {
-        tt.navigateTo({
-            url: '/pages/user-detail/user-base-info/index'
-        })
-    },
-    onTapRow: function(event) {
+    onNavigate: function(event) {
+        if (this.data.$state.isLogined === false) {
+            tt.showToast({
+                title: '请先登录',
+                icon: 'none'
+            })
+            return
+        }
         switch (event.currentTarget.dataset.index) {
+            case "用户基本信息":
+                tt.navigateTo({
+                    url: '/pages/user-detail/user-base-info/index'
+                })
+                break
             case "我的关注":
                 tt.navigateTo({
                     url: '/pages/user-detail/follow/index'

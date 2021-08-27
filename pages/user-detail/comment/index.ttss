@@ -33,9 +33,9 @@
 }
 
 .choose {
-    width: 40rpx;
+    /* width: 40rpx;
     height: 40rpx;
-    border-radius: 50%;
+    border-radius: 50%; */
     position: absolute;
     top: 50%;
     left: 50%;

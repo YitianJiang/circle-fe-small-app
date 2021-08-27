@@ -1,7 +1,3 @@
-<!-- <view class="avatar-wrapper">
-  <image class="user-avatar" src="{{$state.currentUser.avatarUrl}}"></image>
-  <text class="click-to-change-avatar">点击更换头像</text>
-</view> -->
 <view class=rows-wrapper>
     <text class="tittle">个人信息</text>
     <view class="row" bindtap="onTapAvatarRow">

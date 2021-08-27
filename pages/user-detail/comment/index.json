@@ -5,6 +5,8 @@
     "navigationBarTitleText": "我的评论",
     "usingComponents": {
         "load-more": "/components/load-more/index",
-        "confirm-delete": "/components/confirm-delete/index"
+        "confirm-delete": "/components/confirm-delete/index",
+        "hook-button": "/components/hook-button/index",
+        "no-content": "/components/no-content/index"
     }
 }

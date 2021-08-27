@@ -1,7 +1,7 @@
 Component({
     data: {},
     attached() {
-        console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww", this)
+        console.log("component confirm-delete attached", this)
     },
     properties: {
         upperText: {

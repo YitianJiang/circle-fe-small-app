@@ -64,6 +64,10 @@ Page({
                     })
                     return
                 }
+                this.setData({
+                    comments: []
+                })
+                return
                 res.data.data.forEach((comment) => {
                     comment.showHook = false
                     comment.selectButtonBackgroundColor = "#cccccc"

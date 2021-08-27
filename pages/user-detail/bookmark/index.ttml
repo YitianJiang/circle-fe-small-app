@@ -1,8 +1,4 @@
 <import src="/template/articles.ttml" />
-
-<view tt-if="{{$state.isLogined === true}}" class="container">
+<view class="container">
     <template is="articles" data="{{...pageData}}"></template>
 </view>
-<button tt-else class="button-login" bindtap="onTapLogin">
-  登录
-</button>

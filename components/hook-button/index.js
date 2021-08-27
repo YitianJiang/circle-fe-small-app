@@ -1,24 +1,27 @@
 Component({
     data: {},
     attached() {
-        console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww", this)
+        console.log("", this)
     },
     properties: {
-        upperText: {
-            type: String,
-            value: ""
+        width: {
+            type: Number,
+            value: 400
         },
-        middleText: {
+        height: {
+            type: Number,
+            value: 400
+        },
+        showHook: {
+            type: Boolean,
+            value: true
+        },
+        backgroundColor: {
             type: String,
-            value: ""
+            value: "rgb(0, 153, 255)"
         }
     },
     methods: {
-        cancelDelete: function() {
-            this.triggerEvent("canceldelete")
-        },
-        onTapDelete: function() {
-            this.triggerEvent("tapdelete")
-        }
+
     }
 })

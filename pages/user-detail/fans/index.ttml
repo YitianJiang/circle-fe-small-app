@@ -1,4 +1,4 @@
-<view tt-if="{{$state.isLogined === true}}" class="my-follow">
+<view class="my-follow">
     <view class="people-i-follow" tt:for="{{followDetails}}" tt:for-index="index" tt:for-item="item">
         <view class="item">
             <view class="item-left">
@@ -27,7 +27,3 @@
     </view>
     <load-more id="loadMoreView" bindloadMoreListener='loadMoreListener' bindclickLoadMore='clickLoadMore'></load-more>
 </view>
-
-<button tt-else class="button-login" bindtap="onTapLogin">
-    登录
-</button>

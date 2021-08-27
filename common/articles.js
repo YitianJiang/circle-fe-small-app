@@ -74,7 +74,13 @@ export var articlesCommonMethod = {
             },
             success: (res) => {
                 res.data = solvelong.getRealJsonData(res.data)
-                if (res.data.code != 200) return
+                if (res.data.code != 200) {
+                    tt.showToast({
+                        title: '操作失败',
+                        icon: "none"
+                    })
+                    return
+                }
                 console.log("state ", this.data.$state)
                 res.data.data.forEach(article => {
                     article.createTime = time.timeTransform(article.createTime)
@@ -100,7 +106,7 @@ export var articlesCommonMethod = {
             fail: (err) => {
                 console.log("get articles failed", err)
                 tt.showToast({
-                    title: '获取文章失败',
+                    title: '网络奔溃，操作失败',
                     icon: "none"
                 })
             }
@@ -119,7 +125,7 @@ export var articlesCommonMethod = {
                 }
                 break
         }
-        console.log("injected header xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", injectedHeader)
+        console.log("injected header", injectedHeader)
         Object.assign(requestObject, injectedHeader)
         tt.request(requestObject)
     },
@@ -136,6 +142,10 @@ export var articlesCommonMethod = {
                 console.log("user-detail article index this", this)
                 res.data = solvelong.getRealJsonData(res.data)
                 if (res.data.code != 200) {
+                    tt.showToast({
+                        title: '操作失败',
+                        icon: "none"
+                    })
                     this.data.pageData.pageNum -= 1
                     this.data.pageData.loadMoreView.loadMoreFail()
                     return
@@ -157,6 +167,10 @@ export var articlesCommonMethod = {
                 })
             },
             fail: (res) => {
+                tt.showToast({
+                    title: '网络奔溃，操作失败',
+                    icon: "none"
+                })
                 this.data.pageData.pageNum -= 1
                 this.data.pageData.loadMoreView.loadMoreFail()
             }

@@ -1,10 +1,12 @@
-<view tt-if="{{$state.isLogined === true}}" class="my-comments">
+<no-content tt-if="{{comments.length === 0}}" text="暂无数据"></no-content>
+<view tt-else class="my-comments">
     <view tt:for="{{comments}}" tt:for-index="index" tt:for-item="item" class="comment">
         <view tt-if={{isEditing}} class="choose-wrapper" bindtap="onTapChoose" data-comment-index="{{index}}" data-comment-id="{{item.id}}">
             <view class="choose-inner-wrapper">
-                <view class="choose" style="background-color:{{item.selectButtonBackgroundColor}}">
+                <!-- <view class="choose" style="background-color:{{item.selectButtonBackgroundColor}}">
                     <image tt-if={{item.showHook}} class="image-choose" src="/pictures/select.png"></image>
-                </view>
+                </view> -->
+                <hook-button class="choose" width=40 height=40 backgroundColor="{{item.selectButtonBackgroundColor}}" showHook={{item.showHook}}></hook-button>
             </view>
         </view>
         <view class="comment-right" style="width: {{commentRightWidth}};margin-left: {{commentLeftWidth}};">
@@ -55,6 +57,3 @@
     <confirm-delete hidden="{{!isDeletePart}}" bindcanceldelete="onCancelDeletePart" bindtapdelete="onConfirmDeletePart" upperText="删除" middleText="确定要删除所选的{{selectedCommentIndices.length}}条内容吗?"></confirm-delete>
     <confirm-delete hidden="{{!isDeleteAll}}" bindcanceldelete="onCancelDeleteAll" bindtapdelete="onConfirmDeleteAll" upperText="一键清空" middleText="确定要删除所有内容吗?"></confirm-delete>
 </view>
-<button tt-else class="button-login" bindtap="onTapLogin">
-    登录
-</button>

@@ -1,65 +1,59 @@
-.component-wrapper {
-    font-size: 32rpx;
-    letter-spacing: 3rpx;
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+.m-box {
+    position: relative;
+    border-radius: 50%;
 }
 
-.mask-layer {
+.m-duigou {
+    width: 50%;
+    height: 25%;
     position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 1000;
-    background-color: rgba(0, 0, 0, 0.25);
+    left: 50%;
+    top: 50%;
+    margin-top: -17.5%;
+    margin-left: -25%;
+    /* transform: translate(-50%, -50%); */
+    transform: rotate(-45deg);
+    overflow: hidden
 }
 
-.ok-cancel-wrapper {
-    width: 100%;
-    height: 350rpx;
+.m-duigou:before,
+.m-duigou:after {
+    content: "";
+    position: absolute;
     background-color: white;
-    border-top-left-radius: 40rpx;
-    border-top-right-radius: 40rpx;
-    position: absolute;
+}
+
+.m-duigou:before {
+    width: 20%;
+    height: 100%;
+    /* 暂时设置为10rpx */
+    border-radius: 10rpx;
+    left: 0;
+    animation: dgLeft 0.1s linear 0s 1 both
+}
+
+.m-duigou:after {
+    width: 100%;
+    height: 40%;
+    border-radius: 10rpx;
     bottom: 0;
-    z-index: 1001;
-    text-align: center;
+    animation: dgRight 0.1s linear 0.1s 1 both
 }
 
-.upper-text,
-.middle-text {
-    display: block;
-    margin-top: 40rpx;
+@keyframes dgLeft {
+    0% {
+        top: -100%
+    }
+    100% {
+        top: 0%
+    }
 }
 
-.middle-text {
-    font-size: 30rpx;
-}
-
-.button-row {
-    margin-top: 50rpx;
-}
-
-.button-cancel,
-.button-delete {
-    width: 40%;
-    height: 2.5rem;
-    line-height: 2.5rem;
-    display: inline-block;
-    border-radius: 1.25rem;
-    background-color: #f0f0f0;
-    font-size: 32rpx;
-}
-
-.button-cancel {
-    margin-left: 8%;
-    margin-right: 2%;
-}
-
-.button-delete {
-    color: #f22424;
-    margin-left: 2%;
-    margin-right: 8%;
+@keyframes dgRight {
+    0% {
+        left: -100%
+    }
+    100% {
+        left: 0%
+    }
 }

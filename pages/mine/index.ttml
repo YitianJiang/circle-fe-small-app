@@ -1,4 +1,4 @@
-<view tt-if="{{$state.isLogined === true}}" class="header" bindtap="onTapUserInfo">
+<view tt-if="{{$state.isLogined === true}}" class="header" bindtap="onNavigate" data-index="用户基本信息">
     <view class="user-avatar">
         <image class="image-user-avatar" src="{{$state.currentUser.avatarUrl}}" binderror="binderror" bindload="bindload" lazy-load />
     </view>
@@ -16,12 +16,12 @@
         <image class="image-greater-than" src="/pictures/greater-than.png" binderror="binderror" bindload="bindload" lazy-load />
     </view>
 </view>
-<view tt:for="{{logoTextMap}}" tt:for-index="index" tt:for-item="item" class="row">
+<view tt:for="{{logoTextMap}}" tt:for-index="index" tt:for-item="item" class="row" bindtap="onNavigate" data-index="{{index}}">
     <view class="row-logo">
         <image class="image-row-logo" src="{{item}}" binderror="binderror" bindload="bindload" lazy-load />
     </view>
     <view class="row-middle">
-        <text bindtap="onTapRow" data-index="{{index}}">{{index}}</text>
+        <text>{{index}}</text>
     </view>
     <view class="row-right">
         <view class="greater-than">
