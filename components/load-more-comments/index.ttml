@@ -1,0 +1,11 @@
+<view tt-if="{{isLoading}}" class="loading">
+    <image class="loading-image" src="/pictures/loading.png"></image>
+    <text>加载中...</text>
+</view> 
+<view tt-elif="{{isloadingFailed}}" class="loading-failed">
+    <text>加载失败 点击重新加载</text>
+</view>
+<view tt-else class="unfold-more-comments" >
+    <text>展开更多评论</text>
+    <image class="unfold-comment-image" src="/pictures/down.png"></image>
+</view>

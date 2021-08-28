@@ -4,6 +4,7 @@
     ],
     "navigationBarTitleText": "我的点赞",
     "usingComponents": {
-        "load-more": "/components/load-more/index"
+        "load-more": "/components/load-more/index",
+        "load-more-comments": "/components/load-more-comments/index"
     }
 }

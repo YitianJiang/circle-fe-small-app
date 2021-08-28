@@ -1,7 +1,6 @@
 <import src="/template/articles.ttml" />
 
 <view class="container">
-    <view s></view>
     <template is="articles" data="{{...{$state:$state},...pageData}}"></template>
     <refresh isRefreshing={{pageData.isRefreshing}} bindtap="onTapRefresh"></refresh>
 </view>

@@ -3,6 +3,7 @@
     "enablePullDownRefresh": true,
     "usingComponents": {
         "load-more": "/components/load-more/index",
-        "refresh": "/components/refresh/index"
+        "refresh": "/components/refresh/index",
+        "load-more-comments": "/components/load-more-comments/index"
     }
 }

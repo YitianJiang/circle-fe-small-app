@@ -78,6 +78,9 @@
             </view> 
           </view>
         </view>
+        <view class="comment-seperate-line"> </view>
+        <load-more-comments tt-if="{{article.hasMoreComments}}" isLoading="{{article.isLoadingComments}}" isloadingFailed="{{article.isloadingCommentsFailed}}" 
+        bindtap="onTapUnfoldComments" data-article-id="{{article.id}}" data-article-index="{{articleIndex}}"> </load-more-comments>
       </view>
     </view>
     <!-- 评论输入 -->

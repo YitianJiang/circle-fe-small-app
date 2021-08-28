@@ -1,14 +1,17 @@
-import { base_url } from '../config.js'
-import { solvelong } from 'solvelong.js'
-var time = require('time.js')
-var string = require('string.js')
-var position = require('position.js')
-var emoji = require('emoji.js')
+import { base_url } from '../config'
+import { solvelong } from 'solvelong'
+import { myRequest } from '../api/request'
+const time = require('time')
+const string = require('string')
+const position = require('position')
+const emoji = require('emoji')
 
 const create_like_url = base_url + "/like/create"
 const delete_like_url = base_url + "/like/delete"
 const create_comment_url = base_url + "/comment/create"
 const delete_comment_url = base_url + "/comment/delete"
+const get_more_comments_url = base_url + "/comment/getByArticleId"
+const get_more_likes_url = base_url + "/like/get"
 
 const initial_interact_container_width = "0rpx"
 const unfold_interact_container_width = "280rpx"
@@ -18,7 +21,6 @@ const textarea_two_line_height = textarea_one_line_height + font_size
 const textarea_three_line_height = textarea_two_line_height + 1.5 * font_size
 const zero_dot_five_second = "0.35s"
 const zero_second = "0s"
-const page_size = 5
 const input_text = "input-text"
 const input_emoji = "input-emoji"
 
@@ -28,7 +30,12 @@ export var articlesCommonData = {
     emojiList: [],
     emojiListRecentlyUse: [],
     //分页相关
-    pageNum: 1,
+    articlePageNum: 1,
+    articlePageSize: 5,
+    likePageNum: 2,
+    likePageSize: 5,
+    commentPageNum: 2,
+    commentPageSize: 5,
     loadMoreView: null,
     //当前选中的文章或评论的id、index
     currentArticleId: 0,
@@ -69,8 +76,8 @@ export var articlesCommonMethod = {
             method: 'GET',
             dataType: 'text',
             data: {
-                pageNum: this.data.pageData.pageNum,
-                pageSize: 5
+                pageNum: this.data.pageData.articlePageNum,
+                pageSize: this.data.pageData.articlePageSize
             },
             success: (res) => {
                 res.data = solvelong.getRealJsonData(res.data)
@@ -88,9 +95,15 @@ export var articlesCommonMethod = {
                         // article.likeUserIds = article.likeDetails.map(likeDetail => likeDetail.user.id)
                     article.interactContainerWidth = initial_interact_container_width
                     article.commentDetails.forEach(commentDetail => {
-                        commentDetail.content = emoji.parseEmoji(commentDetail.content)
-                        commentDetail.createTime = time.timeTransform(commentDetail.createTime)
-                    })
+                            commentDetail.content = emoji.parseEmoji(commentDetail.content)
+                            commentDetail.createTime = time.timeTransform(commentDetail.createTime)
+                        })
+                        //初始状态 有两种可能 评论数为5条 显示"展开更多评论" 评论数少于5条 直接不渲染评论加载组件 
+                    article.hasMoreComments = article.commentDetails.length < this.data.pageData.commentPageSize ? false : true
+                        //加载中 显示loading 动画和 “加载中...”
+                    article.isLoadingComments = false
+                        //加载失败 显示 “加载失败 点击重新加载”
+                    article.isloadingCommentsFailed = false
                 })
                 console.log(res.data.data, this.data.pageData.emojiList)
                 this.setData({
@@ -135,8 +148,8 @@ export var articlesCommonMethod = {
             method: 'GET',
             dataType: 'text',
             data: {
-                pageNum: this.data.pageData.pageNum,
-                pageSize: page_size
+                pageNum: this.data.pageData.articlePageNum,
+                pageSize: this.data.pageData.articlePageSize
             },
             success: (res) => {
                 console.log("user-detail article index this", this)
@@ -146,20 +159,26 @@ export var articlesCommonMethod = {
                         title: '操作失败',
                         icon: "none"
                     })
-                    this.data.pageData.pageNum -= 1
+                    this.data.pageData.articlePageNum -= 1
                     this.data.pageData.loadMoreView.loadMoreFail()
                     return
                 }
-                this.data.pageData.loadMoreView.loadMoreComplete(res.data.data.length === page_size)
+                this.data.pageData.loadMoreView.loadMoreComplete(res.data.data.length === this.data.pageData.pageSize)
                 console.log("state ", this.data.$state)
                 res.data.data.forEach(article => {
                     article.createTime = time.timeTransform(article.createTime)
                     article.isCurrentUserLike = article.likeDetails.map(likeDetail => likeDetail.user.id).includes(this.data.$state.currentUser.id)
                     article.interactContainerWidth = initial_interact_container_width
                     article.commentDetails.forEach(commentDetail => {
-                        commentDetail.content = emoji.parseEmoji(commentDetail.content)
-                        commentDetail.createTime = time.timeTransform(commentDetail.createTime)
-                    })
+                            commentDetail.content = emoji.parseEmoji(commentDetail.content)
+                            commentDetail.createTime = time.timeTransform(commentDetail.createTime)
+                        })
+                        //初始状态 有两种可能 评论数为5条 显示"展开更多评论" 评论数少于5条 直接不渲染评论加载组件 
+                    article.hasMoreComments = article.commentDetails.length < this.data.pageData.commentPageSize ? false : true
+                        //加载中 显示loading 动画和 “加载中...”
+                    article.isLoadingComments = false
+                        //加载失败 显示 “加载失败 点击重新加载”
+                    article.isloadingCommentsFailed = false
                 })
                 console.log(res.data.data, this.data.pageData.emojiList)
                 this.setData({
@@ -171,7 +190,7 @@ export var articlesCommonMethod = {
                     title: '网络奔溃，操作失败',
                     icon: "none"
                 })
-                this.data.pageData.pageNum -= 1
+                this.data.pageData.articlePageNum -= 1
                 this.data.pageData.loadMoreView.loadMoreFail()
             }
         }
@@ -237,6 +256,45 @@ export var articlesCommonMethod = {
         tt.previewImage({
             current: urls[event.currentTarget.dataset.index],
             urls: urls // 图片地址列表
+        })
+    },
+    onTapUnfoldComments(event) {
+        console.log("onTapUnfoldComments", event)
+        console.log("myRequest", myRequest)
+        this.setData({
+            [`pageData.articles[${event.currentTarget.dataset.articleIndex}.isLoadingComments`]: true
+        })
+        myRequest({
+            url: get_more_comments_url + "/" + event.currentTarget.dataset.articleId,
+            method: 'GET',
+            data: {
+                pageNum: this.data.pageData.commentPageNum,
+                pageSize: this.data.pageData.commentPageSize
+            },
+            successCallback: (res) => {
+                console.log("successCallback", this)
+                this.data.pageData.commentPageNum += 1
+                res.data.data.forEach(commentDetail => {
+                    commentDetail.content = emoji.parseEmoji(commentDetail.content)
+                    commentDetail.createTime = time.timeTransform(commentDetail.createTime)
+                })
+                this.setData({
+                    [`pageData.articles[${event.currentTarget.dataset.articleIndex}.commentDetails]`]: this.data.pageData.articles[event.currentTarget.dataset.articleIndex].commentDetails.concat(res.data.data),
+                    [`pageData.articles[${event.currentTarget.dataset.articleIndex}.hasMoreComments`]: res.data.data.length < this.data.pageData.commentPageSize ? false : true
+                })
+            },
+            fail: () => {
+                this.setData({
+                    [`pageData.articles[${event.currentTarget.dataset.articleIndex}.isloadMoreCommentsFailed`]: true
+                })
+            },
+            complete: () => {
+                // setTimeout(() => {
+                this.setData({
+                        [`pageData.articles[${event.currentTarget.dataset.articleIndex}.isLoadingComments`]: false
+                    })
+                    // }, 4000)
+            }
         })
     },
     shrinkAndUnfold(articleIndex) {
@@ -677,7 +735,7 @@ export var articlesCommonMethod = {
         this.data.pageData.loadMoreView.loadMore()
     },
     loadMoreListener: function(e) {
-        this.data.pageData.pageNum += 1
+        this.data.pageData.articlePageNum += 1
         this.getMoreArticles()
     },
     clickLoadMore: function(e) {
