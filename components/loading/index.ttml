@@ -1,0 +1,5 @@
+<view class="loading-wrapper">
+    <view class="loading">
+        <image class="loading-image" src="/pictures/loading.png"></image>
+    </view>
+</view>

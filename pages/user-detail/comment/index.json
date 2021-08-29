@@ -7,6 +7,8 @@
         "load-more": "/components/load-more/index",
         "confirm-delete": "/components/confirm-delete/index",
         "hook-button": "/components/hook-button/index",
-        "no-content": "/components/no-content/index"
+        "no-content": "/components/no-content/index",
+        "comments-skeleton": "/components/comments-skeleton/index",
+        "first-load-failed": "/components/first-load-failed/index"
     }
 }

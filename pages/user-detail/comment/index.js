@@ -6,7 +6,6 @@ import { base_url } from '../../../config'
 var get_comment_url = base_url + "/comment/getByUserId"
 var delete_comments_url = base_url + "/comment/delete/batch"
 var delete_all_comments_url = base_url + "/comment/delete/all"
-var page_size = 10
 
 Array.prototype.indexOf = function(val) {
     for (var i = 0; i < this.length; i++) {
@@ -27,6 +26,7 @@ Page({
         comments: [],
         loadMoreView: null,
         pageNum: 1,
+        pageSize: 10,
         isEditing: false,
         commentLeftWidth: "5%",
         commentRightWidth: "95%",
@@ -35,11 +35,29 @@ Page({
         selectedCommentIds: [],
         deleteTextColor: "#cccccc",
         isDeletePart: false,
-        isDeleteAll: false
+        isDeleteAll: false,
+        loadingComplete: false,
+        isfirstLoadFailed: false
     },
     onLoad() {
         console.log("comments load")
-        this.getComments()
+        tt.getNetworkType({
+            success: (res) => {
+                console.log("network type", res)
+                if (res.networkType === "none") {
+                    this.setData({
+                        loadingComplete: true,
+                        isfirstLoadFailed: true
+                    })
+                    return
+                }
+                this.getComments()
+            },
+            fail: (res) => {
+                console.log("get network type failed", res)
+                this.getComments()
+            }
+        })
     },
     getComments() {
         tt.request({
@@ -48,7 +66,7 @@ Page({
             dataType: 'text',
             data: {
                 pageNum: this.data.pageNum,
-                pageSize: page_size
+                pageSize: this.data.pageSize
             },
             header: {
                 "content-type": "application/json",
@@ -63,10 +81,6 @@ Page({
                     })
                     return
                 }
-                this.setData({
-                    comments: []
-                })
-                return
                 res.data.data.forEach((comment) => {
                     comment.showHook = false
                     comment.selectButtonBackgroundColor = "#cccccc"
@@ -75,13 +89,24 @@ Page({
                 })
                 this.setData({
                     comments: res.data.data
+                }, () => {
+                    this.selectComponent("#loadMoreView", (res) => {
+                        console.log("selectComponent", res)
+                        this.data.loadMoreView = res
+                    })
                 })
             },
-            fail(res) {
-                tt.showToast({
-                    title: '网络奔溃，操作失败',
-                    icon: 'none'
+            fail: () => {
+                this.setData({
+                    isfirstLoadFailed: true
                 })
+            },
+            complete: () => {
+                // setTimeout(() => {
+                this.setData({
+                        loadingComplete: true
+                    })
+                    // }, 40000)
             }
         })
     },
@@ -92,7 +117,7 @@ Page({
             dataType: 'text',
             data: {
                 pageNum: this.data.pageNum,
-                pageSize: page_size
+                pageSize: this.data.pageSize
             },
             header: {
                 "content-type": "application/json",
@@ -118,7 +143,7 @@ Page({
                 this.setData({
                     comments: this.data.comments.concat(res.data.data)
                 })
-                this.data.loadMoreView.loadMoreComplete(res.data.data.length === page_size)
+                this.data.loadMoreView.loadMoreComplete(res.data.data.length === this.data.pageSize)
             },
             fail: (res) => {
                 tt.showToast({
@@ -128,12 +153,6 @@ Page({
                 this.data.pageNum -= 1
                 this.data.loadMoreView.loadMoreFail()
             }
-        })
-    },
-    onReady: function() {
-        this.selectComponent("#loadMoreView", (res) => {
-            console.log("selectComponent", res)
-            this.data.loadMoreView = res
         })
     },
     onTapEdit() {

@@ -2,5 +2,4 @@
 
 <view class="container">
     <template is="articles" data="{{...{$state:$state},...pageData}}"></template>
-    <refresh isRefreshing={{pageData.isRefreshing}} bindtap="onTapRefresh"></refresh>
 </view>

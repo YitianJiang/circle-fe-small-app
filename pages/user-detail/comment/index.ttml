@@ -1,5 +1,7 @@
-<no-content tt-if="{{comments.length === 0}}" text="暂无数据"></no-content>
-<view tt-else class="my-comments">
+<comments-skeleton tt-if="{{!loadingComplete}}"></comments-skeleton>
+<first-load-failed tt-if="{{loadingComplete && isfirstLoadFailed}}"></first-load-failed>
+<no-content tt-if="{{loadingComplete && !isfirstLoadFailed && comments.length == 0 }}" text="暂无数据"></no-content>
+<view tt-if="{{loadingComplete && !isfirstLoadFailed && comments.length != 0}}" class="my-comments">
     <view tt:for="{{comments}}" tt:for-index="index" tt:for-item="item" class="comment">
         <view tt-if={{isEditing}} class="choose-wrapper" bindtap="onTapChoose" data-comment-index="{{index}}" data-comment-id="{{item.id}}">
             <view class="choose-inner-wrapper">
@@ -38,7 +40,7 @@
         </view>
     </view>
     <load-more id="loadMoreView" bindloadMoreListener='loadMoreListener' bindclickLoadMore='clickLoadMore'></load-more>
-    <view class="edit" style="background-color:{{editButtonBackgroundColor}}" bindtap="onTapEdit">
+    <view tt-if="{{commentsLoadComplete && comments.length != 0}}" class="edit" style="background-color:{{editButtonBackgroundColor}}" bindtap="onTapEdit">
         <image class="image-edit" src="/pictures/edit.png"></image>
     </view>
     <view tt-if="{{isEditing}}" class="clear">

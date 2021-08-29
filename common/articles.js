@@ -32,9 +32,7 @@ export var articlesCommonData = {
     //分页相关
     articlePageNum: 1,
     articlePageSize: 5,
-    likePageNum: 2,
     likePageSize: 5,
-    commentPageNum: 2,
     commentPageSize: 5,
     loadMoreView: null,
     //当前选中的文章或评论的id、index
@@ -67,7 +65,10 @@ export var articlesCommonData = {
     inputType: input_text,
     hiddenTransitionMask: true,
     sendCommentButtonStyle: "",
-    scrollTop: 0
+    scrollTop: 0,
+    //加载相关
+    loadingComplete: false,
+    isfirstLoadFailed: false
 }
 export var articlesCommonMethod = {
     getArticles() {
@@ -104,10 +105,18 @@ export var articlesCommonMethod = {
                     article.isLoadingComments = false
                         //加载失败 显示 “加载失败 点击重新加载”
                     article.isloadingCommentsFailed = false
+                        //已经加载第一页， 点击加载后从第二页开始请求
+                    article.commentPageNum = 2
+                    article.likePageNum = 2
                 })
                 console.log(res.data.data, this.data.pageData.emojiList)
                 this.setData({
                     [`pageData.articles`]: this.data.pageData.articles.concat(res.data.data),
+                }, () => {
+                    this.selectComponent("#loadMoreView", (res) => {
+                        console.log("selectComponent", res)
+                        this.data.pageData.loadMoreView = res
+                    })
                 })
                 if (this.data.pageData.pageType === "articles-home-page") {
                     this.setData({
@@ -116,11 +125,14 @@ export var articlesCommonMethod = {
                 }
                 if (this.getArticlesSuccessCallBack) this.getArticlesSuccessCallBack()
             },
-            fail: (err) => {
-                console.log("get articles failed", err)
-                tt.showToast({
-                    title: '网络奔溃，操作失败',
-                    icon: "none"
+            fail: () => {
+                this.setData({
+                    [`pageData.isfirstLoadFailed`]: true
+                })
+            },
+            complete: () => {
+                this.setData({
+                    [`pageData.loadingComplete`]: true
                 })
             }
         }
@@ -179,6 +191,9 @@ export var articlesCommonMethod = {
                     article.isLoadingComments = false
                         //加载失败 显示 “加载失败 点击重新加载”
                     article.isloadingCommentsFailed = false
+                        //已经加载第一页， 点击加载后从第二页开始请求
+                    article.commentPageNum = 2
+                    article.likePageNum = 2
                 })
                 console.log(res.data.data, this.data.pageData.emojiList)
                 this.setData({
@@ -237,16 +252,26 @@ export var articlesCommonMethod = {
             [`pageData.emojiList`]: list,
             [`pageData.emojiListRecentlyUse`]: list.slice(0, 5)
         })
-        this.getArticles()
+        tt.getNetworkType({
+            success: (res) => {
+                console.log("network type", res)
+                if (res.networkType === "none") {
+                    this.setData({
+                        [`pageData.loadingComplete`]: true,
+                        [`pageData.isfirstLoadFailed`]: true
+                    })
+                    return
+                }
+                this.getArticles()
+            },
+            fail: (res) => {
+                console.log("get network type failed", res)
+                this.getArticles()
+            }
+        })
     },
     onUnload() {
         console.log("unload")
-    },
-    onReady() {
-        this.selectComponent("#loadMoreView", (res) => {
-            console.log("selectComponent", res)
-            this.data.pageData.loadMoreView = res
-        })
     },
     previewImage(event) {
         let urls = []
@@ -268,12 +293,12 @@ export var articlesCommonMethod = {
             url: get_more_comments_url + "/" + event.currentTarget.dataset.articleId,
             method: 'GET',
             data: {
-                pageNum: this.data.pageData.commentPageNum,
+                pageNum: this.data.pageData.articles[event.currentTarget.dataset.articleIndex].commentPageNum,
                 pageSize: this.data.pageData.commentPageSize
             },
             successCallback: (res) => {
                 console.log("successCallback", this)
-                this.data.pageData.commentPageNum += 1
+                this.data.pageData.articles[event.currentTarget.dataset.articleIndex].commentPageNum += 1
                 res.data.data.forEach(commentDetail => {
                     commentDetail.content = emoji.parseEmoji(commentDetail.content)
                     commentDetail.createTime = time.timeTransform(commentDetail.createTime)

@@ -2,5 +2,9 @@
     "pages": [
         "pages/user-detail/setting/index"
     ],
-    "navigationBarTitleText": "设置"
+    "navigationBarTitleText": "设置",
+    "usingComponents": {
+        "comments-skeleton": "/components/comments-skeleton/index",
+        "first-load-failed": "/components/first-load-failed/index"
+    }
 }

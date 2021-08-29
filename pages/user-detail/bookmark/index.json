@@ -5,6 +5,9 @@
     "navigationBarTitleText": "我的收藏",
     "usingComponents": {
         "load-more": "/components/load-more/index",
-        "load-more-comments": "/components/load-more-comments/index"
+        "load-more-comments": "/components/load-more-comments/index",
+        "no-content": "/components/no-content/index",
+        "article-skeleton": "/components/article-skeleton/index",
+        "first-load-failed": "/components/first-load-failed/index"
     }
 }

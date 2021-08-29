@@ -1,0 +1,6 @@
+<view class="no-content">
+    <image class="no-content-image" src="/pictures/no-content.png"></image>
+    <text class="no-content-text">页面加载失败，请联网后再试</text>
+    <view tt-if="{{showReload}}" class="reload-button" style="background-color: {{reloadButtonBackgroundColor}};" 
+    bindtouchstart="onTouchStartReload" bindtouchend="onTouchEndReload" bindtap="onTapReload">重新加载</view>
+</view>

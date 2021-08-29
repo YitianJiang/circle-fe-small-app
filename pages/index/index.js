@@ -1,4 +1,3 @@
-import { base_url } from '../../config'
 import { articlesCommonData, articlesCommonMethod } from '../../common/articles'
 
 if (tt.canIUse('onKeyboardComplete')) {
@@ -49,6 +48,9 @@ var objectInjectToPage = {
     },
     onPullDownRefresh() {
         this.onTapRefresh()
+    },
+    onTouchReload() {
+        this.onLoad()
     }
 }
 Object.assign(objectInjectToPage, articlesCommonMethod)

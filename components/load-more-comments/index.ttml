@@ -1,5 +1,5 @@
 <view tt-if="{{isLoading}}" class="loading">
-    <image class="loading-image" src="/pictures/loading.png"></image>
+    <image class="loading-image" src="/pictures/load-more-comments.png"></image>
     <text>加载中...</text>
 </view> 
 <view tt-elif="{{isloadingFailed}}" class="loading-failed">

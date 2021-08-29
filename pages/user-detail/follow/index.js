@@ -12,10 +12,28 @@ Page({
         followDetails: [],
         isLogined: app.isLogined,
         loadMoreView: null,
-        pageNum: 1
+        pageNum: 1,
+        loadingComplete: false,
+        isfirstLoadFailed: false
     },
     onLoad() {
-        this.getPeopleIFollow()
+        tt.getNetworkType({
+            success: (res) => {
+                console.log("network type", res)
+                if (res.networkType === "none") {
+                    this.setData({
+                        loadingComplete: true,
+                        isfirstLoadFailed: true
+                    })
+                    return
+                }
+                this.getPeopleIFollow()
+            },
+            fail: (res) => {
+                console.log("get network type failed", res)
+                this.getPeopleIFollow()
+            }
+        })
     },
     getPeopleIFollow() {
         tt.request({
@@ -31,6 +49,9 @@ Page({
                 Authorization: "Bearer " + tt.getStorageSync('token')
             },
             success: (res) => {
+                this.setData({
+                    loadingComplete: true
+                })
                 res.data = solvelong.getRealJsonData(res.data)
                 if (res.data.code != 200) return
                 res.data.data.forEach(followDetail => {
@@ -41,7 +62,16 @@ Page({
                     followDetails: res.data.data
                 })
             },
-            fail(res) {}
+            fail: () => {
+                this.setData({
+                    isfirstLoadFailed: true
+                })
+            },
+            complete: () => {
+                this.setData({
+                    loadingComplete: true
+                })
+            }
         })
     },
     getMorePeopleIFollow() {

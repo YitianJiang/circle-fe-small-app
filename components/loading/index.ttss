@@ -1,0 +1,35 @@
+.loading-wrapper {
+    position: fixed;
+    top: 100rpx;
+    width: 100%;
+}
+
+.loading {
+    position: relative;
+    margin: 0 auto;
+    width: 60rpx;
+    height: 60rpx;
+    background-color: rgb(0, 153, 255);
+    border-radius: 50%;
+}
+
+.loading-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* transform: translate(-50%, -50%); */
+    margin-top: -20rpx;
+    margin-left: -20rpx;
+    width: 40rpx;
+    height: 40rpx;
+    animation: loading 1.5s steps(12, end) infinite;
+}
+
+@keyframes loading {
+    0% {
+        transform: rotate3d(0, 0, 1, 0deg);
+    }
+    100% {
+        transform: rotate3d(0, 0, 1, 360deg);
+    }
+}

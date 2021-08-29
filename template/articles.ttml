@@ -1,5 +1,10 @@
 <template name="articles">
-  <view bindtap="onTapContainer"  bindtouchmove="onTouchMoveContainer" bindtouchstart="onTouchStartContainer">
+  <article-skeleton tt-if="{{!loadingComplete}}"></article-skeleton>
+  <first-load-failed tt-if="{{loadingComplete && isfirstLoadFailed && pageType === 'articles-home-page'}}" showReload={{true}} bindtouchreload="onTouchReload"></first-load-failed>
+  <first-load-failed tt-if="{{loadingComplete && isfirstLoadFailed && pageType != 'articles-home-page'}}"></first-load-failed>
+  <no-content tt-if="{{loadingComplete && !isfirstLoadFailed && articles.length == 0 }}" text="暂无数据"></no-content>
+  <view tt-if="{{loadingComplete && !isfirstLoadFailed && articles.length != 0}}" 
+  bindtap="onTapContainer"  bindtouchmove="onTouchMoveContainer" bindtouchstart="onTouchStartContainer">
     <view tt:for="{{articles}}" tt:for-item="article" tt:for-index="articleIndex" class="article">
       <!--用户信息-->
       <view class="user-info">
@@ -123,5 +128,6 @@
       </view>
     </view>
     <load-more id="loadMoreView" bindloadMoreListener='loadMoreListener' bindclickLoadMore='clickLoadMore'></load-more>
+    <refresh tt-if="{{pageType === "articles-home-page"}}" isRefreshing={{pageData.isRefreshing}} bindtap="onTapRefresh"></refresh>
   </view>
 </template>
