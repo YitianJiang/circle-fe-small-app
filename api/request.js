@@ -5,7 +5,6 @@ export function myRequest(obj) {
     let requestObj = {
         dataType: 'text',
         success: (res) => {
-            console.log("qqqqqqqqqqqqqqqqqqqqqqqqqq")
             res.data = solvelong.getRealJsonData(res.data)
             if (res.data.code != 200) {
                 tt.showToast({
@@ -25,7 +24,6 @@ export function myRequest(obj) {
             if (obj.failCallback) obj.failCallback()
         }
     }
-    console.log("wwwwwwwwwwwwwwwwwwww", requestObj)
     requestObj = {...obj, ...requestObj }
     console.log("requestObj", requestObj)
     tt.request(requestObj)

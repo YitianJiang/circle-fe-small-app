@@ -1,4 +1,4 @@
-<view class="user-info">
+<!-- <view class="user-info">
     <view class="user-avatar"></view>
     <view class="user-info-right">
         <view class="user-name"></view>
@@ -16,5 +16,5 @@
             <view class="comment-content"></view>
         </view>
     </view>
-</view>
+</view> -->
 <loading></loading>

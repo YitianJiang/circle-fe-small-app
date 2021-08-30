@@ -1,12 +1,17 @@
 .loading-wrapper {
     position: fixed;
-    top: 100rpx;
-    width: 100%;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .loading {
-    position: relative;
-    margin: 0 auto;
+    position: absolute;
+    top: 100rpx;
+    left: 50%;
+    transform: translate(-50%, 0);
     width: 60rpx;
     height: 60rpx;
     background-color: rgb(0, 153, 255);

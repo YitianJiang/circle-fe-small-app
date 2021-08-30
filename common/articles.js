@@ -25,8 +25,9 @@ const input_text = "input-text"
 const input_emoji = "input-emoji"
 
 export var articlesCommonData = {
-    //基本信息 包括文章列表,emoji列表，最近使用的emoji列表
+    //文章列表
     articles: [],
+    //emoji相关
     emojiList: [],
     emojiListRecentlyUse: [],
     //分页相关
@@ -66,9 +67,9 @@ export var articlesCommonData = {
     hiddenTransitionMask: true,
     sendCommentButtonStyle: "",
     scrollTop: 0,
-    //加载相关
+    //首次加载相关
     loadingComplete: false,
-    isfirstLoadFailed: false
+    isfirstLoadFailed: false,
 }
 export var articlesCommonMethod = {
     getArticles() {
@@ -101,8 +102,10 @@ export var articlesCommonMethod = {
                         })
                         //初始状态 有两种可能 评论数为5条 显示"展开更多评论" 评论数少于5条 直接不渲染评论加载组件 
                     article.hasMoreComments = article.commentDetails.length < this.data.pageData.commentPageSize ? false : true
+                    article.hasMoreLikes = article.likeDetails.length < this.data.pageData.likePageSize ? false : true
                         //加载中 显示loading 动画和 “加载中...”
                     article.isLoadingComments = false
+                    article.isLoadingLikes = false
                         //加载失败 显示 “加载失败 点击重新加载”
                     article.isloadingCommentsFailed = false
                         //已经加载第一页， 点击加载后从第二页开始请求
@@ -187,8 +190,10 @@ export var articlesCommonMethod = {
                         })
                         //初始状态 有两种可能 评论数为5条 显示"展开更多评论" 评论数少于5条 直接不渲染评论加载组件 
                     article.hasMoreComments = article.commentDetails.length < this.data.pageData.commentPageSize ? false : true
+                    article.hasMoreLikes = article.likeDetails.length < this.data.pageData.likePageSize ? false : true
                         //加载中 显示loading 动画和 “加载中...”
                     article.isLoadingComments = false
+                    article.isLoadingLikes = false
                         //加载失败 显示 “加载失败 点击重新加载”
                     article.isloadingCommentsFailed = false
                         //已经加载第一页， 点击加载后从第二页开始请求
@@ -244,13 +249,12 @@ export var articlesCommonMethod = {
                 this.data.pageData.get_articles_url = base_url + "/article/getArticles/bookmarked"
                 break
         }
-        const list = []
         for (let i = 0; i < 78; i++) {
-            list.push(`/emoji/${i+1}.png`)
+            this.data.pageData.emojiList.push(`/emoji/${i+1}.png`)
         }
         this.setData({
-            [`pageData.emojiList`]: list,
-            [`pageData.emojiListRecentlyUse`]: list.slice(0, 5)
+            [`pageData.emojiList`]: this.data.pageData.emojiList,
+            [`pageData.emojiListRecentlyUse`]: this.data.pageData.emojiList.slice(0, 5)
         })
         tt.getNetworkType({
             success: (res) => {
@@ -287,7 +291,7 @@ export var articlesCommonMethod = {
         console.log("onTapUnfoldComments", event)
         console.log("myRequest", myRequest)
         this.setData({
-            [`pageData.articles[${event.currentTarget.dataset.articleIndex}.isLoadingComments`]: true
+            [`pageData.articles[${event.currentTarget.dataset.articleIndex}].isLoadingComments`]: true
         })
         myRequest({
             url: get_more_comments_url + "/" + event.currentTarget.dataset.articleId,
@@ -304,21 +308,57 @@ export var articlesCommonMethod = {
                     commentDetail.createTime = time.timeTransform(commentDetail.createTime)
                 })
                 this.setData({
-                    [`pageData.articles[${event.currentTarget.dataset.articleIndex}.commentDetails]`]: this.data.pageData.articles[event.currentTarget.dataset.articleIndex].commentDetails.concat(res.data.data),
-                    [`pageData.articles[${event.currentTarget.dataset.articleIndex}.hasMoreComments`]: res.data.data.length < this.data.pageData.commentPageSize ? false : true
+                    [`pageData.articles[${event.currentTarget.dataset.articleIndex}].commentDetails]`]: this.data.pageData.articles[event.currentTarget.dataset.articleIndex].commentDetails.concat(res.data.data),
+                    [`pageData.articles[${event.currentTarget.dataset.articleIndex}].hasMoreComments`]: res.data.data.length < this.data.pageData.commentPageSize ? false : true
                 })
             },
             fail: () => {
                 this.setData({
-                    [`pageData.articles[${event.currentTarget.dataset.articleIndex}.isloadMoreCommentsFailed`]: true
+                    [`pageData.articles[${event.currentTarget.dataset.articleIndex}].isloadMoreCommentsFailed`]: true
                 })
             },
             complete: () => {
                 // setTimeout(() => {
                 this.setData({
-                        [`pageData.articles[${event.currentTarget.dataset.articleIndex}.isLoadingComments`]: false
+                        [`pageData.articles[${event.currentTarget.dataset.articleIndex}].isLoadingComments`]: false
                     })
                     // }, 4000)
+            }
+        })
+    },
+    onTapUnfoldLikes(event) {
+        console.log("onTapUnfoldLikes", event)
+        console.log("myRequest", myRequest)
+        this.setData({
+            [`pageData.articles[${event.currentTarget.dataset.articleIndex}].isLoadingLikes`]: true
+        })
+        myRequest({
+            url: get_more_likes_url + "/" + event.currentTarget.dataset.articleId,
+            method: 'GET',
+            data: {
+                pageNum: this.data.pageData.articles[event.currentTarget.dataset.articleIndex].likePageNum,
+                pageSize: this.data.pageData.likePageSize
+            },
+            successCallback: (res) => {
+                console.log("successCallback", this)
+                this.data.pageData.articles[event.currentTarget.dataset.articleIndex].likePageNum += 1
+                this.setData({
+                    [`pageData.articles[${event.currentTarget.dataset.articleIndex}].likeDetails]`]: this.data.pageData.articles[event.currentTarget.dataset.articleIndex].likeDetails.concat(res.data.data),
+                    [`pageData.articles[${event.currentTarget.dataset.articleIndex}].hasMoreLikes`]: res.data.data.length < this.data.pageData.likePageSize ? false : true
+                })
+            },
+            fail: () => {
+                tt.showToast({
+                    title: '加载点赞失败',
+                    icon: "none"
+                })
+            },
+            complete: () => {
+                // setTimeout(() => {
+                this.setData({
+                        [`pageData.articles[${event.currentTarget.dataset.articleIndex}].isLoadingLikes`]: false
+                    })
+                    // }, 40000)
             }
         })
     },
@@ -583,9 +623,16 @@ export var articlesCommonMethod = {
         })
     },
     onTapEmojiItem: function(event) {
-        console.log(event)
+        console.log("onTapEmojiItem", event)
+        if (this.data.pageData.emojiListRecentlyUse.length < 8) {
+            this.data.pageData.emojiListRecentlyUse.unshift(this.data.pageData.emojiList[event.target.dataset.emojiIndex])
+        } else {
+            this.data.pageData.emojiListRecentlyUse.pop()
+            this.data.pageData.emojiListRecentlyUse.unshift(this.data.pageData.emojiList[event.target.dataset.emojiIndex])
+        }
         this.setData({
             [`pageData.commentValue`]: this.data.pageData.commentValue + Object.keys(emoji.emojiMap)[event.target.dataset.emojiIndex],
+            [`pageData.emojiListRecentlyUse`]: this.data.pageData.emojiListRecentlyUse
         })
     },
     onTapCommentSendButton: function(event) {

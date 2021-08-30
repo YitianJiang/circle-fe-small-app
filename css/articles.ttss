@@ -270,7 +270,9 @@
 }
 
 .comment-from-user-name-time {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
+    margin-top: -4rpx;
+    white-space: nowrap;
     /* 神奇，设置为0.1rem,就出现换行，且固定在"这是"两个字后面，改为0.5rem，换行消失 */
     /* margin-bottom: 0.1rem; */
 }
