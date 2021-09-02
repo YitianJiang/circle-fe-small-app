@@ -14,7 +14,8 @@ Page({
         loadMoreView: null,
         pageNum: 1,
         loadingComplete: false,
-        isfirstLoadFailed: false
+        isNetworkFault: false,
+        isServerFault: false
     },
     onLoad() {
         tt.getNetworkType({
@@ -23,7 +24,7 @@ Page({
                 if (res.networkType === "none") {
                     this.setData({
                         loadingComplete: true,
-                        isfirstLoadFailed: true
+                        isNetworkFault: true
                     })
                     return
                 }
@@ -45,15 +46,16 @@ Page({
                 pageSize: page_size
             },
             header: {
-                "content-type": "application/json",
                 Authorization: "Bearer " + tt.getStorageSync('token')
             },
             success: (res) => {
-                this.setData({
-                    loadingComplete: true
-                })
                 res.data = solvelong.getRealJsonData(res.data)
-                if (res.data.code != 200) return
+                if (res.data.code != 200) {
+                    this.setData({
+                        isServerFault: true
+                    })
+                    return
+                }
                 res.data.data.forEach(followDetail => {
                     followDetail.hasFollow = true
                 })
@@ -64,7 +66,7 @@ Page({
             },
             fail: () => {
                 this.setData({
-                    isfirstLoadFailed: true
+                    isNetworkFault: true
                 })
             },
             complete: () => {
@@ -84,7 +86,6 @@ Page({
                 pageSize: page_size
             },
             header: {
-                "content-type": "application/json",
                 Authorization: "Bearer " + tt.getStorageSync('token')
             },
             success: (res) => {

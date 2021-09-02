@@ -1,9 +1,11 @@
 <template name="articles">
   <article-skeleton tt-if="{{!loadingComplete}}"></article-skeleton>
-  <first-load-failed tt-if="{{loadingComplete && isfirstLoadFailed && pageType === 'articles-home-page'}}" showReload={{true}} bindtouchreload="onTouchReload"></first-load-failed>
-  <first-load-failed tt-if="{{loadingComplete && isfirstLoadFailed && pageType != 'articles-home-page'}}"></first-load-failed>
-  <no-content tt-if="{{loadingComplete && !isfirstLoadFailed && articles.length == 0 }}" text="暂无数据"></no-content>
-  <view tt-if="{{loadingComplete && !isfirstLoadFailed && articles.length != 0}}" 
+  <first-load-failed tt-if="{{loadingComplete && isNetworkFault && pageType === 'articles-home-page'}}" isNetworkFault={{true}} showReload={{true}} bindtouchreload="onTouchReload"></first-load-failed>
+  <first-load-failed tt-if="{{loadingComplete && isServerFault && pageType === 'articles-home-page'}}" isServerFault={{true}} showReload={{true}} bindtouchreload="onTouchReload"></first-load-failed>
+  <first-load-failed tt-if="{{loadingComplete && isNetworkFault && pageType != 'articles-home-page'}}" isNetworkFault={{true}}></first-load-failed>
+  <first-load-failed tt-if="{{loadingComplete && isServerFault && pageType != 'articles-home-page'}}" isServerFault={{true}}></first-load-failed>
+  <no-content tt-if="{{loadingComplete && !isNetworkFault && !isServerFault && articles.length == 0 }}" text="暂无数据"></no-content>
+  <view tt-if="{{loadingComplete && !isNetworkFault && !isServerFault && articles.length != 0}}" 
   bindtap="onTapContainer"  bindtouchmove="onTouchMoveContainer" bindtouchstart="onTouchStartContainer">
     <view tt:for="{{articles}}" tt:for-item="article" tt:for-index="articleIndex" class="article">
       <!--用户信息-->
@@ -90,10 +92,11 @@
       </view>
     </view>
     <!-- 评论输入 -->
-    <!-- <view tt:if="{{showCommentInput}}" class="comment-input" > -->
     <form hidden="{{!showCommentInput}}" class="comment-input" >
       <view class="comment-input-main" style="bottom: {{commentInputMainBottom}}px;" id="comment-input-main">
-        <textarea hold-keyboard={{true}} bindblur="onBlur" adjust-position={{false}} bindfocus="onFocusTextarea" style="height: {{textareaHeight}}rpx;" bindinput="onInputComment" focus="{{focusTextarea}}" value="{{commentValue}}" />
+      <!-- 设置hold-keyboard为true 防止点击输入框除emoji logo、发送按钮、textarea外的其他地方导致的焦点失去 -->
+        <textarea style="height: {{textareaHeight}}rpx;" bindblur="onBlur" bindfocus="onFocusTextarea" bindinput="onInputComment"
+        adjust-position={{false}} hold-keyboard={{true}} focus="{{focusTextarea}}" value="{{commentValue}}" cursor="{{cursorPosition}}"/>
         <image tt-if="{{inputType === 'input-text'}}" class="image-emoji-logo" src="/pictures/emoji.png" catchtap="onTapEmojiLogo" />
         <image tt-else class="image-emoji-logo" src="/pictures/keyboard.png" catchtap="onTapKeyboardLogo" />
         <view class="send-button"  style="{{sendCommentButtonStyle}}" catchtap="onTapCommentSendButton"> 
@@ -102,16 +105,16 @@
       </view>
       <view class="transition-mask" style="height: {{inputRealHeight}}px;" hidden="{{hiddenTransitionMask}}"></view>
       <scroll-view hidden="{{!showEmojiList}}" style="height: {{inputRealHeight}}px;" class="emojis-container" id="scroll-view" scroll-y=true scroll-with-animation=true catchtap="onTapContainer">
-        <view class="recent-use-text">最近使用</view>
-        <view class="emojis-recently-use-wrapper">
+        <view tt-if="{{emojiListRecentlyUse.length != 0}}" class="recent-use-text">最近使用</view>
+        <view tt-if="{{emojiListRecentlyUse.length != 0}}" class="emojis-recently-use-wrapper">
           <view class="emoji-item" tt:for="{{emojiListRecentlyUse}}" tt:for-index="emojiIndex" tt:for-item="emojiItem">
-            <image class="image-emoji-item" src="{{emojiItem}}" bindtap="onTapEmojiItem"/>
+            <image class="image-emoji-item" src="{{emojiItem}}" bindtap="onTapEmojiItem" data-emoji-item="{{emojiItem}}"/>
           </view>
         </view>
         <text class="all-emojis-text">所有表情</text>
         <view class="emojis-wrapper">
           <view class="emoji-item" tt:for="{{emojiList}}" tt:for-index="emojiIndex" tt:for-item="emojiItem">
-            <image class="image-emoji-item" src="{{emojiItem}}" bindtap="onTapEmojiItem" data-emoji-index="{{emojiIndex}}" />
+            <image class="image-emoji-item" src="{{emojiItem}}" bindtap="onTapEmojiItem" data-emoji-item="{{emojiItem}}" />
           </view>
         </view>
       </scroll-view>

@@ -37,7 +37,8 @@ Page({
         isDeletePart: false,
         isDeleteAll: false,
         loadingComplete: false,
-        isfirstLoadFailed: false
+        isNetworkFault: false,
+        isServerFault: false
     },
     onLoad() {
         console.log("comments load")
@@ -47,7 +48,7 @@ Page({
                 if (res.networkType === "none") {
                     this.setData({
                         loadingComplete: true,
-                        isfirstLoadFailed: true
+                        isNetworkFault: true
                     })
                     return
                 }
@@ -69,15 +70,13 @@ Page({
                 pageSize: this.data.pageSize
             },
             header: {
-                "content-type": "application/json",
                 Authorization: "Bearer " + tt.getStorageSync('token')
             },
             success: (res) => {
                 res.data = solvelong.getRealJsonData(res.data)
                 if (res.data.code != 200) {
-                    tt.showToast({
-                        title: '操作失败',
-                        icon: "none"
+                    this.setData({
+                        isServerFault: true
                     })
                     return
                 }
@@ -98,7 +97,7 @@ Page({
             },
             fail: () => {
                 this.setData({
-                    isfirstLoadFailed: true
+                    isNetworkFault: true
                 })
             },
             complete: () => {
@@ -120,7 +119,6 @@ Page({
                 pageSize: this.data.pageSize
             },
             header: {
-                "content-type": "application/json",
                 Authorization: "Bearer " + tt.getStorageSync('token')
             },
             success: (res) => {

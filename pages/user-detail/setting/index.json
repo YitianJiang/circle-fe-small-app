@@ -5,6 +5,7 @@
     "navigationBarTitleText": "设置",
     "usingComponents": {
         "comments-skeleton": "/components/comments-skeleton/index",
-        "first-load-failed": "/components/first-load-failed/index"
+        "first-load-failed": "/components/first-load-failed/index",
+        "ring": "/components/ring/index"
     }
 }

@@ -27,7 +27,6 @@ Page({
                 pageSize: page_size
             },
             header: {
-                "content-type": "application/json",
                 Authorization: "Bearer " + tt.getStorageSync('token')
             },
             success: (res) => {
@@ -54,7 +53,6 @@ Page({
                 pageSize: page_size
             },
             header: {
-                "content-type": "application/json",
                 Authorization: "Bearer " + tt.getStorageSync('token')
             },
             success: (res) => {

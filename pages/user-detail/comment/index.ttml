@@ -1,7 +1,8 @@
 <comments-skeleton tt-if="{{!loadingComplete}}"></comments-skeleton>
-<first-load-failed tt-if="{{loadingComplete && isfirstLoadFailed}}"></first-load-failed>
-<no-content tt-if="{{loadingComplete && !isfirstLoadFailed && comments.length == 0 }}" text="暂无数据"></no-content>
-<view tt-if="{{loadingComplete && !isfirstLoadFailed && comments.length != 0}}" class="my-comments">
+<first-load-failed tt-if="{{loadingComplete && isNetworkFault}}" isNetworkFault={{true}}></first-load-failed>
+<first-load-failed tt-if="{{loadingComplete && isServerFault}}" isServerFault={{true}}></first-load-failed>
+<no-content tt-if="{{loadingComplete && !isNetworkFault && !isServerFault && comments.length == 0 }}" text="暂无数据"></no-content>
+<view tt-if="{{loadingComplete && !isNetworkFault && !isServerFault && comments.length != 0}}" class="my-comments">
     <view tt:for="{{comments}}" tt:for-index="index" tt:for-item="item" class="comment">
         <view tt-if={{isEditing}} class="choose-wrapper" bindtap="onTapChoose" data-comment-index="{{index}}" data-comment-id="{{item.id}}">
             <view class="choose-inner-wrapper">

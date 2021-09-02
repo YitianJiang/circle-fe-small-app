@@ -14,6 +14,14 @@
     margin-bottom: 50rpx;
 }
 
+.server-fault-image {
+    display: block;
+    width: 250rpx;
+    height: 250rpx;
+    margin-top: 200rpx;
+    margin-bottom: 10rpx;
+}
+
 .no-content-text {
     font-size: 26rpx;
 }

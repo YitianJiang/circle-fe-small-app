@@ -16,13 +16,26 @@ const get_more_likes_url = base_url + "/like/get"
 const initial_interact_container_width = "0rpx"
 const unfold_interact_container_width = "280rpx"
 const font_size = 32
-const textarea_one_line_height = font_size
+const textarea_one_line_height = 45
 const textarea_two_line_height = textarea_one_line_height + font_size
 const textarea_three_line_height = textarea_two_line_height + 1.5 * font_size
 const zero_dot_five_second = "0.35s"
 const zero_second = "0s"
 const input_text = "input-text"
 const input_emoji = "input-emoji"
+
+Array.prototype.indexOf = function(val) {
+    for (var i = 0; i < this.length; i++) {
+        if (this[i] == val) return i
+    }
+    return -1
+}
+Array.prototype.remove = function(val) {
+    var index = this.indexOf(val)
+    if (index > -1) {
+        this.splice(index, 1)
+    }
+}
 
 export var articlesCommonData = {
     //文章列表
@@ -47,29 +60,33 @@ export var articlesCommonData = {
     showEmojiList: false,
     focusTextarea: false, //决定输入法是否显示
     isPublishByCurrentUser: false, //是否是当前用户所发表的文章，如果是，当用户选中时会显示"回复"和"删除",如果不是，只显示"回复"
-    //决定这些ui组件的显示方式
+    //交互工具相关
     transitionTime: zero_dot_five_second,
-    commentInputMainBottom: 0,
+    interactToolIndex: -1, //正在显示的交互工具的索引
+    //点击评论内容显示的回复删除向导
     commentContentToolTop: 0,
     commentContentToolLeft: 0,
-    textareaHeight: textarea_one_line_height,
     //其他
-    interactToolIndex: -1, //正在显示的交互工具的索引
-    commentType: "", //评论类型 有CommentOfArticle(对文章的评论)和ReplyOfComment(对评论的回复)
-    commentValue: "", //当前在评论输入框中输入的评论
-    toUser: null, //回复评论的对象
-    //节流
-    isCreateCommentComplete: true,
     get_articles_url: "",
-    //输入法高度
-    inputRealHeight: 0,
-    inputType: input_text,
-    hiddenTransitionMask: true,
-    sendCommentButtonStyle: "",
+    commentType: "", //评论类型 有CommentOfArticle(对文章的评论)和ReplyOfComment(对评论的回复)
+    toUser: null, //回复评论的对象
+    //节流 防止短时间内反复点击评论按钮导致请求的重复发送
+    isCreateCommentComplete: true,
+    //评论输入相关
+    commentValue: "", //当前在评论输入框中输入的评论
+    cursorPosition: "", //光标位置 在输入自定义emoji时，光标位置不会改变，仍在最后一个输入的字符后面，要手动改变光标位置到自定义emoji对应的文本后面
+    textareaHeight: textarea_one_line_height,
+    inputRealHeight: 0, //输入法的真实高度（减去底部tab栏）
+    commentInputMainBottom: 0, //评论输入框（除去emoji部分）和页面底部的距离
+    inputType: input_text, //决定显示emoji logo 还是键盘logo
+    hiddenTransitionMask: true, //是否显示过渡层
+    sendCommentButtonStyle: "", //评论发送按钮的样式
+    //当前页面向下滑动的距离 
     scrollTop: 0,
     //首次加载相关
     loadingComplete: false,
-    isfirstLoadFailed: false,
+    isNetworkFault: false,
+    isServerFault: false
 }
 export var articlesCommonMethod = {
     getArticles() {
@@ -83,10 +100,10 @@ export var articlesCommonMethod = {
             },
             success: (res) => {
                 res.data = solvelong.getRealJsonData(res.data)
+                    // res.data.code = 503
                 if (res.data.code != 200) {
-                    tt.showToast({
-                        title: '操作失败',
-                        icon: "none"
+                    this.setData({
+                        [`pageData.isServerFault`]: true
                     })
                     return
                 }
@@ -130,13 +147,15 @@ export var articlesCommonMethod = {
             },
             fail: () => {
                 this.setData({
-                    [`pageData.isfirstLoadFailed`]: true
+                    [`pageData.isNetworkFault`]: true
                 })
             },
             complete: () => {
+                // setTimeout(() => {
                 this.setData({
-                    [`pageData.loadingComplete`]: true
-                })
+                        [`pageData.loadingComplete`]: true
+                    })
+                    // }, 300000)
             }
         }
         let injectedHeader = {}
@@ -232,6 +251,12 @@ export var articlesCommonMethod = {
         tt.request(requestObject)
     },
     onLoad: function(options) {
+        //回到初始状态
+        this.setData({
+            [`pageData.loadingComplete`]: false,
+            [`pageData.isNetworkFault`]: false,
+            [`pageData.isServerFault`]: false,
+        })
         switch (this.data.pageData.pageType) {
             case "articles-home-page":
                 this.data.pageData.get_articles_url = base_url + "/article/getHomeRecommendArticles"
@@ -249,12 +274,17 @@ export var articlesCommonMethod = {
                 this.data.pageData.get_articles_url = base_url + "/article/getArticles/bookmarked"
                 break
         }
+        //onload时加载emoji列表
         for (let i = 0; i < 78; i++) {
             this.data.pageData.emojiList.push(`/emoji/${i+1}.png`)
         }
+        this.data.pageData.emojiListRecentlyUse = tt.getStorageSync('emojiListRecentlyUse').split(";")
+        if (this.data.pageData.emojiListRecentlyUse.length === 1 && this.data.pageData.emojiListRecentlyUse[0] === "") {
+            this.data.pageData.emojiListRecentlyUse = []
+        }
         this.setData({
             [`pageData.emojiList`]: this.data.pageData.emojiList,
-            [`pageData.emojiListRecentlyUse`]: this.data.pageData.emojiList.slice(0, 5)
+            [`pageData.emojiListRecentlyUse`]: this.data.pageData.emojiListRecentlyUse
         })
         tt.getNetworkType({
             success: (res) => {
@@ -262,7 +292,7 @@ export var articlesCommonMethod = {
                 if (res.networkType === "none") {
                     this.setData({
                         [`pageData.loadingComplete`]: true,
-                        [`pageData.isfirstLoadFailed`]: true
+                        [`pageData.isNetworkFault`]: true
                     })
                     return
                 }
@@ -275,11 +305,21 @@ export var articlesCommonMethod = {
         })
     },
     onUnload() {
+        //unload时保存最近使用的emoji
+        let emojiListRecentlyUse = ""
+        this.data.pageData.emojiListRecentlyUse.forEach((emoji) => {
+            emojiListRecentlyUse += emoji + ";"
+        })
+        emojiListRecentlyUse.slice(0, emojiListRecentlyUse.length - 1)
+        tt.setStorage({
+            key: "emojiListRecentlyUse",
+            data: emojiListRecentlyUse, // 要缓存的数据
+        })
         console.log("unload")
     },
     previewImage(event) {
         let urls = []
-        event.currentTarget.dataset.images.forEach(e => {
+        event.currentTarget.dataset.images.forEach((e) => {
             urls.push(e.imageUrl)
         })
         tt.previewImage({
@@ -536,27 +576,26 @@ export var articlesCommonMethod = {
             console.log(this.data.pageData.currentArticleIndex, this.data.pageData.articles[this.data.pageData.currentArticleIndex].commentDetails.length - 1)
             console.log("last comment position", res, "scroll-top", this.data.pageData.scrollTop)
             if (res != null) {
+                //页面滚动到最后一条评论处
                 tt.pageScrollTo({
                     scrollTop: res[0].bottom + this.data.pageData.scrollTop - (systemInfo.windowHeight - this.data.pageData.inputRealHeight - 25 - 50)
                 })
             }
         })
         this.setData({
-            [`pageData.commentInputMainBottom`]: this.data.pageData.inputRealHeight,
-            [`pageData.inputRealHeight`]: this.data.pageData.inputRealHeight,
-            [`pageData.hiddenTransitionMask`]: false,
-            [`pageData.inputType`]: input_text
+            [`pageData.focusTextarea`]: true, //focusTextarea的值和ui的表现一致，点击输入框获取焦点时，focusTextarea的值也得设置为true，否则ui会错乱
+            [`pageData.showEmojiList`]: false, //获取焦点时，要输入文字，隐藏emoji列表
+            [`pageData.hiddenTransitionMask`]: false, //显示过渡层
+            [`pageData.inputRealHeight`]: this.data.pageData.inputRealHeight, //设置过渡层的高度
+            [`pageData.commentInputMainBottom`]: this.data.pageData.inputRealHeight, //把输入框底部和页面底部的距离设置为输入法的真实高度
+            [`pageData.inputType`]: input_text, //输入框右边的图标显示为键盘图标
         })
     },
     onBlur(event) {
         console.log("blur event", event)
-            //点击emoji-logo手动失去焦点时，直接返回，因为要看到emoji列表，不是让整个评论输入模块消失
+            //失去焦点 隐藏评论输入组件
+            //但点击emoji-logo手动失去焦点时，直接返回，因为要看到emoji列表，不是让整个评论输入组件消失
         if (this.data.pageData.inputType === input_emoji) return
-            // this.setData({
-            //     [`pageData.showEmojiList`]: false,
-            //     [`pageData.hiddenTransitionMask`]: true,
-            //     [`pageData.commentInputMainBottom`]: 0
-            // })
         this.setData({
             [`pageData.showCommentInput`]: false,
         })
@@ -599,10 +638,14 @@ export var articlesCommonMethod = {
     onTapEmojiLogo: function(event) {
         console.log("onTapEmojiLogo", event)
         this.data.pageData.inputType = input_emoji
+        tt.showToast({
+            title: `${this.data.pageData.focusTextarea}`
+        })
         this.setData({
             //显示emoji列表
             [`pageData.showEmojiList`]: true,
-            //指定emoji列表的高度为键盘真是高度
+            [`pageData.emojiListRecentlyUse`]: this.data.pageData.emojiListRecentlyUse,
+            //指定emoji列表的高度为键盘真是真实高度
             [`pageData.inputRealHeight`]: this.data.pageData.inputRealHeight,
             //让发送按钮左边的图片变为emoji-logo
             [`pageData.inputType`]: input_emoji,
@@ -612,6 +655,7 @@ export var articlesCommonMethod = {
     },
     onTapKeyboardLogo() {
         this.setData({
+            //点击键盘logo时,要输入文字，隐藏emoji列表
             [`pageData.showEmojiList`]: false,
             [`pageData.inputType`]: input_text,
             //重新获取焦点
@@ -624,15 +668,13 @@ export var articlesCommonMethod = {
     },
     onTapEmojiItem: function(event) {
         console.log("onTapEmojiItem", event)
-        if (this.data.pageData.emojiListRecentlyUse.length < 8) {
-            this.data.pageData.emojiListRecentlyUse.unshift(this.data.pageData.emojiList[event.target.dataset.emojiIndex])
-        } else {
-            this.data.pageData.emojiListRecentlyUse.pop()
-            this.data.pageData.emojiListRecentlyUse.unshift(this.data.pageData.emojiList[event.target.dataset.emojiIndex])
-        }
+        this.data.pageData.emojiListRecentlyUse.remove(event.target.dataset.emojiItem)
+        this.data.pageData.emojiListRecentlyUse.unshift(event.target.dataset.emojiItem)
+        if (this.data.pageData.emojiListRecentlyUse.length === 9) this.data.pageData.emojiListRecentlyUse.pop()
         this.setData({
-            [`pageData.commentValue`]: this.data.pageData.commentValue + Object.keys(emoji.emojiMap)[event.target.dataset.emojiIndex],
-            [`pageData.emojiListRecentlyUse`]: this.data.pageData.emojiListRecentlyUse
+            [`pageData.commentValue`]: this.data.pageData.commentValue + Object.keys(emoji.emojiMap).find((key) => { return emoji.emojiMap[key] === event.target.dataset.emojiItem }),
+            [`pageData.sendCommentButtonStyle`]: "background-color: #36ee25e8;",
+            [`pageData.cursorPosition`]: this.data.pageData.commentValue.length + 4
         })
     },
     onTapCommentSendButton: function(event) {
@@ -698,7 +740,10 @@ export var articlesCommonMethod = {
                 this.setData({
                     [`pageData.articles[${this.data.pageData.currentArticleIndex}].commentDetails`]: this.data.pageData.articles[this.data.pageData.currentArticleIndex].commentDetails,
                     [`pageData.showCommentInput`]: false,
-                    [`pageData.commentValue`]: ""
+                    //评论输入组件状态还原
+                    [`pageData.commentValue`]: "",
+                    [`pageData.textareaHeight`]: textarea_one_line_height,
+                    [`pageData.inputType`]: input_text
                 })
             },
             fail: () => {

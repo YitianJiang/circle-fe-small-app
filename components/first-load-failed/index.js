@@ -3,6 +3,14 @@ Component({
         reloadButtonBackgroundColor: "rgba(0, 153, 255, 0.1)"
     },
     properties: {
+        isNetworkFault: {
+            type: Boolean,
+            value: false
+        },
+        isServerFault: {
+            type: Boolean,
+            value: false
+        },
         showReload: {
             type: Boolean,
             value: false
