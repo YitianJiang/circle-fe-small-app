@@ -10,7 +10,7 @@
 
 # 效果
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="zoom:200%;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:200px;" />
 
 　　最开始是想做成朋友圈的样式，但是后来给评论，点赞头像列表做分页，发现越来越像微博。　
 
