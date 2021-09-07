@@ -1,0 +1,10 @@
+<form catchsubmit="formSubmit">
+    <view class="form-wrapper">
+        <input class="input-name" placeholder="用户名" placeholder-style="font-size:0.8rem;" value="{{name}}" name="name" bindinput="onInputName" maxlength=30></input>
+        <view class="line-under-input-name"></view>
+        <input class="input-password" placeholder="密码" placeholder-style="font-size:0.8rem;" password=true value="{{password}}" name="password" bindinput="onInputPassword" maxlength=30> </input>
+        <view class="line-under-input-password"></view>
+        <text class="text-register" bindtap="onTapRegister">注册账号</text>
+        <button class="button-login" style="{{buttonStyle}}" form-type="submit" loading="{{showLoading}}">登录</button>
+    </view>
+</form>

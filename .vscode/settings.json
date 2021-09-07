@@ -1,0 +1,19 @@
+{
+    "files.associations": {
+        "*.ttss": "css",
+        "*.wxss": "css",
+        "*.ttml": "ttml",
+        "*.wxml": "html",
+        "*.sjs": "javascript"
+    },
+    "emmet.includeLanguages": {
+        "ttml": "html",
+        "wxml": "html",
+        "sjs": "javascript"
+    },
+    "editor.tabSize": 4,
+    "typescript.tsdk": "E:\\Program Files\\miniprogram-ide\\@bytedminiprogram-ide\\resources\\app\\extensions\\miniprogram-extension\\assets\\business\\typescript\\lib",
+    "less.compile": {
+        "outExt": ".ttss"
+    }
+}

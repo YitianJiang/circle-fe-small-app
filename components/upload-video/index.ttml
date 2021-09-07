@@ -1,0 +1,17 @@
+<view class="upload-video-component">
+    <view tt-if="{{uploadComplete === false}}" class="uploading">
+        <view class="uploading-left" style="width: {{width}};">
+            <text>上传中 </text>
+            <text class="speed-remaining-time">{{speed}}Mb/s 剩余时间{{remainingTime}}s</text>
+        </view>
+        <!-- <button class="pause">暂停</button> -->
+    </view>
+    <text tt-else class="upload-complete">上传完成</text>
+    <view class="video-wrapper" style="width: {{width}};height: {{height}};">
+        <view class="upload-completion-rate" style="width: {{uploadCompletionRate}}%;"></view>
+        <view class="video-inner-wrapper">
+            <video class="video" autoplay=true show-play-btn=false src="{{videoObject.tempFilePath}}"></video>
+            <image ontap="deleteVideo" class="close" src="/pictures/delete-video.png"></image>
+        </view>
+    </view>
+</view>

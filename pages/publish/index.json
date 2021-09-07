@@ -1,0 +1,9 @@
+{
+  "pages":[
+    "pages/publish/index"
+  ],
+  "navigationBarTitleText": "发布",
+  "usingComponents": {
+    "upload-video": "/components/upload-video/index"
+  }
+}

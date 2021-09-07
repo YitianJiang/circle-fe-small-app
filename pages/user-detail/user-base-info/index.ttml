@@ -1,0 +1,43 @@
+<view class=rows-wrapper>
+    <text class="tittle">个人信息</text>
+    <view class="row" bindtap="onTapAvatarRow">
+        <view class="left">
+            <text class="user-avatar">头像</text>
+            <image class="user-avatar-image" src="{{$state.currentUser.avatarUrl}}"></image>
+        </view>
+        <view class="right">
+            <image class="greater-than" src="/pictures/greater-than.png" binderror="binderror" bindload="bindload" lazy-load />
+        </view>
+    </view>
+    <view class="row" bindtap="ontapUserNameRow">
+        <view class="left">
+            <text class="user-name">用户名</text>
+            <text class="user-name-value">{{$state.currentUser.name}}</text>
+        </view>
+        <view class="right">
+            <image class="greater-than" src="/pictures/greater-than.png" binderror="binderror" bindload="bindload" lazy-load />
+        </view>
+    </view>
+    <view class="line"></view>
+    <view class="row" bindtap="ontapIntroductionRow">
+        <view class="left">
+            <text class="introduction">简介</text>
+            <text class="introduction-value">{{$state.currentUser.introduction}}</text>
+        </view>
+        <view class="right">
+            <image class="greater-than" src="/pictures/greater-than.png" binderror="binderror" bindload="bindload" lazy-load />
+        </view>
+    </view>
+    <view class="line"></view>
+</view>
+<form class="edit-view" style="height: {{height}};" bindsubmit="onSubmit">
+    <text class="set-user-name">设置{{valueToBeSet}}</text>
+    <view class="input-wrapper" style="{{inputWrapperStyle}}">
+        <input name="input" class="input-set-user-name" value="{{inputDefaultValue}}" bindfocus="onFocus" />
+    </view>
+    <view class="button-row">
+        <button class="button-cancel" bindtap="ontapMaskLayer">取消</button>
+        <button class="button-ok" form-type="submit">确定</button>
+    </view>
+</form>
+<view class="mask-layer" hidden="{{isHidden}}" bindtap="ontapMaskLayer"></view>

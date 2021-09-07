@@ -1,0 +1,65 @@
+.component-wrapper {
+    font-size: 32rpx;
+    letter-spacing: 3rpx;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.mask-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.ok-cancel-wrapper {
+    width: 100%;
+    height: 350rpx;
+    background-color: white;
+    border-top-left-radius: 40rpx;
+    border-top-right-radius: 40rpx;
+    position: absolute;
+    bottom: 0;
+    z-index: 1001;
+    text-align: center;
+}
+
+.upper-text,
+.middle-text {
+    display: block;
+    margin-top: 40rpx;
+}
+
+.middle-text {
+    font-size: 30rpx;
+}
+
+.button-row {
+    margin-top: 50rpx;
+}
+
+.button-cancel,
+.button-delete {
+    width: 40%;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    display: inline-block;
+    border-radius: 1.25rem;
+    background-color: #f0f0f0;
+    font-size: 32rpx;
+}
+
+.button-cancel {
+    margin-left: 8%;
+    margin-right: 2%;
+}
+
+.button-delete {
+    color: #f22424;
+    margin-left: 2%;
+    margin-right: 8%;
+}

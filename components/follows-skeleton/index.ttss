@@ -1,0 +1,36 @@
+.left {
+    width: 150rpx;
+    height: 150rpx;
+    background-color: #dddddd;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 50rpx;
+}
+
+.middle {
+    display: inline-block;
+}
+
+.first-line {
+    margin-top: 10rpx;
+    margin-bottom: 10rpx;
+    width: 250rpx;
+    height: 40rpx;
+    background-color: #dddddd;
+}
+
+.second-line {
+    margin-top: 10rpx;
+    margin-bottom: 10rpx;
+    width: 500rpx;
+    height: 40rpx;
+    background-color: #dddddd;
+}
+
+.third-line {
+    margin-top: 10rpx;
+    margin-bottom: 10rpx;
+    width: 350rpx;
+    height: 40rpx;
+    background-color: #dddddd;
+}

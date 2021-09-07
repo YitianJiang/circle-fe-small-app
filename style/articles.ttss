@@ -1,0 +1,429 @@
+.container {
+    font-size: 32rpx;
+}
+
+.search-placeholder {
+    width: 100%;
+    height: 80rpx;
+}
+
+.article {
+    padding-top: 10rpx;
+    padding-bottom: 10rpx;
+    border-bottom: solid rgba(242, 242, 242, 0.4) 1rpx;
+}
+
+
+/*----------------------------------------------用户信息--------------------------------------------------*/
+
+.user-info {
+    position: relative;
+}
+
+.user-avatar {
+    display: inline-block;
+    margin-top: 16rpx;
+    margin-left: 8rpx;
+}
+
+.image-user-avatar {
+    width: 96rpx;
+    height: 96rpx;
+    border-radius: 8rpx;
+}
+
+.user-name {
+    position: absolute;
+    display: inline-block;
+    margin-left: 8rpx;
+    top: 16rpx;
+}
+
+
+/*----------------------------------------------文字 图片 视频--------------------------------------------------*/
+
+.article-content {
+    margin-right: 96rpx;
+    margin-left: 112rpx;
+    margin-top: -48rpx;
+}
+
+.article-content-text {
+    text-align: justify;
+    font-size: 0.8rem;
+    /* width: 480rpx; */
+}
+
+.article-content-image {
+    margin-top: 24rpx;
+    width: 480rpx;
+    font-size: 0rpx;
+}
+
+.image-item {
+    margin-right: 5rpx;
+    margin-bottom: 5rpx;
+    display: inline-block;
+}
+
+.image-article-content-1 {
+    width: 480rpx;
+    height: 480rpx;
+}
+
+.image-article-content {
+    width: 155rpx;
+    height: 155rpx;
+}
+
+.article-content-video {
+    margin-top: 32rpx;
+}
+
+.video-article-content {
+    width: 480rpx;
+    height: 360rpx;
+    object-fit: scale-down;
+}
+
+
+/*----------------------------------------------时间 互动工具--------------------------------------------------*/
+
+.time-interact-tool {
+    height: 100rpx;
+    margin-left: 112rpx;
+    position: relative;
+    font-size: 24rpx;
+}
+
+
+/* .time-interact-tool:after,
+.time-interact-tool:before {
+    content: "";
+    display: block;
+    clear: both;
+} */
+
+.publish-time {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.comment-like-wrapper {
+    display: inline-block;
+    height: 60rpx;
+    /* line-height: 60rpx;
+    font-size: 0; */
+    overflow: hidden;
+    position: absolute;
+    right: 85rpx;
+    top: 50%;
+    transform: translate(0, -50%);
+    border-radius: 8rpx;
+    background-color: #00d4dc;
+}
+
+.horizontally-centered-wrapper {
+    display: inline-block;
+    height: 60rpx;
+    line-height: 60rpx;
+    font-size: 0;
+    /* width: 180rpx; */
+    width: fit-content;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+
+/* 不要都垂直居中，文字顶部有空隙，都垂直居中，看上去文字偏下，在保持文字垂直居中的前提下，把图片下移6rpx */
+
+.image-like,
+.image-comment {
+    vertical-align: -6rpx;
+}
+
+.cancel-text,
+.like-text,
+.comment-text {
+    font-size: 24rpx;
+    color: white;
+}
+
+.image-like,
+.image-comment {
+    width: 28rpx;
+    height: 28rpx;
+    margin-right: 8rpx;
+}
+
+.cancel-text,
+.like-text {
+    margin-right: 48rpx;
+}
+
+.like-image-wrapper {
+    display: inline-block;
+    height: 100%;
+}
+
+.unfold-image-wrapper {
+    width: 85rpx;
+    height: 100rpx;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.image-unfold {
+    width: 36rpx;
+    height: 36rpx;
+    background-color: #f8f8f8;
+    /* background-color: black; */
+    position: absolute;
+    left: 5rpx;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+
+/*----------------------------------------------点赞头像展示--------------------------------------------------*/
+
+.like-avatars {
+    display: inline-block;
+    margin-left: 110rpx;
+}
+
+
+/* .like-avatars::before,
+.like-avatars::after{
+  content: "";
+  display: block;
+  clear: both;
+} */
+
+.like-logo-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.like-logo {
+    width: 42rpx;
+    height: 42rpx;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.image-like-avatar,
+.like-logo-wrapper {
+    width: 84rpx;
+    height: 84rpx;
+    margin-right: 10rpx;
+}
+
+
+/*----------------------------------------------评论展示---------------------------------------------------*/
+
+
+/* .comment-region {
+    padding-top: 0.5rem;
+    margin-left: 112rpx;
+    margin-right: 1rem;
+    background-color: #f7f7f7;
+} */
+
+.comments-wrapper {
+    margin-top: 0.5rem;
+    margin-left: 112rpx;
+    margin-right: 1rem;
+    background-color: #f7f7f7;
+    display: inline-block;
+}
+
+.comment {
+    /* border-top: solid #eeefee 0.1rem; */
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.image-from-user-avatar {
+    vertical-align: top;
+    width: 2.25rem;
+    height: 2.25rem;
+}
+
+.comment-seperate-line {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(230, 230, 230, 0.4);
+}
+
+
+/*------------------给定一个宽度，否则右边行内元素的宽度可能被内容撑到大于剩余宽度，导致右边整块往下放 -------------------------*/
+
+.comment-main {
+    display: inline-block;
+    width: 500rpx;
+    /*-------*/
+    margin-left: 0.25rem;
+    font-size: 0.7rem;
+}
+
+.comment-from-user-name-time {
+    margin-bottom: 0.4rem;
+    margin-top: -4rpx;
+    white-space: nowrap;
+    /* 神奇，设置为0.1rem,就出现换行，且固定在"这是"两个字后面，改为0.5rem，换行消失 */
+    /* margin-bottom: 0.1rem; */
+}
+
+.comment-from-user-name-time::after {
+    content: "";
+    clear: right;
+}
+
+.comment-from-user-name,
+.comment-to-user-name {
+    color: rgb(6, 6, 61);
+}
+
+.comment-time {
+    float: right;
+    color: #cccccc;
+    font-size: 0.75rem;
+}
+
+.comment-to-user-name-wrapper {
+    float: left;
+}
+
+.colon {
+    margin-right: 0.25rem;
+}
+
+
+/*----------------------------------------------评论输入--------------------------------------------------*/
+
+.comment-input-main {
+    width: 100%;
+    background-color: #eeeeef;
+    border-radius: 6rpx;
+    position: fixed;
+    /* bottom: 0; */
+}
+
+.comment-input::after {
+    content: "";
+    clear: both;
+}
+
+textarea {
+    width: 67%;
+    background-color: white;
+    color: brown;
+    border-radius: 8rpx;
+    /* 增高textarea */
+    padding-top: 15rpx;
+    padding-bottom: 15rpx;
+    font-size: 32rpx;
+    float: left;
+    margin-left: 25rpx;
+    margin-bottom: 15rpx;
+    margin-top: 15rpx;
+}
+
+.image-emoji-logo {
+    width: 60rpx;
+    height: 60rpx;
+    position: absolute;
+    bottom: 20rpx;
+    right: 148rpx;
+}
+
+.send-button {
+    width: 120rpx;
+    height: 60rpx;
+    line-height: 60rpx;
+    text-align: center;
+    border-radius: 6rpx;
+    font-size: 32rpx;
+    color: white;
+    position: absolute;
+    right: 12rpx;
+    bottom: 20rpx;
+    letter-spacing: 6rpx;
+}
+
+.transition-mask {
+    width: 100%;
+    background-color: black;
+    position: fixed;
+    bottom: 0;
+}
+
+scroll-view {
+    z-index: 1000;
+}
+
+.emojis-container {
+    background-color: rgba(242, 242, 242, 1);
+    position: fixed;
+    bottom: 0;
+}
+
+.emojis-wrapper,
+.emojis-recently-use-wrapper {
+    width: 96%;
+    margin: 0 auto;
+}
+
+.emoji-item {
+    display: inline-block;
+    width: 12.5%;
+    text-align: center;
+}
+
+.image-emoji-item {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.recent-use-text,
+.all-emojis-text {
+    font-size: 0.75rem;
+    margin-left: 0.75rem;
+    line-height: 2.25rem;
+}
+
+
+/* --------------------------------------------------------复制 删除 ----------------------------------------------------------------------- */
+
+.commentContentTool {
+    position: fixed;
+    background-color: white;
+    box-shadow: 0 0 0.5rem #cccccc;
+}
+
+.copy,
+.delete,
+.reply {
+    font-size: 0.75rem;
+    width: 3.85rem;
+    height: 2.75rem;
+    line-height: 2.75rem;
+    padding-left: 1rem;
+}
+
+
+/* -------------------------test class ----------------------------------------------------------------------- */
+
+.test {
+    width: 3000rpx;
+    height: 100rpx;
+    background-color: red;
+}

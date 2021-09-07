@@ -1,0 +1,5 @@
+<import src="/template/articles.ttml" />
+
+<view class="container">
+    <template is="articles" data="{{...{$state:$state},...pageData}}"></template>
+</view>

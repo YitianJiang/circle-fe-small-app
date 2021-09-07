@@ -1,0 +1,15 @@
+<view class="search-hotspots">
+    <view class="logo">
+        <image class="logo-left" src="/pictures/search-hotspots.png"></image>
+        <text class="logo-right">热搜</text>
+    </view>
+    <view class="hotspots">
+        <view class="left">
+            <text tt:for="{{hotspots.leftHotspots}}" tt:for-item="item" bindtap="onTapHotspot" data-text="{{item}}">{{item}}</text>
+        </view>
+        <view tt-if="{{hotspots.rightHotspots.length > 0}}" class="middle"></view>
+        <view class="right">
+            <text tt:for="{{hotspots.rightHotspots}}" tt:for-item="item" bindtap="onTapHotspot" data-text="{{item}}">{{item}}</text>
+        </view>
+    </view>
+</view>

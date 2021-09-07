@@ -1,0 +1,14 @@
+{
+    "navigationBarTitleText": "搜索",
+    "usingComponents": {
+        "search": "/components/search/index",
+        "search-hotspots": "/components/search-hotspots/index",
+        "load-more": "/components/load-more/index",
+        "refresh": "/components/refresh/index",
+        "load-more-comments": "/components/load-more-comments/index",
+        "load-more-likes": "/components/load-more-likes/index",
+        "no-content": "/components/no-content/index",
+        "article-skeleton": "/components/article-skeleton/index",
+        "first-load-failed": "/components/first-load-failed/index"
+    }
+}

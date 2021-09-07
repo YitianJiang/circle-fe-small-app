@@ -1,0 +1,33 @@
+
+<follows-skeleton tt-if="{{!loadingComplete}}"></follows-skeleton>
+<first-load-failed tt-if="{{loadingComplete && isNetworkFault}}" isNetworkFault={{true}}></first-load-failed>
+<first-load-failed tt-if="{{loadingComplete && isServerFault}}" isServerFault={{true}}></first-load-failed>
+<no-content tt-if="{{loadingComplete && !isNetworkFault && !isServerFault && followDetails.length == 0 }}" text="暂无数据"></no-content>
+<view tt-if="{{loadingComplete && !isNetworkFault && !isServerFault && followDetails.length != 0}}" class="my-follow">
+    <view class="people-i-follow" tt:for="{{followDetails}}" tt:for-index="index" tt:for-item="item">
+        <view class="item">
+            <view class="item-left">
+                <image class="user-avatar" src="{{item.toUser.avatarUrl}}"></image>
+            </view>
+            <view class="middle-right-wrapper">
+                <view class="item-middle">
+                    <view class="text-wrapper">
+                        <text class="name">{{item.toUser.name}}</text>
+                        <text class="introduction">{{item.toUser.introduction}}</text>
+                        <text class="fansNum">{{item.toUser.fansNum}}人关注</text>
+                    </view>
+                </view>
+                <view class="item-right">
+                    <image-button tt-if="{{item.hasFollow}}" class="follow-status-button" 
+                    imageUrl="/pictures/HasFollow.png" text="已关注" height=60 bindtap="ontapHasFollowedButton" 
+                    data-follow-id="{{item.id}}" data-index="{{index}}"></image-button>
+                    <image-button tt-else class="unfollow-status-button"
+                    imageUrl="/pictures/follow.png" text="关注" height=60 backgroundColor="#0099ff" textColor="white" bindtap="ontapFollowButton" 
+                    data-user-id="{{item.toUser.id}}" data-index="{{index}}"></image-button>
+                </view>
+            </view>
+        </view>
+        <view class="bottom-line"></view>
+    </view>
+    <load-more id="loadMoreView" bindloadMoreListener='loadMoreListener' bindclickLoadMore='clickLoadMore'></load-more>
+</view>

@@ -1,0 +1,38 @@
+.no-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.no-content-image {
+    display: block;
+    width: 200rpx;
+    height: 200rpx;
+    margin-top: 200rpx;
+    margin-bottom: 50rpx;
+}
+
+.server-fault-image {
+    display: block;
+    width: 250rpx;
+    height: 250rpx;
+    margin-top: 200rpx;
+    margin-bottom: 10rpx;
+}
+
+.no-content-text {
+    font-size: 26rpx;
+}
+
+.reload-button {
+    margin-top: 50rpx;
+    width: 300rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    text-align: center;
+    border-radius: 36rpx;
+    color: rgb(0, 153, 255);
+    font-size: 26rpx;
+}

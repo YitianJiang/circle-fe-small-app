@@ -1,0 +1,38 @@
+.load-complete,
+.loading {
+    display: inline-block;
+    position: relative;
+    width: 84rpx;
+    height: 84rpx;
+    /* background-color: rgb(0, 153, 255); */
+}
+
+.loading {
+    background-color: rgba(0, 153, 255, 0.3);
+    border-radius: 50%;
+}
+
+.loading-image,
+.load-complete-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* transform: translate(-50%, -50%); */
+    margin-top: -30rpx;
+    margin-left: -30rpx;
+    width: 60rpx;
+    height: 60rpx;
+}
+
+.loading-animation {
+    animation: loading 1.5s steps(12, end) infinite;
+}
+
+@keyframes loading {
+    0% {
+        transform: rotate3d(0, 0, 1, 0deg);
+    }
+    100% {
+        transform: rotate3d(0, 0, 1, 360deg);
+    }
+}

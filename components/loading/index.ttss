@@ -1,0 +1,38 @@
+.loading-wrapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.);
+}
+
+.loading {
+    position: absolute;
+    top: 100rpx;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 60rpx;
+    height: 60rpx;
+    background-color: rgb(0, 153, 255);
+    border-radius: 50%;
+}
+
+.loading-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* transform: translate(-50%, -50%); */
+    margin-top: -24rpx;
+    margin-left: -24rpx;
+    animation: loading 1.5s steps(12, end) infinite;
+}
+
+@keyframes loading {
+    0% {
+        transform: rotate3d(0, 0, 1, 0deg);
+    }
+    100% {
+        transform: rotate3d(0, 0, 1, 360deg);
+    }
+}

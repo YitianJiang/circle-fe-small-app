@@ -1,0 +1,21 @@
+.no-content-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.no-content-image {
+    width: 200rpx;
+    height: 200rpx;
+    display: block;
+    margin: 0 auto;
+    margin-top: 200rpx;
+}
+
+.no-content-text {
+    display: block;
+    margin: 0 auto;
+    margin-top: 75rpx;
+    width: fit-content;
+    font-size: 30rpx;
+    color: #999999;
+}

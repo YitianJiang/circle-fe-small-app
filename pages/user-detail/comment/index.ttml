@@ -1,0 +1,59 @@
+<comments-skeleton tt-if="{{!loadingComplete}}"></comments-skeleton>
+<first-load-failed tt-if="{{loadingComplete && isNetworkFault}}" isNetworkFault={{true}}></first-load-failed>
+<first-load-failed tt-if="{{loadingComplete && isServerFault}}" isServerFault={{true}}></first-load-failed>
+<no-content tt-if="{{loadingComplete && !isNetworkFault && !isServerFault && comments.length == 0 }}" text="暂无数据"></no-content>
+<view tt-if="{{loadingComplete && !isNetworkFault && !isServerFault && comments.length != 0}}" class="my-comments">
+    <view tt:for="{{comments}}" tt:for-index="index" tt:for-item="item" class="comment">
+        <view tt-if={{isEditing}} class="choose-wrapper" bindtap="onTapChoose" data-comment-index="{{index}}" data-comment-id="{{item.id}}">
+            <view class="choose-inner-wrapper">
+                <hook-button class="choose" width=40 height=40 backgroundColor="{{item.selectButtonBackgroundColor}}" showHook={{item.showHook}}></hook-button>
+            </view>
+        </view>
+        <view class="comment-right" style="width: {{commentRightWidth}};margin-left: {{commentLeftWidth}};">
+            <view class="user-info-wrapper">
+                <view class="user-info">
+                    <image class="user-avatar" src="{{$state.currentUser.avatarUrl}}" binderror="binderror" bindload="bindload" lazy-load />
+                    <view class="name-time-container">
+                        <text class="user-name">{{$state.currentUser.name}}</text>
+                        <text class="create-time">{{item.createTime}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="comment-content-wrapper">
+                <view tt:for="{{item.content}}" tt:for-item="commentFragment" tt:for-index="commentFragmentIndex" style="display: inline; line-height: 90%;">
+                    <image tt:if="{{commentFragment.type == 'emoji'}}" style="width: 0.7rem; height: 0.7rem; vertical-align: -0.125rem" src="{{commentFragment.content}}"></image>
+                    <text tt:else>{{commentFragment.content}}</text>
+                </view>
+            </view>
+            <view class="article-abstract-outer">
+                <view class="article-abstract-inner">
+                    <image tt-if="{{item.articleAbstract.logoUrl!= null}}" class="logo" src="item.articleAbstract.logoUrl"></image>
+                    <image tt-else class="logo" src="/pictures/article-logo-default.png"></image>
+                    <view class="publisher-content-wrapper">
+                        <text class="publisher">{{item.articleAbstract.userName}}</text>
+                        <text class="content">{{item.articleAbstract.text}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="line-wrapper">
+                <view class="line"></view>
+            </view>
+        </view>
+    </view>
+    <load-more id="loadMoreView" bindloadMoreListener='loadMoreListener' bindclickLoadMore='clickLoadMore'></load-more>
+    <view tt-if="{{commentsLoadComplete && comments.length != 0}}" class="edit" style="background-color:{{editButtonBackgroundColor}}" bindtap="onTapEdit">
+        <image class="image-edit" src="/pictures/edit.png"></image>
+    </view>
+    <view tt-if="{{isEditing}}" class="clear">
+        <view class="clear-left" bindtap="onTapDeleteAll">
+            <text>一键清空</text>
+        </view>
+        <view class="clear-right" bindtap="onTapDeletePart">
+            <text style="color:{{deleteTextColor}};">删除 </text>
+            <text tt-if="{{selectedCommentIndices.length != 0}}" class="selected-comments-number">({{selectedCommentIndices.length}})</text>
+        </view>
+        <view class="seperate-line"></view>
+    </view>
+    <confirm-delete hidden="{{!isDeletePart}}" bindcanceldelete="onCancelDeletePart" bindtapdelete="onConfirmDeletePart" upperText="删除" middleText="确定要删除所选的{{selectedCommentIndices.length}}条内容吗?"></confirm-delete>
+    <confirm-delete hidden="{{!isDeleteAll}}" bindcanceldelete="onCancelDeleteAll" bindtapdelete="onConfirmDeleteAll" upperText="一键清空" middleText="确定要删除所有内容吗?"></confirm-delete>
+</view>

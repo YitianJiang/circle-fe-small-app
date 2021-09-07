@@ -1,0 +1,9 @@
+{
+    "pages": [
+        "pages/mine/index"
+    ],
+    "navigationBarTitleText": "我的",
+    "usingComponents": {
+        "mine-page-row": "/components/mine-page-row/index"
+    }
+}

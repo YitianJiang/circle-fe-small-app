@@ -1,0 +1,50 @@
+.search-hotspots {
+    width: 100%;
+    .logo {
+        height: 80rpx;
+        margin-left: 3%;
+        display: flex;
+        align-items: center;
+        .logo-left {
+            width: 30rpx;
+            height: 30rpx;
+            margin-right: 10rpx;
+        }
+        .logo-right {
+            font-size: 28rpx;
+        }
+    }
+    .hotspots {
+        width: 100%;
+        height: 250rpx;
+        text-align: left;
+        font-size: 30rpx;
+        position: relative;
+        .left,
+        .right {
+            display: inline-block;
+            width: 50%;
+            height: 100%;
+            vertical-align: top;
+            text{
+                display: block;
+                width: 100%;
+                height: 20%;
+                box-sizing: border-box;
+                padding-left: 8%;
+                padding-right: 10%;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+        }
+        .middle {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 1rpx;
+            height: 100%;
+            background-color: rgba(200, 200, 200, 0.3);
+        }
+    }
+}

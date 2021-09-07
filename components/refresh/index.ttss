@@ -1,0 +1,30 @@
+.refresh {
+    position: fixed;
+    width: 80rpx;
+    height: 80rpx;
+    background-color: white;
+    border-radius: 40rpx;
+    box-shadow: 0px 0px 10rpx #aaaaaa;
+}
+
+.image-refresh {
+    width: 40rpx;
+    height: 40rpx;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.active {
+    animation: weuiLoading 0.6s steps(12, end) infinite;
+}
+
+@keyframes weuiLoading {
+    0% {
+        transform: rotate3d(0, 0, 1, 0deg);
+    }
+    100% {
+        transform: rotate3d(0, 0, 1, 360deg);
+    }
+}

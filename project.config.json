@@ -1,0 +1,20 @@
+{
+    "setting": {
+        "urlCheck": false,
+        "es6": true,
+        "newFeature": false,
+        "postcss": false,
+        "mockUpdate": false,
+        "minified": false,
+        "nodeModules": true,
+        "scripts": false,
+        "mockLogin": false
+    },
+    "appid": "ttb998cf2526a01a13",
+    "projectname": "circle",
+    "condition": {
+        "miniprogram": {
+            "current": -1
+        }
+    }
+}

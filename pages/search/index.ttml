@@ -1,0 +1,10 @@
+<import src="/template/articles.ttml" />
+
+<search bindconfirmsearch="onConfirmSearch" inputValue="{{pageData.searchInputValue}}" ></search>
+<view tt-if="{{!pageData.isShowingSearchResult}}" style="margin-top: 80rpx;">
+    <search-hotspots hotspots="{{pageData.hotspots}}" bindtaphotspot="onConfirmSearch"></search-hotspots>
+</view>
+<view class="container">
+    <template is="articles" data="{{...{$state:$state},...pageData}}"></template>
+</view>
+
