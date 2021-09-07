@@ -1,3 +1,0 @@
-<div class="m-box" style="width:{{width}}rpx; height:{{height}}rpx; background-color:{{backgroundColor}}">
-    <div tt-if="{{showHook}}" class="m-duigou"></div>
-</div>

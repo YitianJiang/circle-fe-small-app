@@ -1,6 +1,0 @@
-<view tt-if="{{isLoading}}" class="loading">
-    <image class="loading-image loading-animation" src="/pictures/loading.png"></image>
-</view> 
-<view tt-else class="load-complete" >
-    <image class="load-complete-image" src="/pictures/publish.png"></image>
-</view>

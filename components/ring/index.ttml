@@ -1,6 +1,0 @@
-<view class="ring" style="width: {{width}}rpx; height: {{height}}rpx; border-width: {{width / 10}}rpx;">
-    <view class="box-left" style="width: {{width / 5}}rpx; height: {{height / 5}}rpx;
-     top: {{height / 2}}rpx; margin-top: {{- height / 10}}rpx; left: {{- width * (1 / 10 + 1 / 20)}}rpx;"></view>
-    <view class="box-right" style="width: {{width / 5}}rpx; height: {{height / 5}}rpx;
-     top: {{height / 2}}rpx; margin-top: {{- height / 10}}rpx; right: {{- width * (1 / 10 + 1 / 20)}}rpx;"></view>
-</view>

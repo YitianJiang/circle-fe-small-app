@@ -1,6 +1,0 @@
-<!-- <view tt-if="{{$state.isLogined === true}}" class="container">
-    <button class="button-exit" bindtap="onTapExit">退出登录</button>
-</view> -->
-<!-- <comments-skeleton> </comments-skeleton> -->
-<!-- <first-load-failed></first-load-failed> -->
-<ring width={{40}} height={{40}}></ring>

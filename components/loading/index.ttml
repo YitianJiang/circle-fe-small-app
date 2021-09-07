@@ -1,6 +1,0 @@
-<view class="loading-wrapper">
-    <view class="loading">
-        <!-- <image class="loading-image" src="/pictures/loading.png"></image> -->
-        <ring class="loading-image" width={{40}} height={{40}}></ring>
-    </view>
-</view>

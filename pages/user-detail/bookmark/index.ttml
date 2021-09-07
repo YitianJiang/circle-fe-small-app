@@ -1,4 +1,0 @@
-<import src="/template/articles.ttml" />
-<view class="container">
-    <template is="articles" data="{{...pageData}}"></template>
-</view>

@@ -1,9 +1,0 @@
-<view tt-for={{[1,2,3,4]}}>
-    <view class="left"></view>
-    <view class="middle">
-        <view class="first-line"></view>
-        <view class="second-line"></view>
-        <view class="third-line"></view>
-    </view>
-</view>
-<loading></loading>

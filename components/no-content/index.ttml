@@ -1,4 +1,0 @@
-<view class="no-content-wrapper">
-    <image class="no-content-image" src="/pictures/no-content.png"></image>
-    <text class="no-content-text">{{text}}</text>
-</view>
