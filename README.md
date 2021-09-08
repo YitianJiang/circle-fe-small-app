@@ -16,7 +16,13 @@
 
 首页：
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+
+
+<div style="width: 100%; height: 800px; line-height: 800px; text-align: left;">
+	<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:200px;" />
+</div>
+
+​    
 
 注册：
 
