@@ -16,7 +16,7 @@
 
 首页：
 
-<span style="display:inline-block; color:red; width:100%;height:800px;line-height:800px;text-align:left;">sdfffffffffffffffffffff</span>
+<div style="width:100%;height:800px;"></div>
 
 <div width=100% height="800px">
 	<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:200px;" />
