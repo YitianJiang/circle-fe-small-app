@@ -16,75 +16,71 @@
 
 首页：
 
-<div style="width=100%; height=800px;">
-	<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:200px;" />
-</div>
-
-​    
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:350px;" />
 
 注册：
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:350px;" />
 
 登录：
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:350px;" />
 
 点赞：
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:350px;" />
 
 评论：
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:350px;" />
 
 发布文章（带图片）：
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:350px;" />
 
 发布文章（带视频）：
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:350px;" />
 
 发布文章（仅文字）：
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:350px;" />
 
 个人详情页：
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:350px;" />
 
 修改个人信息：
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:350px;" />
 
 我的关注：
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:350px;" />
 
 我发表的文章：
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:350px;" />
 
 我点赞的文章：
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:350px;" />
 
 我收藏的文章：
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:350px;" />
 
 我发布的评论：
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:350px;" />
 
 批量删除我发布的评论：
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:350px;" />
 
 登出：
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:350px;" />
 
 
 
