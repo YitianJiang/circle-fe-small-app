@@ -10,7 +10,79 @@
 
 # 效果
 
+扫码：
+
+（个人主体 点评推荐类目 在字节上线不了 但是还是可以扫码）
+
+首页：
+
 <img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+
+注册：
+
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+
+登录：
+
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+
+点赞：
+
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+
+评论：
+
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+
+发布文章（带图片）：
+
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+
+发布文章（带视频）：
+
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+
+发布文章（仅文字）：
+
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+
+个人详情页：
+
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+
+修改个人信息：
+
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+
+我的关注：
+
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+
+我发表的文章：
+
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+
+我点赞的文章：
+
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+
+我收藏的文章：
+
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+
+我发布的评论：
+
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+
+批量删除我发布的评论：
+
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+
+登出：
+
+<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:300px;" />
+
+
 
 　　最开始是想做成朋友圈的样式，但是后来给评论，点赞头像列表做分页，发现越来越像微博。　
 
@@ -42,8 +114,8 @@
 
 ## 使用到的技术
 
-| 技术        | 说明                  | 官网                                     |
-| :---------- | --------------------- | ---------------------------------------- |
-| wxMiniStore | 状态管理              | https://github.com/xiaoyao96/wxMiniStore |
-| npm         | 包管理                |                                          |
-| less        | 样式管理(search 组件) |                                          |
+| 技术        | 说明               | 官网                                     |
+| :---------- | ------------------ | ---------------------------------------- |
+| wxMiniStore | 状态管理           | https://github.com/xiaoyao96/wxMiniStore |
+| npm         | 包管理             |                                          |
+| less        | 样式管理(部分使用) |                                          |
