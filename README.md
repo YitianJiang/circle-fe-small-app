@@ -18,9 +18,9 @@
 
 
 
-<span style="width: 100%; height: 800px; line-height: 800px; text-align: left;">
+<div style="width: 100%; height: 800px;">
 	<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:200px;" />
-</span>
+</div>
 
 ​    
 
