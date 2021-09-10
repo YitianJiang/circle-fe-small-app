@@ -17,7 +17,6 @@
     },
     "homepage": "https://github.com/YitianJiang/circle-fe-small-app#readme",
     "dependencies": {
-        "lodash": "^4.17.21",
         "wxministore": "^1.3.1"
     }
 }

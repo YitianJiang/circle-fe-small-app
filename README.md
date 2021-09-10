@@ -14,6 +14,10 @@
 
 （个人主体 点评推荐类目 在字节上线不了 但是还是可以扫码）
 
+
+
+<video src="https://github.com/YitianJiang/image-resource/blob/master/%E9%A6%96%E9%A1%B5.mp4" controls="controls" width="100%" height="auto"/>
+
 首页：
 
 <img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:350px;" />

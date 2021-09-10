@@ -1,4 +1,4 @@
-import lodash from 'lodash'
+// import lodash from 'lodash'
 
 import { articlesCommonData, articlesCommonMethod } from '../../common/articles'
 import { base_url } from '../../config'
