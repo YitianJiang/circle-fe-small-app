@@ -18,7 +18,7 @@
 
 　　微博从上往下，**从新到旧**，微博给人刷存在感，最新发布的评论显示在最上面，所以微博不需要往下滚动，因为发布评论后能够直接看到自己的评论在最上面，微博用户很多，评论就必须分页显示。
 
-　　所以，这个小程序前端，就有了两个版本，v1版本首页像朋友圈，但是个人详情页又有关注的人、收藏的文章，<span style="color: red;">所以v1版本的产品定位出现了问题，做成了个**四不像**，</span>，首页像朋友圈，个人详情页又只有微博、头条这类产品才有，然后就变成了v2。
+　　所以，这个小程序前端，就有了两个版本，v1版本首页像朋友圈，但是个人详情页又有关注的人、收藏的文章，<span style="color: red;">所以v1版本的产品定位出现了问题，做成了个**四不像**</span>，首页像朋友圈，个人详情页又只有微博、头条这类产品才有，然后就变成了v2。
 
 　　关于v1和v2：
 
@@ -42,11 +42,11 @@
 
 <img src="https://github.com/YitianJiang/image-resource/blob/master/circle%E4%BA%8C%E7%BB%B4%E7%A0%81.png"  style="width:200px;" />
 
-##### 测试账号： 
+##### <span style="color: red;">测试账号：</span> 
 
-　　用户名：张三
+　　<span style="color: red;">用户名：张三</span>
 
-　　密码：123456
+　　<span style="color: red;">密码：123456</span>
 
 ##### 目录：
 
@@ -62,7 +62,7 @@
 
 [未登录评论](#未登录评论)
 
-[已登录，发布、删除评论](#已登录，发布、删除评论)
+[已登录-发布-删除评论](#已登录-发布-删除评论)
 
 [发布文章-带图片](#发布文章-带图片)
 
@@ -116,7 +116,7 @@
 
 <img src="https://github.com/YitianJiang/image-resource/blob/master/%E7%82%B9%E8%B5%9E-%E6%9C%AA%E7%99%BB%E5%BD%95.gif"  style="width:400px;" />
 
-###### 已登录，发布、删除评论
+###### 已登录-发布-删除评论
 
 <img src="https://github.com/YitianJiang/image-resource/blob/master/%E5%8F%91%E5%B8%83%E8%AF%84%E8%AE%BA-%E5%B7%B2%E7%99%BB%E5%BD%95.gif"  style="width:400px;" />
 
