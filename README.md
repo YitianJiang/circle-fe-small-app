@@ -50,19 +50,19 @@
 
 ##### 目录：
 
-[首页](#首页:)
+[首页](#首页)
 
-[注册](#注册:)
+[注册](#注册)
 
-[登录](#登录:)
+[登录](#登录)
 
-[未登录点赞](#未登录点赞:)
+[未登录点赞](#未登录点赞)
 
-[已登录点赞](#已登录点赞:)
+[已登录点赞](#已登录点赞)
 
-[未登录评论](#未登录评论:)
+[未登录评论](#未登录评论)
 
-[已登录，发布、删除评论](#已登录，发布、删除评论:)
+[已登录，发布、删除评论](#已登录，发布、删除评论)
 
 [发布文章-带图片](#发布文章-带图片)
 
@@ -92,31 +92,31 @@
 
 
 
-###### 首页:
+###### 首页
 
 <img src="https://github.com/YitianJiang/image-resource/blob/master/%E9%A6%96%E9%A1%B5.gif"  style="width:400px;" />
 
-###### 注册:
+###### 注册
 
 <img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:400px;" />
 
-###### 登录：
+###### 登录
 
 <img src="https://github.com/YitianJiang/image-resource/blob/master/%E7%99%BB%E5%BD%95.gif"  style="width:400px;" />                     
 
-###### 未登录点赞：
+###### 未登录点赞
 
 <img src="https://github.com/YitianJiang/image-resource/blob/master/%E7%82%B9%E8%B5%9E-%E6%9C%AA%E7%99%BB%E5%BD%95.gif"  style="width:400px;" />
 
-###### 已登录点赞：
+###### 已登录点赞
 
 <img src="https://github.com/YitianJiang/image-resource/blob/master/%E7%82%B9%E8%B5%9E-%E5%B7%B2%E7%99%BB%E5%BD%95.gif"  style="width:400px;" />
 
-###### 未登录评论:
+###### 未登录评论
 
 <img src="https://github.com/YitianJiang/image-resource/blob/master/%E7%82%B9%E8%B5%9E-%E6%9C%AA%E7%99%BB%E5%BD%95.gif"  style="width:400px;" />
 
-###### 已登录，发布、删除评论:
+###### 已登录，发布、删除评论
 
 <img src="https://github.com/YitianJiang/image-resource/blob/master/%E5%8F%91%E5%B8%83%E8%AF%84%E8%AE%BA-%E5%B7%B2%E7%99%BB%E5%BD%95.gif"  style="width:400px;" />
 
