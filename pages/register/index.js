@@ -41,6 +41,7 @@ Page({
         tt.request({
             url: register_url,
             method: 'POST',
+            dataType: 'text',
             data: requestBody,
             success: (res) => {
                 res.data = solvelong.getRealJsonData(res.data)
