@@ -28,6 +28,20 @@ App.Page({
     formSubmit: function(event) {
         console.log("event", event)
         if (this.isLoginComplete === false) return
+        if (!this.data.name) {
+            tt.showToast({
+                title: '用户名不能为空',
+                icon: 'none'
+            })
+            return
+        }
+        if (!this.data.password) {
+            tt.showToast({
+                title: '密码不能为空',
+                icon: 'none'
+            })
+            return
+        }
         this.isLoginComplete = false
         this.setData({
             showLoading: true
@@ -110,7 +124,7 @@ App.Page({
         //   url: "pages/register/index" 
         // });
         tt.redirectTo({
-            url: '/pages/register/index?' + this.data.pageIndex
-        });
+            url: '/pages/register/index'
+        })
     }
 })

@@ -98,7 +98,7 @@
 
 ###### 注册
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/people-I-follow.gif"  style="width:400px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/%E6%B3%A8%E5%86%8C.gif"  style="width:400px;" />
 
 ###### 登录
 
