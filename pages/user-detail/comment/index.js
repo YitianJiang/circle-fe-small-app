@@ -132,7 +132,7 @@ Page({
             },
             fail: (res) => {
                 tt.showToast({
-                    title: '网络奔溃，操作失败',
+                    title: '网络崩溃',
                     icon: 'none'
                 })
                 this.data.pageNum -= 1
@@ -208,11 +208,10 @@ Page({
         })
     },
     onConfirmDeletePart() {
-        console.log("onConfirmDeletePart")
+        console.log("onConfirmDeletePart", this.data.selectedCommentIndices, this.data.selectedCommentIds)
         this.setData({
             isDeletePart: false
         })
-        return
         tt.request({
             url: delete_comments_url,
             method: 'DELETE',
@@ -229,15 +228,17 @@ Page({
                     })
                     return
                 }
-                this.data.selectedCommentIndices.forEach((index) => {
-                    this.data.comments.splice(index, 1)
-                })
+                for (let i = 0; i < this.data.selectedCommentIds.length; i++) {
+                    for (let j = 0; j < this.data.comments.length; j++) {
+                        if (this.data.comments[j].id === this.data.selectedCommentIds[i]) this.data.comments.splice(j, 1)
+                    }
+                }
                 this.data.selectedCommentIndices = []
                 this.onTapEdit()
             },
             fail(res) {
                 tt.showToast({
-                    title: '网络奔溃，操作失败',
+                    title: '网络崩溃',
                     icon: 'none'
                 })
             }
@@ -272,7 +273,6 @@ Page({
         this.setData({
             isDeleteAll: false
         })
-        return
         tt.request({
             url: delete_all_comments_url,
             method: 'DELETE',
@@ -294,7 +294,7 @@ Page({
             },
             fail(res) {
                 tt.showToast({
-                    title: '网络奔溃，操作失败',
+                    title: '网络崩溃',
                     icon: 'none'
                 })
             }

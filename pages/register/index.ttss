@@ -1,27 +1,31 @@
-input{
-  height: 2rem;
-  font-size: 0.8rem;
+input {
+    height: 2rem;
+    font-size: 0.8rem;
 }
 
 .line-under-input-name,
-.line-under-input-password{
-  height: 1rpx;
-  background-color: #dddddd;
+.line-under-input-password {
+    height: 1rpx;
+    background-color: #dddddd;
 }
 
-.button-login{
-  height: 2rem;
-  border-radius: 8rpx;
-  background-color: #d6d6d6;
-  margin-top: 1rem;
-  text-align: center;
-  line-height: 2rem;
-  font-size: 0.8rem;
-  color: white;
+.button-login {
+    height: 2rem;
+    border-radius: 8rpx;
+    background-color: #d6d6d6;
+    margin-top: 1rem;
+    text-align: center;
+    line-height: 2rem;
+    font-size: 0.8rem;
+    color: white;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.form-wrapper{
-  width: 75%;
-  margin: 0 auto;
-  margin-top: 35%;
+.form-wrapper {
+    width: 75%;
+    margin: 0 auto;
+    margin-top: 35%;
 }

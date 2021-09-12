@@ -7,6 +7,7 @@
         "load-more": "/components/load-more/index",
         "image-button": "/components/image-button/index",
         "follows-skeleton": "/components/follows-skeleton/index",
-        "first-load-failed": "/components/first-load-failed/index"
+        "first-load-failed": "/components/first-load-failed/index",
+        "no-content": "/components/no-content/index"
     }
 }

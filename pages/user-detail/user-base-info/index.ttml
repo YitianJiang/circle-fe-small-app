@@ -30,10 +30,11 @@
     </view>
     <view class="line"></view>
 </view>
-<form class="edit-view" style="height: {{height}};" bindsubmit="onSubmit">
+<form class="edit-view" style="height: {{height}}; bottom: {{inputRealHeight}}px" bindsubmit="onSubmit">
     <text class="set-user-name">设置{{valueToBeSet}}</text>
     <view class="input-wrapper" style="{{inputWrapperStyle}}">
-        <input name="input" class="input-set-user-name" value="{{inputDefaultValue}}" bindfocus="onFocus" />
+        <input name="input" class="input-set-user-name" value="{{inputDefaultValue}}" adjust-position={{false}} 
+        bindfocus="onFocus" bindinput="onInput"/>
     </view>
     <view class="button-row">
         <button class="button-cancel" bindtap="ontapMaskLayer">取消</button>

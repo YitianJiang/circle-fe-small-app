@@ -206,7 +206,7 @@ export var articlesCommonMethod = {
             },
             fail: (res) => {
                 tt.showToast({
-                    title: '网络奔溃，操作失败',
+                    title: '网络崩溃',
                     icon: "none"
                 })
                 this.data.pageData.articlePageNum -= 1
@@ -616,9 +616,9 @@ export var articlesCommonMethod = {
     onTapEmojiLogo: function(event) {
         console.log("onTapEmojiLogo", event)
         this.data.pageData.inputType = input_emoji
-        tt.showToast({
-            title: `${this.data.pageData.focusTextarea}`
-        })
+            // tt.showToast({
+            //     title: `${this.data.pageData.focusTextarea}`
+            // })
         this.setData({
             //显示emoji列表
             [`pageData.showEmojiList`]: true,

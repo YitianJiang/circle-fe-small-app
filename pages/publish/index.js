@@ -118,7 +118,8 @@ Page({
         })
         let that = this
         tt.chooseVideo({
-            sourceType: ['album'],
+            sourceType: ["album", "camera"],
+            compressed: true,
             maxDuration: 600,
             success: (res) => {
                 let dir = "UserVideos/" + that.data.$state.currentUser.id + "/" + new Date().getTime() + "/"

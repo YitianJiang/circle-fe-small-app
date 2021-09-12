@@ -2,7 +2,7 @@
 <follows-skeleton tt-if="{{!loadingComplete}}"></follows-skeleton>
 <first-load-failed tt-if="{{loadingComplete && isNetworkFault}}" isNetworkFault={{true}}></first-load-failed>
 <first-load-failed tt-if="{{loadingComplete && isServerFault}}" isServerFault={{true}}></first-load-failed>
-<no-content tt-if="{{loadingComplete && !isNetworkFault && !isServerFault && followDetails.length == 0 }}" text="暂无数据"></no-content>
+<no-content tt-if="{{loadingComplete && !isNetworkFault && !isServerFault && followDetails.length === 0 }}" text="暂无数据"></no-content>
 <view tt-if="{{loadingComplete && !isNetworkFault && !isServerFault && followDetails.length != 0}}" class="my-follow">
     <view class="people-i-follow" tt:for="{{followDetails}}" tt:for-index="index" tt:for-item="item">
         <view class="item">

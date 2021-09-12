@@ -12,8 +12,8 @@ Page({
         inputWrapperStyle: "",
         valueToBeSet: "",
         inputDefaultValue: "",
-        currentInputValue: "dsfsfd",
-        submitType: ""
+        submitType: "",
+        inputRealHeight: 0,
     },
     ontapUserNameRow: function() {
         this.data.valueToBeSet = "用户名"
@@ -39,16 +39,27 @@ Page({
         })
     },
     ontapMaskLayer: function() {
+        //状态还原
         this.setData({
+            inputRealHeight: 0,
             [`height`]: "0",
             [`isHidden`]: true,
             [`inputWrapperStyle`]: ""
         })
     },
-    onFocus: function() {
+    onFocus: function(event) {
+        let systemInfo = wx.getSystemInfoSync()
+            //     //减去tab栏的高度
+            // this.data.inputRealHeight = event.detail.height - (systemInfo.screenHeight - systemInfo.statusBarHeight - 44 - systemInfo.windowHeight)
+            // console.log("inputRealHeight", this.data.inputRealHeight)
+        this.data.inputRealHeight = 308
         this.setData({
-            [`inputWrapperStyle`]: "border: #0d84ff 3rpx solid;"
+            [`inputWrapperStyle`]: "border: #0d84ff 3rpx solid;",
+            inputRealHeight: this.data.inputRealHeight
         })
+    },
+    onInput(event) {
+        this.data.inputDefaultValue = event.detail.value
     },
     onSubmit: function(event) {
         let requestBody = {}
@@ -57,14 +68,16 @@ Page({
                 this.ontapMaskLayer()
                 return
             }
-            requestBody = { name: event.detail.value.input }
+            //真机上event.detail.value.input为空
+            // requestBody = { name: event.detail.value.input }
+            requestBody = { name: this.data.inputDefaultValue }
         }
         if (this.data.submitType === "introduction") {
             if (event.detail.value.input === this.data.$state.currentUser.introduction) {
                 this.ontapMaskLayer()
                 return
             }
-            requestBody = { introduction: event.detail.value.input }
+            requestBody = { introduction: this.data.inputDefaultValue }
         }
         tt.request({
             url: update_user_info_url,
@@ -77,8 +90,8 @@ Page({
                 if (res.data.code === 200) {
                     console.log("update user info succeed", res.data)
                     let { currentUser } = app.store.getState()
-                    if (this.data.submitType === "name") currentUser.name = event.detail.value.input
-                    if (this.data.submitType === "introduction") currentUser.introduction = event.detail.value.input
+                    if (this.data.submitType === "name") currentUser.name = this.data.inputDefaultValue
+                    if (this.data.submitType === "introduction") currentUser.introduction = this.data.inputDefaultValue
                     app.store.setState({
                         currentUser
                     })
@@ -89,8 +102,18 @@ Page({
                 }
             },
             fail: (res) => {
+                if (this.data.submitType === "name") {
+                    this.setData({
+                        inputDefaultValue: this.data.$state.currentUser.name
+                    })
+                }
+                if (this.data.submitType === "introduction") {
+                    this.setData({
+                        inputDefaultValue: this.data.$state.currentUser.introduction
+                    })
+                }
                 tt.showToast({
-                    title: '网络错误'
+                    title: '网络奔溃'
                 })
             },
             complete: () => {

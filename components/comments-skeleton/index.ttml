@@ -1,4 +1,4 @@
-<view class="comment-skeleton" tt-for="{{[1,2,3,4]}}">
+<view class="comment-skeleton" tt-for="{{[1,2]}}">
     <view class="user-info"> 
         <view class="user-avatar"></view>
         <view class="user-name-time-wrapper">

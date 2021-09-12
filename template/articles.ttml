@@ -11,7 +11,7 @@
       <!--用户信息-->
       <view class="user-info">
         <view class="user-avatar">
-          <image class="image-user-avatar" src="{{article.userDetail.avatarUrl}}" bindtap="onTapUserAvatar" data-user-id="{{article.userDetail.id}}" binderror="binderror" bindload="bindload" lazy-load />
+          <image class="image-user-avatar" src="{{article.userDetail.avatarUrl}}" bindtap="onTapUserAvatar" data-user-id="{{article.userDetail.id}}"/>
         </view>
         <view class="user-name">{{article.userDetail.name}}</view>
       </view>

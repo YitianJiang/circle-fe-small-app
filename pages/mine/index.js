@@ -15,7 +15,7 @@ Page({
     },
     onTouchRowEnd() {
         console.log("onTouchRowEnd")
-        if (this.data.$state.isLogined === false && this.data.currentRowIndex != "立即登录") {
+        if (this.data.$state.isLogined === false && this.data.currentRowIndex != "登录/注册") {
             tt.showToast({
                 title: '请先登录',
                 icon: 'none'
@@ -28,7 +28,7 @@ Page({
                     url: '/pages/user-detail/user-base-info/index'
                 })
                 break
-            case "立即登录":
+            case "登录/注册":
                 tt.navigateTo({
                     url: '/pages/login/index?pageIndex=' + "/pages/mine/index"
                 })

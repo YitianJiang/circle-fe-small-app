@@ -18,7 +18,7 @@ export function myRequest(obj) {
         fail: () => {
             console.log("request failed", err)
             tt.showToast({
-                title: '网络奔溃，操作失败',
+                title: '网络崩溃',
                 icon: "fail"
             })
             if (obj.failCallback) obj.failCallback()

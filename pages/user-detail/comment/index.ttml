@@ -41,7 +41,7 @@
         </view>
     </view>
     <load-more id="loadMoreView" bindloadMoreListener='loadMoreListener' bindclickLoadMore='clickLoadMore'></load-more>
-    <view tt-if="{{commentsLoadComplete && comments.length != 0}}" class="edit" style="background-color:{{editButtonBackgroundColor}}" bindtap="onTapEdit">
+    <view tt-if="{{loadingComplete && comments.length != 0}}" class="edit" style="background-color:{{editButtonBackgroundColor}}" bindtap="onTapEdit">
         <image class="image-edit" src="/pictures/edit.png"></image>
     </view>
     <view tt-if="{{isEditing}}" class="clear">

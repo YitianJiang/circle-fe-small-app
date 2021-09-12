@@ -4,13 +4,13 @@
     <view tt:if="{{showEmoji}}" class="emoji-bg">
         <image tt:for="{{emojiList}}" tt:for-index="index" tt:for-item="item" class="selected-image" src="{{item}}" style="width:20px;height:20px;background-color:white" data-index="{{index}}" bindtap="addEmoji"></image>
     </view>
-    <image tt:if="{{sendType === 'none'}}" class="add-image" bindtap="chooseSendType" src="/pictures/add.png" />
+    <image tt:if="{{sendType === 'none'}}" class="add-image" bindtap="chooseSendType" src="/pictures/publish-add.png" />
     <view tt-if="{{sendType === 'sendPictures'}}" class="image-background">
         <view tt:for="{{imageUrls}}" tt:for-index="index" tt:for-item="item" class="selected-block">
             <image class="delete-image" data-index="{{index}}" bindtap="deleteImage" src="/pictures/close.png"></image>
             <image class="selected-image" src="{{item}}" data-index="{{index}}" bindtap="previewImage"></image>
         </view>
-        <image tt:if="{{imageUrls.length < 9}}" class="add-image" bindtap="chooseImage" src="/pictures/add.png" />
+        <image tt:if="{{imageUrls.length < 9}}" class="add-image" bindtap="chooseImage" src="/pictures/publish-add.png" />
     </view>
     <upload-video tt-if="{{sendType === 'sendVideo'}}" videoObject={{videoObject}} dir="{{dir}}" width="{{videoWidth}}" height="{{videoHeight}}" binddeletevideo="deleteVideo"></upload-video>
     <button class="submit" bindtap="publish">发表</button>

@@ -20,7 +20,9 @@ App.Page({
     },
     onLoad: function(options) {
         console.log("options", options)
-        this.data.pageIndex = options.pageIndex
+        this.setData({
+            pageIndex: options.pageIndex
+        })
         console.log("receive pageIndex", this.data.pageIndex)
     },
     formSubmit: function(event) {
@@ -71,7 +73,7 @@ App.Page({
             },
             fail: () => {
                 tt.showToast({
-                    title: '网络奔溃，操作失败',
+                    title: '网络崩溃',
                     icon: 'none'
                 })
             },
@@ -107,8 +109,8 @@ App.Page({
         // tt.navigateTo({
         //   url: "pages/register/index" 
         // });
-        tt.navigateTo({
-            url: '/pages/register/index'
+        tt.redirectTo({
+            url: '/pages/register/index?' + this.data.pageIndex
         });
     }
 })

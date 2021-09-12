@@ -8,46 +8,77 @@ Page({
     data: {
         name: "",
         password: "",
-        buttonStyle: GREY_STYLE
+        buttonStyle: GREY_STYLE,
+        isLoading: false,
     },
     formSubmit: function(event) {
+        if (this.data.isLoading === true) return
         console.log("event", event)
         let requestBody = {
             name: event.detail.value.name,
             password: event.detail.value.password
         }
-        console.log("requestBody", requestBody)
+        this.setData({
+            isLoading: true
+        })
         tt.request({
             url: register_url,
             method: 'POST',
             data: requestBody,
             success: (res) => {
-                if (res.data.code === 200) {
-                    //不能导航到倒数第二层
-                    // tt.request({
-                    //   url: login_url,
-                    //   method: 'POST',
-                    //   data: requestBody,
-                    //   success: (res) => {
-                    //     if(res.data.code === 200){
-                    //       tt.setStorageSync("token", res.data.data.token);
-                    //       console.log("sucess login",res)
-                    //       console.log(getCurrentPages())
-                    //       tt.navigateBack({
-                    //         delta: 2
-                    //       })
-                    //     }
-                    //   },  
-                    // })
+                if (res.data.code != 200) {
                     tt.showToast({
-                        title: '注册成功', // 内容
-                        duration: 1000
+                        title: '注册失败',
+                        icon: 'fail'
                     })
-                    setTimeout(() => {
-                        tt.navigateBack();
-                    }, 1000)
                 }
+                //不能导航到倒数第二层
+                // tt.request({
+                //   url: login_url,
+                //   method: 'POST',
+                //   data: requestBody,
+                //   success: (res) => {
+                //     if(res.data.code === 200){
+                //       tt.setStorageSync("token", res.data.data.token);
+                //       console.log("sucess login",res)
+                //       console.log(getCurrentPages())
+                //       tt.navigateBack({
+                //         delta: 2
+                //       })
+                //     }
+                //   },  
+                // })
+                tt.showToast({
+                    title: '注册成功',
+                    duration: 1000
+                })
+                tt.setStorageSync("token", res.data.data.tokenDetail.token);
+                app.store.setState({
+                    isLogined: true,
+                    currentUser: res.data.data.userDetail
+                })
+                tt.navigateBack({
+                    fail(res) {
+                        tt.showToast({
+                            title: '123',
+                            success: (res) => {
+
+                            }
+                        });
+                    }
+                })
             },
+            fail: () => {
+                tt.showToast({
+                    title: '网络崩溃',
+                    icon: 'none'
+                })
+            },
+            complete: () => {
+                this.setData({
+                    isLoading: false
+                })
+            }
         })
     },
     checkInput: function() {
