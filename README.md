@@ -38,17 +38,17 @@
 
 ## 效果
 
-##### 扫码：（个人主体 点评推荐类目 在字节上线不了 但是还是可以用 抖音、今日头条扫码）
+#### 扫码：（个人主体 点评推荐类目 在字节上线不了 但是还是可以用 抖音、今日头条扫码）
 
 <img src="https://github.com/YitianJiang/image-resource/blob/master/circle%E4%BA%8C%E7%BB%B4%E7%A0%81.png"  style="width:200px;" />
 
-##### <span style="color: red;">**测试账号：**</span> 
+#### <span style="color: red;">**测试账号：**</span> 
 
 　　<span style="color: red;">**用户名**：**张三**</span>
 
 　　<span style="color: red;">**密码**：**123456**</span>
 
-##### 目录：
+#### 目录：
 
 [首页](#首页)
 
