@@ -42,11 +42,11 @@
 
 <img src="https://github.com/YitianJiang/image-resource/blob/master/circle%E4%BA%8C%E7%BB%B4%E7%A0%81.png"  style="width:200px;" />
 
-##### <span style="color: red;">测试账号：</span> 
+##### <span style="color: red;">**测试账号：**</span> 
 
-　　<span style="color: red;">用户名：张三</span>
+　　<span style="color: red;">**用户名**：**张三**</span>
 
-　　<span style="color: red;">密码：123456</span>
+　　<span style="color: red;">**密码**：**123456**</span>
 
 ##### 目录：
 
@@ -130,47 +130,47 @@
 
 ###### 发布文章-仅文字
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/%E5%8F%91%E8%A1%A8%E7%BA%AF%E6%96%87%E5%AD%97.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/%E5%8F%91%E8%A1%A8%E7%BA%AF%E6%96%87%E5%AD%97.gif"  style="width:400px;" />
 
 ###### 个人详情页                          
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/%E4%B8%AA%E4%BA%BA%E8%AF%A6%E6%83%85%E9%A1%B5.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/%E4%B8%AA%E4%BA%BA%E8%AF%A6%E6%83%85%E9%A1%B5.gif"  style="width:400px;" />
 
 ###### 修改个人信息
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/%E4%BF%AE%E6%94%B9%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/%E4%BF%AE%E6%94%B9%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF.gif"  style="width:400px;" />
 
 ###### 我的关注
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/%E6%88%91%E7%9A%84%E5%85%B3%E6%B3%A8.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/%E6%88%91%E7%9A%84%E5%85%B3%E6%B3%A8.gif"  style="width:400px;" />
 
 ###### 我发表的文章 
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/%E6%88%91%E7%9A%84%E6%96%87%E7%AB%A0.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/%E6%88%91%E7%9A%84%E6%96%87%E7%AB%A0.gif"  style="width:400px;" />
 
 ###### 我点赞的文章
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/%E6%88%91%E7%9A%84%E7%82%B9%E8%B5%9E.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/%E6%88%91%E7%9A%84%E7%82%B9%E8%B5%9E.gif"  style="width:400px;" />
 
 ###### 我收藏的文章
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/%E6%88%91%E7%9A%84%E6%94%B6%E8%97%8F.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/%E6%88%91%E7%9A%84%E6%94%B6%E8%97%8F.gif"  style="width:400px;" />
 
 ######  我发布的评论
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/%E6%88%91%E7%9A%84%E8%AF%84%E8%AE%BA.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/%E6%88%91%E7%9A%84%E8%AF%84%E8%AE%BA.gif"  style="width:400px;" />
 
 ######  批量删除我发布的评论
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%AF%84%E8%AE%BA.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%AF%84%E8%AE%BA.gif"  style="width:400px;" />
 
 ######  搜索
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/%E6%90%9C%E7%B4%A2.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/%E6%90%9C%E7%B4%A2.gif"  style="width:400px;" />
 
 ######  登出
 
-<img src="https://github.com/YitianJiang/image-resource/blob/master/%E9%80%80%E5%87%BA%E7%99%BB%E5%BD%95.gif"  style="width:300px;" />
+<img src="https://github.com/YitianJiang/image-resource/blob/master/%E9%80%80%E5%87%BA%E7%99%BB%E5%BD%95.gif"  style="width:400px;" />
 
 ## 使用到的技术
 
